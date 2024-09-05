@@ -17,13 +17,13 @@ Siga os passos abaixo para configurar o projeto na sua máquina local:
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/raijin-copilot.git
+   git clone https://github.com/akiojapa/raijin-frontend.git
    ```
 
 2. **Navegue até o diretório do projeto:**
 
    ```bash
-   cd raijin-copilot
+   cd raijin-frontend
    ```
 
 3. **Atualize sua branch para a develop para obter a versão atualizada:**
@@ -40,7 +40,7 @@ Siga os passos abaixo para configurar o projeto na sua máquina local:
 
 ## Scripts Disponíveis
 
-No diretório do projeto, você pode rodar os seguintes scripts:
+No diretório do projeto, você pode rodar os seguintes scripts (Precisa necessariamente do recurso Angular v18 instalado no ambiente):
 
 - **`ng serve` ou `npm start`:** Roda a aplicação em modo de desenvolvimento.
   
