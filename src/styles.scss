@@ -1,1 +1,108 @@
-/* You can add global styles to this file, and also import other style files */
+/* Estilos globais */
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.btn-principal {
+    background-color: #FFA324;
+    color: #1A1919;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease; /* Adiciona transição suave */
+
+    &:hover {
+        background-color: #CC8400; /* Cor de fundo mais escura para hover */
+        color: #FFFFFF; /* Cor do texto para hover */
+    }
+}
+
+.text-tertiary { 
+    color: #7D7D7D !important;
+}
+
+input[type="checkbox"] {
+    border: 1px solid #7D7D7D; /* Borda cinza */
+    background-color: transparent; /* Fundo transparente */
+    appearance: none; /* Remove o estilo padrão do checkbox */
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Adiciona transição */
+}
+
+input[type="checkbox"]:checked {
+    background-color: #FFA324; /* Cor de fundo quando marcado */
+    border: 1px solid #7D7D7D; /* Borda cinza */
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Adiciona transição */
+}
+
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 3px;
+    height: 8px;
+    opacity: 0;
+    animation: checkmark 0.3s forwards; /* Adiciona animação */
+}
+
+@keyframes checkmark {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(45deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2) rotate(45deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(45deg);
+    }
+}
+
+/* Estilos para input[type="text"] e input[type="password"] */
+input[type="text"], input[type="password"] {
+    color:#7D7D7D;
+    font-size: 10px; /* Força o tamanho do texto digitado */
+    border: 1px solid #7D7D7D; /* Borda cinza */
+    background-color: transparent; /* Fundo transparente */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição */
+}
+
+/* Estilos para o placeholder */
+input[type="text"]::placeholder, input[type="password"]::placeholder {
+    color: #7D7D7D; /* Cor do placeholder */
+    font-size: 10px;
+}
+
+/* Estilos quando o input está focado */
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #FFA324; /* Cor da borda quando focado */
+    box-shadow: 0 0 5px rgba(255, 163, 36, 0.5); /* Adiciona sombra */
+    background-color: transparent;
+    color:#7D7D7D
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset; /* Fundo transparente */
+    box-shadow: 0 0 0 1000px transparent inset; /* Fundo transparente */
+    -webkit-text-fill-color: #7D7D7D; /* Cor do texto */
+}
+
+/* Mantém a transição para evitar alterações bruscas */
+input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s, color 0.3s ease-in-out;
+}
+
+/* Mantém o estilo quando o input é autofillado */
+input:-webkit-autofill {
+    font-size: 10px; /* Estilo do placeholder */
+}
