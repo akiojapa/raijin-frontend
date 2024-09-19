@@ -65,3 +65,19 @@ a.forgot-password {
 .fa {
     color: #7D7D7D;
 }
+
+.form-control {
+    height: auto;
+    box-sizing: border-box;
+}
+
+.input-group .btn-outline-secondary {
+    padding: 0.375rem 0.75rem; /* Ajuste de padding para alinhar com o input */
+    display: flex;
+    align-items: center;
+}
+
+.input-group-text .fa-icon {
+    width: 16px;
+    height: 16px;
+}

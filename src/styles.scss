@@ -75,6 +75,7 @@ input[type="text"], input[type="password"] {
     border: 1px solid #7D7D7D; /* Borda cinza */
     background-color: transparent; /* Fundo transparente */
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição */
+    padding: 6px 12px
 }
 
 /* Estilos para o placeholder */
