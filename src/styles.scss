@@ -98,6 +98,13 @@ input:-webkit-autofill {
     -webkit-text-fill-color: #7D7D7D; /* Cor do texto */
 }
 
+input:-webkit-autofill::-webkit-input-placeholder {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset; /* Fundo transparente */
+    box-shadow: 0 0 0 1000px transparent inset; /* Fundo transparente */
+    -webkit-text-fill-color: #7D7D7D; /* Cor do texto */
+}
+
+
 /* Mantém a transição para evitar alterações bruscas */
 input:-webkit-autofill {
     transition: background-color 5000s ease-in-out 0s, color 0.3s ease-in-out;

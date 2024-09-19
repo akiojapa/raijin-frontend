@@ -62,8 +62,9 @@ a.forgot-password {
     font-size: 10px;
 }
 
-.fa {
+.icon {
     color: #7D7D7D;
+    font-size: 10px;
 }
 
 .form-control {
@@ -80,4 +81,22 @@ a.forgot-password {
 .input-group-text .fa-icon {
     width: 16px;
     height: 16px;
+}
+
+.login-apresentation {
+    background: linear-gradient(180deg, #FFA324 23%, #B8BDBE 85%);
+}
+
+.line {
+    position: relative;
+}
+
+.line::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Alinha no centro */
+    transform: translateX(-50%); /* Ajusta o alinhamento para o centro */
+    width: 15%; /* Define a largura da borda em 15% */
+    border-bottom: 3px solid #1A1919;
 }
