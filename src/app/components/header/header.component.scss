@@ -1,0 +1,39 @@
+// Header
+.header {
+    height: 8vh;
+    width: 100%;
+    background-color: #121212;
+}
+
+.configurations{
+    font-size: 35px;
+    margin-right: 20px;
+    color: #FFA324;
+    cursor: pointer;
+}
+
+.user-details {
+    margin-left: 10px;
+
+    h5 {
+        font-size: 1.25rem;
+        color: #FFA324;
+        margin-bottom: 0; /* Remove a margem inferior */
+    }
+
+    p {
+        font-size: 0.875rem;
+        color: #C7B5B5;
+        margin-top: 0; /* Remove a margem superior */
+    }
+}
+
+.user-image {
+    width: 60px; /* Defina a largura desejada */
+    height: 60px; /* Defina a altura desejada */
+    border-radius: 50%; /* Torna a imagem circular */
+    object-fit: cover; /* Garante que a imagem preencha o círculo */
+    border: 2px solid #FFA324; /* Opcional: adiciona uma borda ao redor da imagem */
+    margin-left: 10px;
+}
+// FIm header
