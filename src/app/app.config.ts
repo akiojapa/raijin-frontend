@@ -1,6 +1,5 @@
 import { APP_INITIALIZER, ApplicationConfig, inject, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { ConfigService } from './services/config.service';
@@ -29,9 +28,10 @@ function resolveEnviroment() {
     const url = document.location.hostname
     const domains = url.split('.')
     const path = domains.length > 1 ? `${domains[0]}.` : ''
-
     const environment = require('../assets/config.json');
+
     httpService.baseUrl = `http://${path}${environment.baseUrl}`;
+
     resolve(true)
   });
 }

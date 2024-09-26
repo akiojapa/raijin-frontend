@@ -6,7 +6,6 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { CarouselModule } from 'primeng/carousel'; 
 import { AuthService } from '../../services/auth.service';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
