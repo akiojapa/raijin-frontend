@@ -1,5 +1,5 @@
 <div class="row h-100">
-    <div class="col-lg-6 d-flex justify-content-center align-items-center login-col">
+    <div class="col-lg-6 d-flex justify-content-center align-items-center login-col position-relative">
         <div class="card h-75 w-50">
             <div class="card-body">
                 <div class="row">
@@ -52,10 +52,39 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-6 login-apresentation">
-        <div class="d-flex justify-content-center align-items-center text-center mt-5 p-4 line">
-            <h3 class="w-75 fw-bold">O que nossos clientes tem a dizer sobre nosso produto?</h3>
+        <div class="company-logo-name position-absolute">
+            <img src="Logo.png" alt="Logo Raijin Copilot" class="logo-footer">
+            <span class="company-name">Raijin Copilot</span>
         </div>
     </div>
+    <!-- divisao das telas -->
+    <div class="col-lg-6 login-apresentation position-relative">
+        <div class="d-flex justify-content-center align-items-center text-center mt-5 p-4 line">
+            <h3 class="w-75 fw-bold">O que os atendentes tem a dizer sobre nosso produto</h3>
+        </div>
+        <div class="card">
+            <p-carousel 
+                [value]="usersFeedbacks" 
+                [numVisible]="1" 
+                [numScroll]="1" 
+                [circular]="true" 
+                [responsiveOptions]="responsiveOptions" 
+                showIndicators="false"
+                > 
+                <ng-template let-feedback pTemplate="item">
+                    <div class="feedback-card border-1 surface-border border-round m-2 p-3">
+                        <blockquote class="feedback-quote">
+                            “{{ feedback.comment }}”
+                        </blockquote>
+                        <div class="feedback-author">
+                            — {{ feedback.name }}
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+        <div class="feedback-image d-flex justify-content-center mt-4">
+            <img src="development.png" alt="Imagem de atendende vendo feedbacks" class="img-fluid">
+        </div>
+    </div>    
 </div>
