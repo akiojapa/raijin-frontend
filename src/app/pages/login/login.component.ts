@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { CarouselModule } from 'primeng/carousel'; // Import do CarouselModule
+import { CarouselModule } from 'primeng/carousel'; 
 
 
 @Component({
@@ -14,7 +14,7 @@ import { CarouselModule } from 'primeng/carousel'; // Import do CarouselModule
     FormsModule,
     CommonModule,
     FontAwesomeModule,
-    CarouselModule,   // Adiciona o CarouselModule nas importações
+    CarouselModule,   
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

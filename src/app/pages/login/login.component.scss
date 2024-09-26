@@ -6,7 +6,6 @@
 .card {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1),
-        /* Sombra clara para destaque */
         0 6px 20px rgba(0, 0, 0, 0.5);
     border-color: #7D7D7D;
 }
@@ -15,9 +14,7 @@
     width: 12px;
     height: 12px;
     transform: scale(0.75);
-    /* Ajusta o tamanho do checkbox */
     margin-right: 5px;
-    /* Ajusta o espaçamento entre o checkbox e o label */
 }
 
 .form-check-label {
@@ -73,7 +70,7 @@ a.forgot-password {
 }
 
 .input-group .btn-outline-secondary {
-    padding: 0.375rem 0.75rem; /* Ajuste de padding para alinhar com o input */
+    padding: 0.375rem 0.75rem; 
     display: flex;
     align-items: center;
 }
@@ -87,6 +84,16 @@ a.forgot-password {
     background: linear-gradient(180deg, #FFA324 23%, #B8BDBE 85%);
 }
 
+.login-apresentation .card {
+    width: 100%; 
+    max-width: 700px; 
+    margin: auto; 
+    background: none;
+    border: none;
+    padding: 20px;
+    box-shadow: none;
+}
+
 .line {
     position: relative;
 }
@@ -95,9 +102,9 @@ a.forgot-password {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%; /* Alinha no centro */
-    transform: translateX(-50%); /* Ajusta o alinhamento para o centro */
-    width: 15%; /* Define a largura da borda em 15% */
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 15%; 
     border-bottom: 3px solid #1A1919;
 }
 
@@ -110,14 +117,14 @@ a.forgot-password {
 }
 
 .company-logo-name img.logo-footer {
-    max-width: 6%; /* Ajuste conforme necessário */
+    max-width: 6%; 
     height: auto;
 }
 
 .company-logo-name .company-name {
-    margin-left: 10px; /* Mudança para px ou rem para maior consistência */
+    margin-left: 10px; 
     font-size: 1rem;
-    text-align: left; /* Isso dá mais flexibilidade no layout responsivo */
+    text-align: left; 
 }
 
 @media (max-width: 768px) {
@@ -127,28 +134,13 @@ a.forgot-password {
     }
 
     .company-logo-name img.logo-footer {
-        max-width: 50px; /* Reduza o tamanho do logo para telas menores */
+        max-width: 50px; 
     }
 
     .company-logo-name .company-name {
         font-size: 0.9rem;
-        margin-left: 8px; /* Ajuste menor para reduzir o espaçamento em telas pequenas */
+        margin-left: 8px; 
     }
-}
-
-.card {
-    position: relative; /* Para que o z-index funcione corretamente */
-    z-index: 2; /* Garante que o card do carrossel fique acima da imagem */
-}
-
-.login-apresentation .card {
-    width: 100%; /* Assegura que o card ocupe toda a largura disponível */
-    max-width: 700px; /* Mantém a largura máxima do carrossel */
-    margin: auto; /* Centraliza o card horizontalmente */
-    background: none;
-    border: none;
-    padding: 20px;
-    box-shadow: none;
 }
 
 .feedback-card {    
@@ -156,13 +148,13 @@ a.forgot-password {
     height: 20vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo verticalmente dentro do card */
-    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    justify-content: center; 
+    align-items: center; 
     background: #dfdddd;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    z-index: 2; /* O feedback ficará acima da imagem */    
+    z-index: 2; 
 }
 
 ::ng-deep button.p-ripple.p-element{
@@ -188,67 +180,67 @@ a.forgot-password {
 .feedback-author {
     font-weight: bold;
     color: #666;
-    font-size: 1em; /* Define o tamanho do autor */
-    align-self: flex-start; /* Alinha o autor à esquerda */
+    font-size: 1em; 
+    align-self: flex-start; 
 }
 
 @media (max-width: 768px) {
     .login-apresentation .card {
-        max-width: 90%; /* Reduz a largura máxima em telas menores */
-        padding: 10px; /* Reduz o padding para adaptar a largura da tela */
+        max-width: 90%; 
+        padding: 10px; 
     }
 
     .feedback-card {
-        padding: 15px; /* Ajusta o padding para telas menores */
+        padding: 15px; 
     }
 
     .feedback-quote {
-        font-size: 14px; /* Reduz o tamanho da fonte para melhor visualização em dispositivos móveis */
+        font-size: 14px; 
         line-height: 1.4;
     }
 
     .feedback-author {
-        font-size: 0.9em; /* Reduz o tamanho do texto do autor em telas pequenas */
+        font-size: 0.9em; 
     }
 }
 
 @media (max-width: 576px) {
     .login-apresentation .card {
-        max-width: 100%; /* Usa toda a largura disponível em telas muito pequenas */
-        padding: 5px; /* Reduz ainda mais o padding para ajustar ao tamanho da tela */
+        max-width: 100%; 
+        padding: 5px; 
     }
 
     .feedback-card {
-        padding: 10px; /* Mais ajustes no padding */
+        padding: 10px; 
     }
 
     .feedback-quote {
-        font-size: 12px; /* Fonte ainda menor para telas muito pequenas */
+        font-size: 12px;
         line-height: 1.3;
     }
 
     .feedback-author {
-        font-size: 0.8em; /* Autor ainda menor em telas muito pequenas */
+        font-size: 0.8em; 
     }
 }
 
 .feedback-image {
     position: absolute;
-    bottom: -40px; /* Faz a imagem encostar na parte inferior */
+    bottom: -40px; 
     left: 50%;
-    transform: translateX(-50%); /* Centraliza a imagem horizontalmente */
+    transform: translateX(-50%); 
     width: 100%;
-    max-width: 55vh; /* Defina a largura máxima da imagem, ajuste conforme necessário */
-    z-index: 1; /* Garante que a imagem tenha um z-index menor */
+    max-width: 55vh;
+    z-index: 1; 
 }
 
 .feedback-image img {
-    width: 100%; /* Garante que a imagem ocupe toda a largura do container */
-    height: auto; /* Mantém a proporção da imagem */
+    width: 100%; 
+    height: auto; 
 }
 
 @media (max-width: 768px) {
     .feedback-image {
-        max-width: 10vh; /* Ajusta a largura da imagem em telas menores */
+        max-width: 10vh; 
     }
 }
