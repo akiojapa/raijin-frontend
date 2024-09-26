@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { CarouselModule } from 'primeng/carousel'; 
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -52,7 +52,7 @@ export class LoginComponent {
     }
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
       username: [''],
       password: ['']
@@ -61,6 +61,9 @@ export class LoginComponent {
   
   onSubmit() {
     if (this.loginForm.valid) {
+      const username = this.loginForm.get('username')?.value
+      const password = this.loginForm.get('password')?.value
+      this.authService.login(username, password)
       console.log(this.loginForm.value);
     }
   }
