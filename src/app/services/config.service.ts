@@ -6,19 +6,15 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class ConfigService {
-  token: string;
   baseUrl: string | undefined;
 
-  constructor(private httpClient: HttpClient) { this.token = '' }
+  constructor(private httpClient: HttpClient) { }
 
   setUrl(route: string): string {
     return `${this.baseUrl}/api/v1/${route}`
   }
 
   createAuthorizationHeader(headers: HttpHeaders): HttpHeaders {
-    if (this.token && this.token != '') {
-      headers.append('Authorization', `Bearer ${this.token}`)
-    }
 
     headers.append('Content-Type', 'application/json; charset=utf-8')
     headers.append('Access-Control-Allow-Origin', '*')
