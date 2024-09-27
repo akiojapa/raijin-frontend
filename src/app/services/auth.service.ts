@@ -31,7 +31,6 @@ export class AuthService {
         
         if (token){
             const jwtToken = JSON.parse( atob( token.split('.')[1] ) )
-            this.http.token = token
             return new Date(jwtToken.exp * 1000) > new Date()
         }
 
