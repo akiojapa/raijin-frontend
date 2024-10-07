@@ -1,11 +1,69 @@
-<div class="row h-100">
-    <div class="col-lg-4">
-        <div class="row flex-row">
-            <app-header></app-header>
+<div class="row h-100 mt-2">
+    <div class="col-lg-4 menu">
+        <div class="d-flex justify-content-between flex-column">
+            <div class="header flex-row mb-4">
+                <app-header></app-header>
+            </div>
+            <div class="d-flex justify-content-between p-2">
+                <input type="text" class="form-control" placeholder="Pesquise por um grupo ou palavra-chave">
+                <fa-icon [icon]="faSquarePlus" class="search-icon"></fa-icon>
+            </div>
+            <div class="row chat-nav p-2">
+                <div *ngFor="let group of groups" class="chat-group p-2 mb-3" >
+                    <div class="d-flex justify-content-between" (click)="chooseGroup(group)">
+                        <div class="d-flex align-items-center">
+                            <img [src]="group.imageUrl" alt="Logo" class="user user-image">
+                            <div class="user-details d-flex flex-column mt-3">
+                                <h5 class="d-flex align-items-center">{{group.name}}</h5>
+                                <p class="small"> {{group.lastMessage}}</p>
+                            </div>
+                        </div>
+                        <div class="user-details">
+                            <small class="align-items-start">{{ group.time }}</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer mt-auto position-fixed bottom-0">
+                <div class="d-flex w-100">
+                    <div class="col-lg-10 d-flex align-items-center">
+                        <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon" class="footer-icon"
+                        ></fa-icon>
+                        </div>
+
+                    <div class="col-lg-2 d-flex justify-content-center align-items-center navbar-transform">
+                        <fa-icon [icon]="faAnglesLeft"></fa-icon>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="col-lg-8 row">
-
-    </div>
+        <div class="header test d-flex justify-content-center align-items-center">
+          <div class="d-flex justify-content-between w-100">
+            <div class="d-flex justify-content-between align-items-center">
+              <img [src]="choosenGroup.imageUrl" alt="Logo" class="user user-image">
+              <div class="user-details d-flex flex-column mt-3">
+                <h5 class="d-flex align-items-center">{{ choosenGroup.name }}</h5>
+                <p class="small">{{ choosenGroup.participants.join(', ') }}</p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <fa-icon [icon]="faCog" class="configurations"></fa-icon>
+            </div>
+          </div>
+        </div>
+      
+        <div class="messages-container p-3">
+          <div *ngFor="let message of choosenGroup.messages" class="message mb-2" [ngClass]="{'sent': message.sender === 'Usuário', 'received': message.sender !== 'Usuário'}">
+            <div class="d-flex justify-content-between">
+              <strong>{{ message.sender }}</strong>
+              <small>{{ message.time }}</small>
+            </div>
+            <p>{{ message.content }}</p>
+          </div>
+        </div>
+      </div>
 </div>
