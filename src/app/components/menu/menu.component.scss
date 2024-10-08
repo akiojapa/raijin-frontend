@@ -1,0 +1,193 @@
+.search-icon {
+    color: #FFA324;
+    font-size: 25px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header {
+    height: 59px;
+    width: 100%;
+    background-color:#121212;
+}
+
+.configurations {
+    font-size: 35px;
+}
+
+
+.user-details {
+    margin-left: 10px;
+
+    h5 {
+        font-size: 1.25rem;
+        color: #FFA324;
+        margin-bottom: 0;
+        /* Remove a margem inferior */
+    }
+
+    p {
+        font-size: 0.875rem;
+        color: #C7B5B5;
+        margin-top: 0;
+        /* Remove a margem superior */
+    }
+
+    small {
+        color: #C7B5B5;
+    }
+
+
+}
+
+.user-image {
+    width: 60px;
+    /* Defina a largura desejada */
+    height: 60px;
+    /* Defina a altura desejada */
+    border-radius: 50%;
+    /* Torna a imagem circular */
+    object-fit: cover;
+    /* Garante que a imagem preencha o círculo */
+    border: 2px solid #FFA324;
+    /* Opcional: adiciona uma borda ao redor da imagem */
+    margin-left: 10px;
+}
+
+.chat-nav {
+    overflow-y: auto;
+    flex-grow: 1;
+    max-height: calc(100vh - 200px);
+    /* Ajuste conforme necessário */
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        /* Largura da barra de rolagem */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #FFA324;
+        /* Cor da barra de rolagem */
+        border-radius: 10px;
+        /* Bordas arredondadas */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+        /* Fundo transparente */
+    }
+
+    &::-webkit-scrollbar-button {
+        display: none;
+        /* Remove as setas */
+    }
+}
+
+// Estilo para os grupos de chat
+.chat-group {
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #141414;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #1C1C1C;
+    }
+}
+
+
+.footer {
+    height: 59px;
+    width: 33%;
+    display: flex;
+    background-color: #131212;
+    color: #FFA324;
+    font-size: 1.25rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    --bs-gutter-x: 0;
+
+}
+
+.footer-icon {
+    font-size: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.navbar-transform {
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.5s; /* Adiciona transição para o fundo */
+
+
+    fa-icon {
+        color: #FFA324;
+      }
+
+    &:hover {
+      background-color: #FFA324;
+
+      fa-icon {
+          color: #1C1C1C
+      }
+    }
+  }
+
+  .messages-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px); /* Ajuste conforme necessário */
+    padding: 20px;
+    background-color: #e5ddd5; /* Cor de fundo semelhante ao WhatsApp */
+  }
+  
+  .message {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 7.5px;
+    margin-bottom: 10px;
+    position: relative;
+    word-wrap: break-word;
+  }
+  
+  .message.sent {
+    background-color: #dcf8c6; /* Cor de fundo para mensagens enviadas */
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+  }
+  
+  .message.received {
+    background-color: #ffffff; /* Cor de fundo para mensagens recebidas */
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+  }
+  
+  .message strong {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .message small {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 0.75rem;
+    color: #999;
+  }
+  
+  .message-input-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  .message-input-container .form-control {
+    flex-grow: 1;
+  }
+  
+  .message-input-container .btn {
+    background-color: #075e54;
+    color: #fff;
+  }

@@ -1,0 +1,16 @@
+.spinner-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.82);
+  z-index: 2000;
+}
+
+.mat-spinner-color::ng-deep circle{
+  stroke: #BB6E02 !important;
+  }

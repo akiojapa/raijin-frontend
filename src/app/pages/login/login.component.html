@@ -1,0 +1,61 @@
+<div class="row h-100">
+    <div class="col-lg-6 d-flex justify-content-center align-items-center login-col">
+        <div class="card h-75 w-50">
+            <div class="card-body">
+                <div class="row">
+                    <div class="image-logo mb-3 d-flex justify-content-center align-items-center">
+                        <img src="liveseo-normal.png" alt="Logo" class="img-fluid">
+                    </div>
+                    <div class="forms">
+                        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group mb-3">
+                                <label for="username">Usuário</label>
+                                <input type="text" class="form-control" formControlName="username" id="username"
+                                    placeholder="Digite seu usuário">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="password">Senha</label>
+                                <div class="input-group">
+                                    <input [type]="passwordFieldType ? 'password' : 'text'" class="form-control" formControlName="password"
+                                        id="password" placeholder="Digite sua senha">
+                                    <button type="button" class="btn btn-outline-secondary input-group-text "
+                                        (click)="togglePasswordVisibility()">
+                                        <fa-icon aria-hidden="true" class="icon" [icon]="passwordFieldType ? faEyeSlash : faEye"></fa-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-check d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <input class="form-check form-check-input custom-checkbox" type="checkbox"
+                                            id="rememberMe">
+                                        <label
+                                            class="form-check form-check-label d-flex justify-content-center align-items-end"
+                                            for="rememberMe">Lembrar de mim</label>
+                                    </div>
+                                    <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center mt-3">
+                                <button type="submit" class="btn btn-principal w-100">Entrar</button>
+                            </div>
+                        </form>
+                        <div>
+                            <div class="d-flex justify-content-center align-items-center mt-5">
+                                <div class="d-flex flex-row">
+                                    <p class="text-tertiary">Precisa de ajuda?</p>
+                                    <a href="#" class="help-button">Clique aqui</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 login-apresentation">
+        <div class="d-flex justify-content-center align-items-center text-center mt-5 p-4 line">
+            <h3 class="w-75 fw-bold">O que nossos clientes tem a dizer sobre nosso produto?</h3>
+        </div>
+    </div>
+</div>

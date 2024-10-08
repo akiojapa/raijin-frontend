@@ -1,0 +1,101 @@
+.login-col .card {
+    background-color: #1A1919;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1),
+        /* Sombra clara para destaque */
+        0 6px 20px rgba(0, 0, 0, 0.5);
+    border-color: #7D7D7D;
+}
+
+.custom-checkbox {
+    width: 12px;
+    height: 12px;
+    transform: scale(0.75);
+    /* Ajusta o tamanho do checkbox */
+    margin-right: 5px;
+    /* Ajusta o espaçamento entre o checkbox e o label */
+}
+
+.form-check-label {
+    padding: 0px !important;
+}
+
+label,
+p,
+a {
+    color: #C7B5B5;
+    font-size: 12px;
+}
+
+a.forgot-password {
+    color: #7D7D7D;
+    font-size: 10px
+}
+
+.card-body {
+    max-width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.image-logo img {
+    max-width: 50%;
+    height: auto;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.btn-principal {
+    width: 100%;
+}
+
+.help-button {
+    margin-left: 3px;
+    color: #C7B5B5;
+    font-size: 10px;
+}
+
+.icon {
+    color: #7D7D7D;
+    font-size: 10px;
+}
+
+.form-control {
+    height: auto;
+    box-sizing: border-box;
+}
+
+.input-group .btn-outline-secondary {
+    padding: 0.375rem 0.75rem; /* Ajuste de padding para alinhar com o input */
+    display: flex;
+    align-items: center;
+}
+
+.input-group-text .fa-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.login-apresentation {
+    background: linear-gradient(180deg, #FFA324 23%, #B8BDBE 85%);
+}
+
+.line {
+    position: relative;
+}
+
+.line::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Alinha no centro */
+    transform: translateX(-50%); /* Ajusta o alinhamento para o centro */
+    width: 15%; /* Define a largura da borda em 15% */
+    border-bottom: 3px solid #1A1919;
+}
