@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component';
@@ -13,7 +13,7 @@ import { GROUPS } from '../../helpers/groups';
 
 @Component({
   selector: 'app-menu',
-  imports: [FontAwesomeModule, HeaderComponent, ReactiveFormsModule, CommonModule],
+  imports: [FontAwesomeModule, HeaderComponent, ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   standalone: true
