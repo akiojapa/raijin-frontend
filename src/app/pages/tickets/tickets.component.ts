@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt, faMagnifyingGlass, faCalendarDays, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { HeaderComponent } from "../../components/header/header.component";
 import { GROUPS } from "../../helpers/groups";
 import { PAGES } from "../../helpers/pages";
@@ -27,6 +27,9 @@ export class TicketsComponent {
   faCog = faCog;
   faAnglesLeft = faAnglesLeft;
   faSignOutAlt = faSignInAlt;
+  faCalendarDays = faCalendarDays;
+  faMagnifyingGlass = faMagnifyingGlass;
+  faChevronDown = faChevronDown;
   choosenGroup: IGroup = this.groups[0];
   newMessageContent: string = '';
 

@@ -2,3 +2,78 @@
   color: #FFA324;
 }
 
+.filter-nav{
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-grow: 1;
+  max-height: calc(100vh - 200px);
+  /* Ajuste conforme necessário */
+
+  &::-webkit-scrollbar {
+      width: 8px;
+      /* Largura da barra de rolagem */
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: #FFA324;
+      /* Cor da barra de rolagem */
+      border-radius: 10px;
+      /* Bordas arredondadas */
+  }
+
+  &::-webkit-scrollbar-track {
+      background: transparent;
+      /* Fundo transparente */
+  }
+
+  &::-webkit-scrollbar-button {
+      display: none;
+      /* Remove as setas */
+  }
+}
+
+.no-bg {
+  background-color: transparent;
+  border: none;
+}
+
+input::placeholder {
+  font-size: 15px; 
+}
+
+.footer {
+  height: 59px;
+  width: 33%;
+  display: flex;
+  background-color: #131212;
+  color: #FFA324;
+  font-size: 1.25rem;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  --bs-gutter-x: 0;
+
+}
+
+.footer-icon {
+  font-size: 25px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.navbar-transform {
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.5s;
+
+
+  fa-icon {
+      color: #FFA324;
+    }
+
+  &:hover {
+    background-color: #FFA324;
+
+    fa-icon {
+        color: #1C1C1C
+    }
+  }
+}
