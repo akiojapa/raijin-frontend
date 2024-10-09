@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { ChamadoComponent } from './pages/tickets/ticket.component';
+import { TicketsComponent } from './pages/tickets/tickets.component';
 
 export const routes: Routes = [
     {
@@ -19,6 +19,6 @@ export const routes: Routes = [
     },
     {
         path: 'chamados',
-        component: ChamadoComponent
+        component: TicketsComponent
     }
 ];
