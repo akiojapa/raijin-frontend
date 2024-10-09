@@ -25,7 +25,7 @@
 
                 </div>
             </div>
-            <div class="footer mt-auto position-fixed bottom-0">
+            <div class="footer mt-auto w-100 p-3 bottom-0">
                 <div class="d-flex w-100">
                     <div class="col-lg-10 d-flex align-items-center">
                         <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon" class="footer-icon"
@@ -40,8 +40,8 @@
         </div>
     </div>
 
-    <div class="col-lg-8 row">
-        <div class="header test d-flex justify-content-center align-items-center">
+    <div class="col-lg-8 row d-flex flex-column h-100">
+        <div class="header d-flex justify-content-center align-items-center">
           <div class="d-flex justify-content-between w-100">
             <div class="d-flex justify-content-between align-items-center">
               <img [src]="choosenGroup.imageUrl" alt="Logo" class="user user-image">
@@ -55,15 +55,29 @@
             </div>
           </div>
         </div>
-      
-        <div class="messages-container p-3">
-          <div *ngFor="let message of choosenGroup.messages" class="message mb-2" [ngClass]="{'sent': message.sender === 'Usuário', 'received': message.sender !== 'Usuário'}">
-            <div class="d-flex justify-content-between">
-              <strong>{{ message.sender }}</strong>
-              <small>{{ message.time }}</small>
+
+        <div class="messages-container p-3 flex-grow-1">
+          <div *ngFor="let message of choosenGroup.messages" class="d-flex mb-2 w-100" [ngStyle]="{'justify-content': message.sender === 'Usuário' ? 'end' : 'start'}">
+           <div class="message" [ngClass]="{'sent': message.sender === 'Usuário', 'received': message.sender !== 'Usuário'}">
+             <div class="d-flex justify-content-between">
+               <strong>{{ message.sender }}</strong>
+               <small>{{ message.time }}</small>
+              </div>
+              <p>{{ message.content }}</p>
             </div>
-            <p>{{ message.content }}</p>
+          </div>          
+        </div>
+
+        <div class="footer mt-auto w-100 p-3 bottom-0">
+          <div class="d-flex w-100 row">
+            <div class="col-lg-10 d-flex align-items-center">
+              <input type="text" class="form-control" [(ngModel)]="newMessageContent" placeholder="Digite sua mensagem...">
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-primary ml-2" (click)="sendMessage()">Enviar</button>
+            </div>
           </div>
         </div>
+
       </div>
 </div>

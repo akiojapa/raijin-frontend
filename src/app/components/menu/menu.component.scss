@@ -98,7 +98,6 @@
 
 
 .footer {
-    height: 59px;
     width: 33%;
     display: flex;
     background-color: #131212;
@@ -136,10 +135,31 @@
 
   .messages-container {
     flex-grow: 1;
-    overflow-y: auto;
-    max-height: calc(100vh - 150px); /* Ajuste conforme necessário */
+    max-height: calc(100vh - 150px);
+    overflow-y: scroll;
     padding: 20px;
-    background-color: #e5ddd5; /* Cor de fundo semelhante ao WhatsApp */
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      /* Largura da barra de rolagem */
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: #FFA324;
+      /* Cor da barra de rolagem */
+      border-radius: 10px;
+      /* Bordas arredondadas */
+  }
+
+  &::-webkit-scrollbar-track {
+      background: transparent;
+      /* Fundo transparente */
+  }
+
+  &::-webkit-scrollbar-button {
+      display: none;
+      /* Remove as setas */
+  }
   }
   
   .message {
@@ -153,13 +173,13 @@
   
   .message.sent {
     background-color: #dcf8c6; /* Cor de fundo para mensagens enviadas */
-    align-self: flex-end;
+    min-width: 20%;
     border-bottom-right-radius: 0;
   }
   
   .message.received {
     background-color: #ffffff; /* Cor de fundo para mensagens recebidas */
-    align-self: flex-start;
+    min-width: 20%;
     border-bottom-left-radius: 0;
   }
   
