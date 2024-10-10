@@ -1,94 +1,110 @@
-<div class="row mt-2">
-    <div class="col-lg-4 menu">
+<div class="row"> 
+    <div class="row mt-2 col-lg-4 d-flex">
+        <!-- Header -->
+        <div class="menu">
+            <div class="d-flex justify-content-between flex-column">
+                <div class="header flex-row">
+                    <app-header></app-header>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Filtro -->
         <div class="d-flex justify-content-between flex-column">
-            <div class="header flex-row mb-4">
-                <app-header></app-header>
+            <h2 class="tickets-filter m-3">Gestão de Chamados</h2>  
+            <form class="mt-3 filter-nav">
+                <div class="row ms-4 form-group align-items-center">                
+                    <div class="col-lg-12">
+                        <h4>ID Chamado</h4>
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="Insira um ID">
+                            <span class="input-group-text no-bg">
+                                <fa-icon [icon]="faMagnifyingGlass" class="fs-5"></fa-icon>
+                            </span>
+                        </div>
+                    </div>                    
+                    <div class="col-lg-12">
+                        <h4>Título</h4>
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="Insira um título">
+                            <span class="input-group-text no-bg">
+                                <fa-icon [icon]="faMagnifyingGlass" class="fs-5"></fa-icon>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12">
+                        <h4>Data</h4>
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="Selecione uma data">  
+                            <span class="input-group-text no-bg">
+                                <fa-icon [icon]="faCalendarDays" class="fs-5"></fa-icon>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <h4>Projeto</h4>
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="Insira um projeto">  
+                            <span class="input-group-text no-bg">
+                                <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <h4>Solicitante</h4>
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="Insira um solicitante">  
+                            <span class="input-group-text no-bg">
+                                <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-between align-items-center">
+                        <div class="me-4">
+                            <h4>Tipo</h4>
+                            <div class="input-group">
+                                <input type="text" class="form-control input-wide" placeholder="Selecione um tipo">
+                                <span class="input-group-text no-bg">
+                                    <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="ms-4">
+                            <h4>Subtipo</h4>
+                            <div class="input-group">
+                                <input type="text" class="form-control input-wide" placeholder="Selecione um subtipo">
+                                <span class="input-group-text no-bg">
+                                    <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>                                       
+                </div>
+            </form>  
+            <!-- Footer -->
+            <div class="footer mt-auto position-fixed bottom-0">
+                <div class="d-flex w-100">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon" class="footer-icon"
+                        ></fa-icon>
+                        </div>
+        
+                    <div class="col-lg-2 d-flex justify-content-center align-items-center navbar-transform">
+                        <fa-icon [icon]="faAnglesLeft"></fa-icon>
+                    </div>
+                </div>
+            </div>    
+        </div>   
+    </div>
+
+    <div class="row mt-2 col-lg-8">
+        <div class="menu">
+            <div class="d-flex justify-content-between flex-column">
+                <div class="header flex-row">
+                    <app-header></app-header>
+                </div>
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-between flex-column">
-        <h2 class="tickets-filter ms-3">Gestão de Chamados</h2>  
-        <form class="mt-3 filter-nav">
-            <div class="row col-lg-3 ms-4 form-group align-items-center">                
-                <div class="col-lg-12">
-                    <h4>ID Chamado</h4>
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="Insira um ID">
-                        <span class="input-group-text no-bg">
-                            <fa-icon [icon]="faMagnifyingGlass" class="fs-5"></fa-icon>
-                        </span>
-                    </div>
-                </div>                    
-                <div class="col-lg-12">
-                    <h4>Título</h4>
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="Insira um título">
-                        <span class="input-group-text no-bg">
-                            <fa-icon [icon]="faMagnifyingGlass" class="fs-5"></fa-icon>
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="col-lg-12">
-                    <h4>Data</h4>
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="Selecione uma data">  
-                        <span class="input-group-text no-bg">
-                            <fa-icon [icon]="faCalendarDays" class="fs-5"></fa-icon>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <h4>Projeto</h4>
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="Insira um projeto">  
-                        <span class="input-group-text no-bg">
-                            <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <h4>Solicitante</h4>
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="Insira um solicitante">  
-                        <span class="input-group-text no-bg">
-                            <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group d-flex justify-content-between align-items-center">
-                    <div class="me-4">
-                        <h4>Tipo</h4>
-                        <div class="input-group">
-                            <input type="text" class="form-control input-wide" placeholder="Selecione um tipo">
-                            <span class="input-group-text no-bg">
-                                <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="ms-4">
-                        <h4>Subtipo</h4>
-                        <div class="input-group">
-                            <input type="text" class="form-control input-wide" placeholder="Selecione um subtipo">
-                            <span class="input-group-text no-bg">
-                                <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
-                            </span>
-                        </div>
-                    </div>
-                </div>                                       
-            </div>
-        </form>  
-        <div class="footer mt-auto position-fixed bottom-0">
-            <div class="d-flex w-100">
-                <div class="col-lg-10 d-flex align-items-center">
-                    <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon" class="footer-icon"
-                    ></fa-icon>
-                    </div>
-
-                <div class="col-lg-2 d-flex justify-content-center align-items-center navbar-transform">
-                    <fa-icon [icon]="faAnglesLeft"></fa-icon>
-                </div>
-            </div>
-        </div>    
-    </div>    
 </div>

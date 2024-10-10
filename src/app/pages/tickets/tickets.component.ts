@@ -6,7 +6,7 @@ import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt, faMa
 import { HeaderComponent } from "../../components/header/header.component";
 import { GROUPS } from "../../helpers/groups";
 import { PAGES } from "../../helpers/pages";
-import { IGroup, IMessage } from "../../interfaces/groups";
+import { IGroup } from "../../interfaces/groups";
 import { IPages } from "../../interfaces/pages";
 
 
@@ -35,19 +35,14 @@ export class TicketsComponent {
 
   constructor(private fb: FormBuilder) {}
 
-  chooseGroup(group: IGroup): void {
-    this.choosenGroup = group;
-  }
-
-  sendMessage(): void {
-    if (this.newMessageContent.trim()) {
-      const newMessage: IMessage = {
-        sender: 'Usuário',
-        content: this.newMessageContent,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      this.choosenGroup.messages.push(newMessage);
-      this.newMessageContent = '';
-    }
-  }
+  chamados = [
+    { id: '#2357', titulo: 'Chat Teste', atendente: 'Caio', projeto: 'Projeto 1' },
+    { id: '#1983', titulo: 'Chat Teste', atendente: 'Eduardo', projeto: 'Projeto 12' },
+    { id: '#2327', titulo: 'Chat Teste', atendente: 'João', projeto: 'Projeto 49' },
+    { id: '#4782', titulo: 'Chat Teste', atendente: 'Renan', projeto: 'Projeto 9' },
+    { id: '#1209', titulo: 'Chat Teste', atendente: 'Gustavo', projeto: 'Projeto 3' },
+    { id: '#1398', titulo: 'Chat Teste', atendente: 'Felipe', projeto: 'Projeto 5' },
+    { id: '#1367', titulo: 'Chat Teste', atendente: 'Lucas', projeto: 'Projeto 2' },
+    { id: '#4938', titulo: 'Chat Teste', atendente: 'Pedro', projeto: 'Projeto 82' },
+  ];
 }
