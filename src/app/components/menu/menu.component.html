@@ -6,6 +6,7 @@
         <app-header></app-header>
       </div>
 
+      <!-- COmponente de Chat -->
       <div class="d-flex justify-content-between p-2">
         <input type="text" class="form-control" placeholder="Pesquise por um grupo ou palavra-chave">
         <fa-icon [icon]="faSquarePlus" class="search-icon"></fa-icon>
@@ -28,14 +29,23 @@
 
         </div>
       </div>
+      <!-- COmponente de Chat -->
 
-      <div class="footer mt-auto w-100 p-3 bottom-0">
+      <div class="footer mt-auto w-100 bottom-0">
         <div class="d-flex w-100">
-          <div class="col-lg-10 d-flex align-items-center">
-            <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon" class="footer-icon"></fa-icon>
+          <div class="col-lg-10 d-flex align-items-center justify-content-start">
+            <div *ngFor="let page of pages; let i = index"
+            [ngClass]="{'selected': isSelected(page)}"
+            (click)="navigateTo(page.path)"
+            class="h-100 d-flex justify-content-center align-items-center px-3">
+              <fa-icon 
+              [icon]="page.icon"
+              class="footer-icon">
+            </fa-icon>
+            </div>
           </div>
 
-          <div class="col-lg-2 d-flex justify-content-center align-items-center navbar-transform">
+          <div class="col-lg-2 p-3 d-flex justify-content-center align-items-center navbar-transform">
             <fa-icon [icon]="faAnglesLeft"></fa-icon>
           </div>
         </div>
@@ -44,6 +54,8 @@
   </div>
 
   <div class="col-lg-8 d-flex flex-column h-100">
+      <!-- Componente de Chat(Header) -->
+  
     <div class="header d-flex justify-content-center align-items-center">
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex justify-content-between align-items-center">
@@ -54,11 +66,11 @@
             <p class="small">{{ choosenGroup.participants.join(', ') }}</p>
           </div>
         </div>
-        
+
         <!-- Ícone de três pontos com dropdown -->
         <div class="d-flex justify-content-center align-items-center position-relative">
           <fa-icon [icon]="faEllipsisV" class="manager-icon" (click)="toggleDropdownMenu($event)"></fa-icon>
-  
+
           <!-- Dropdown de opções -->
           <div *ngIf="showDropdownMenu" class="dropdown-menu-manager">
             <div class="dropdown-item-manager" (click)="openGroupInfo()">Informações do Grupo</div>
@@ -69,7 +81,9 @@
         </div>
       </div>
     </div>
+<!-- Componente de Chat(Header) -->
 
+<!-- Componente de Chat(Body) -->
     <div class="messages-container p-3 flex-grow-1" #messagesContainer>
       <div *ngFor="let message of choosenGroup.messages" class="d-flex mb-2 w-100"
         [ngStyle]="{'justify-content': message.sender === 'Usuário' ? 'end' : 'start'}">
@@ -83,6 +97,7 @@
         </div>
       </div>
     </div>
+
 
     <div class="footer mt-5 w-100 p-3 bottom-0">
       <div class="d-flex w-100 row align-items-center">
@@ -128,10 +143,9 @@
           <fa-icon [icon]="faPaperPlane" class="footer-icon" (click)="sendMessage()"></fa-icon>
         </div>
 
-
       </div>
     </div>
-
-
+<!-- Componente de Chat(Body) -->
+ 
   </div>
 </div>

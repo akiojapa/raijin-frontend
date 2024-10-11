@@ -7,7 +7,7 @@ import {
   faImage,
   faFile,
   faVideo,
-  faEllipsisV
+  faEllipsisV,
 } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import { PAGES } from '../../helpers/pages';
 import { IPages } from '../../interfaces/pages';
 import { IGroup, IMessage } from '../../interfaces/groups';
 import { GROUPS } from '../../helpers/groups';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -56,7 +57,7 @@ export class MenuComponent implements AfterViewChecked {
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private router: Router) { }
 
   chooseGroup(group: IGroup): void {
     this.choosenGroup = group;
@@ -75,6 +76,17 @@ export class MenuComponent implements AfterViewChecked {
     }
   }
 
+  // Verifica se a página está selecionada com base na URL atual
+  isSelected(page: any): boolean {
+    console.log(this.router.url);
+    return this.router.url.includes(page.path);
+  }
+
+  // Navega para a rota clicada
+  navigateTo(path: string) {
+    console.log(path)
+    this.router.navigate([path]);
+  } 
 
   sendMessage(): void {
     if (this.newMessageContent.trim()) {

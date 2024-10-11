@@ -143,6 +143,11 @@
     cursor: pointer;
 }
 
+.selected {
+  background-color: #FFA324; /* Cor dos ícones selecionados */
+  color:#f1f1f1
+}
+
 .navbar-transform {
     cursor: pointer;
     transition: transform 0.3s, background-color 0.5s; /* Adiciona transição para o fundo */

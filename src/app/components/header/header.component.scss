@@ -37,3 +37,25 @@
     margin-left: 10px;
 }
 // FIm header
+
+.dropdown-menu-config {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    z-index: 1000;
+  }
+  
+  .dropdown-item-config {
+    padding: 10px;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .dropdown-item-config:hover {
+    background-color: #f0f0f0;
+  }

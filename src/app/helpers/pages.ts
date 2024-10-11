@@ -1,17 +1,17 @@
-import { faCreditCard, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faTicket } from "@fortawesome/free-solid-svg-icons";
 import { IPages } from "../interfaces/pages";
 
 export const PAGES: IPages[] = [
         {
-          title: 'menu.creditTable',
-          path: 'credit-table',
-          icon: faCreditCard,
+          title: 'menu.chat',
+          path: 'menu/chat',
+          icon: faComment,
           role: 'none',
         },
         {
-          title: 'menu.customerConsult',
-          path: 'customer-consult',
-          icon: faUser,
+          title: 'menu.ticket',
+          path: 'menu/ticket',
+          icon: faTicket,
           role: 'none',
         }
   ];
