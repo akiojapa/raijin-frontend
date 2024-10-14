@@ -16,7 +16,7 @@ export class HeaderComponent {
   showConfigDropdown = false;
 
   toggleConfigDropdown(event: Event) {
-    event.stopPropagation();  // Impede o fechamento do dropdown ao clicar no ícone
+    event.stopPropagation();
     this.showConfigDropdown = !this.showConfigDropdown;
   }
 

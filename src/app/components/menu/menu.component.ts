@@ -64,10 +64,9 @@ export class MenuComponent implements AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    this.scrollToBottom(); // Garante que o scroll esteja sempre no fim ao carregar a view
+    this.scrollToBottom();
   }
 
-  // Método para rolar para o fim do container de mensagens
   scrollToBottom(): void {
     try {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
@@ -76,13 +75,11 @@ export class MenuComponent implements AfterViewChecked {
     }
   }
 
-  // Verifica se a página está selecionada com base na URL atual
   isSelected(page: any): boolean {
     console.log(this.router.url);
     return this.router.url.includes(page.path);
   }
 
-  // Navega para a rota clicada
   navigateTo(path: string) {
     console.log(path)
     this.router.navigate([path]);
@@ -102,29 +99,25 @@ export class MenuComponent implements AfterViewChecked {
 
   openGroupInfo() {
     console.log('Abrindo informações do grupo');
-    // Lógica para abrir informações do grupo
   }
 
   muteGroup() {
     console.log('Silenciando grupo');
-    // Lógica para silenciar o grupo
   }
 
   openCall() {
     console.log('Abrindo chamado');
-    // Lógica para abrir um chamado
   }
 
   exitGroup() {
     console.log('Saindo do grupo');
-    // Lógica para sair do grupo
   }
 
   toggleDropdownMenu(event: Event) {
     this.showDropdownMenu = !this.showDropdownMenu;
     this.showDropdown = false
     this.showEmojiPicker = false;
-    event.stopPropagation(); // Evita que o clique no ícone feche o dropdown
+    event.stopPropagation();
   }
 
   @HostListener('document:click', ['$event'])
@@ -134,21 +127,19 @@ export class MenuComponent implements AfterViewChecked {
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
-    this.showDropdown = false; // Fecha o dropdown ao abrir o emoji picker
+    this.showDropdown = false;
   }
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
-    this.showEmojiPicker = false; // Fecha o emoji picker ao abrir o dropdown
+    this.showEmojiPicker = false;
   }
 
-  // Adiciona o emoji à mensagem
   addEmoji(emoji: string) {
-    this.newMessageContent += emoji; // Adiciona o emoji ao campo de mensagem
-    this.showEmojiPicker = false; // Fecha o seletor de emojis após selecionar
+    this.newMessageContent += emoji;
+    this.showEmojiPicker = false;
   }
 
-  // Dispara o campo de seleção de arquivo
   triggerFileInput(type: string) {
     if (type === 'image') {
       this.imageInput.nativeElement.click();
@@ -157,7 +148,6 @@ export class MenuComponent implements AfterViewChecked {
     }
   }
 
-  // Lida com a seleção de arquivo
   handleFileInput(event: any, type: string) {
     const file = event.target.files[0];
     if (file) {
@@ -169,23 +159,15 @@ export class MenuComponent implements AfterViewChecked {
     }
   }
 
-  // Lógica para upload de imagem
   uploadImage(file: File) {
     const formData = new FormData();
     formData.append('image', file);
-    
-    // Exemplo de upload (substituir com sua lógica de envio para o backend)
     console.log('Uploading image:', file.name);
-    // Enviar o formData para o servidor
   }
 
-  // Lógica para upload de arquivo genérico
   uploadFile(file: File) {
     const formData = new FormData();
     formData.append('file', file);
-    
-    // Exemplo de upload (substituir com sua lógica de envio para o backend)
     console.log('Uploading file:', file.name);
-    // Enviar o formData para o servidor
   }
 }
