@@ -8,6 +8,7 @@ import {
   faFile,
   faVideo,
   faEllipsisV,
+  faAnglesRight
 } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -43,6 +44,7 @@ export class MenuComponent implements AfterViewChecked {
   faSmile = faSmile;
   faPaperPlane = faPaperPlane
   faAnglesLeft = faAnglesLeft;
+  faAnglesRight = faAnglesRight;
   faSignOutAlt = faSignInAlt;
   faPlus = faSquarePlus;
   faImage = faImage;
@@ -54,6 +56,7 @@ export class MenuComponent implements AfterViewChecked {
   showDropdownMenu: boolean = false;
   showEmojiPicker: boolean = false;
   showDropdown: boolean = false;
+  isCollapsed: boolean = false;
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
 
 
@@ -83,7 +86,7 @@ export class MenuComponent implements AfterViewChecked {
   navigateTo(path: string) {
     console.log(path)
     this.router.navigate([path]);
-  } 
+  }
 
   sendMessage(): void {
     if (this.newMessageContent.trim()) {
@@ -111,6 +114,10 @@ export class MenuComponent implements AfterViewChecked {
 
   exitGroup() {
     console.log('Saindo do grupo');
+  }
+
+  toggleMenu(): void {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   toggleDropdownMenu(event: Event) {

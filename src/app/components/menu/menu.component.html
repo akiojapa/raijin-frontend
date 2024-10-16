@@ -1,7 +1,6 @@
 <div class="row h-100 mt-2">
   <div class="col-lg-4 menu">
     <div class="d-flex justify-content-between flex-column">
-
       <div class="header flex-row mb-3">
         <app-header></app-header>
       </div>
@@ -31,25 +30,23 @@
       </div>
       <!-- Componente de Chat -->
 
-      <div class="footer mt-auto w-100 bottom-0">
+      <div class="footer mt-auto w-100 bottom-0" [ngClass]="{'collapsed-footer ': isCollapsed}">
         <div class="d-flex w-100">
-          <div class="col-lg-10 d-flex align-items-center justify-content-start">
+          <div class="col-lg-10 d-flex align-items-center justify-content-start" [ngClass]="{'collapsed': isCollapsed}">
             <div *ngFor="let page of pages; let i = index"
-            [ngClass]="{'selected': isSelected(page)}"
-            (click)="navigateTo(page.path)"
-            class="h-100 d-flex justify-content-center align-items-center px-3">
-              <fa-icon 
-              [icon]="page.icon"
-              class="footer-icon">
-            </fa-icon>
+                 [ngClass]="{'selected': isSelected(page)}"
+                 (click)="navigateTo(page.path)"
+                 class="h-100 d-flex justify-content-center align-items-center px-3">
+              <fa-icon [icon]="page.icon" class="footer-icon"></fa-icon>
             </div>
           </div>
-
-          <div class="col-lg-2 p-3 d-flex justify-content-center align-items-center navbar-transform">
-            <fa-icon [icon]="faAnglesLeft"></fa-icon>
+          
+          <div class="col-lg-2 p-3 d-flex justify-content-center align-items-center navbar-transform" (click)="toggleMenu()">
+            <fa-icon [icon]="isCollapsed ? faAnglesRight : faAnglesLeft"></fa-icon>
           </div>
         </div>
       </div>
+      
     </div>
   </div>
 

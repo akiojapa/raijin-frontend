@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
 import { DOCUMENT } from "@angular/common";
+import { catchError, map, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -14,17 +15,21 @@ export class AuthService {
         this.localStorage = this.document.defaultView?.localStorage;
     }
 
-    login(username: string, password: string): any {
-        this.http.post('login', {
-            "email": username,
-            "password": password
-        }).subscribe({
-            next:(response) => {
-                const authToken = response.access
-                this.localStorage?.setItem(this.authSecretKey, authToken);
-            }
-        })
-    }
+    login(username: string, password: string): Observable<any> {
+        return this.http.post('login', {
+          email: username,
+          password: password
+        }).pipe(
+          map((response: any) => {
+            const authToken = response.access;
+            this.localStorage?.setItem(this.authSecretKey, authToken);
+            return response;
+          }),
+          catchError((error) => {
+            return error
+          })
+        );
+      }
 
     isAuthenticatedUser(): boolean {
         const token: string | null = this.getToken()

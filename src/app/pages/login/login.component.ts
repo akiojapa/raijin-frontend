@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { CarouselModule } from 'primeng/carousel'; 
 import { AuthService } from '../../services/auth.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
     FormsModule,
     CommonModule,
     FontAwesomeModule,
-    CarouselModule,   
+    CarouselModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -52,19 +52,34 @@ export class LoginComponent {
     }
   ];
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, 
+    private authService: AuthService,
+    private toastService: ToastrService) {
     this.loginForm = this.fb.group({
-      username: [''],
-      password: ['']
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
   
   onSubmit() {
     if (this.loginForm.valid) {
-      const username = this.loginForm.get('username')?.value
-      const password = this.loginForm.get('password')?.value
-      this.authService.login(username, password)
-      console.log(this.loginForm.value);
+      const username = this.loginForm.get('username')?.value;
+      const password = this.loginForm.get('password')?.value;
+      this.authService.login(username, password).subscribe({
+        next: () => {
+          this.toastService.success('Usuário logado com sucesso!');
+        },
+        error: (error: any) => {
+          this.toastService.error('Erro ao logar usuário!');
+        }
+      });
+    } else {
+      if (this.loginForm.get('password')?.hasError('required')) {
+        this.toastService.error('Por favor, insira a senha.');
+      }
+      if (this.loginForm.get('username')?.hasError('required')) {
+        this.toastService.error('Por favor, insira o nome de usuário.');
+      }
     }
   }
 

@@ -115,3 +115,14 @@ input:-webkit-autofill {
 input:-webkit-autofill {
     font-size: 10px; /* Estilo do placeholder */
 }
+
+.toast-top-center {
+    top: 20px; // Ajuste a distância do topo conforme necessário
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px; // Largura personalizada do toast
+    .toast {
+      font-size: 1.2rem; // Tamanho da fonte
+      padding: 20px; // Padding personalizado
+    }
+  }
