@@ -2,33 +2,33 @@
   color: #FFA324;
 }
 
+.border-line{
+  border-bottom: 2px solid #747373;
+  padding-bottom: 1.0rem;
+}
+
 .filter-nav{
+  padding-bottom: 80px;
   overflow-y: auto;
   overflow-x: hidden;
   flex-grow: 1;
   max-height: calc(100vh - 200px);
-  /* Ajuste conforme necessário */
 
   &::-webkit-scrollbar {
       width: 8px;
-      /* Largura da barra de rolagem */
   }
 
   &::-webkit-scrollbar-thumb {
       background-color: #FFA324;
-      /* Cor da barra de rolagem */
       border-radius: 10px;
-      /* Bordas arredondadas */
   }
 
   &::-webkit-scrollbar-track {
       background: transparent;
-      /* Fundo transparente */
   }
 
   &::-webkit-scrollbar-button {
       display: none;
-      /* Remove as setas */
   }
 }
 
@@ -43,7 +43,7 @@ input::placeholder {
 
 .footer {
   height: 59px;
-  width: 100%;
+  width: 31%;
   display: flex;
   background-color: #131212;
   color: #FFA324;
@@ -76,4 +76,76 @@ input::placeholder {
         color: #1C1C1C
     }
   }
+}
+
+.header-tickets {
+    height: 59px;
+    width: 100%;
+    background-color:#121212;
+}
+
+.divider-line {
+  border-bottom: 1px solid #8d8c8b; /* Cor da linha */
+  margin-bottom: 10px;
+  width: 100%; /* Largura da linha */
+
+  h2{
+    font-size: 10px;
+  }
+}
+
+.table {
+  width: 80%; 
+  margin: 0 auto;
+  border-collapse: collapse;
+  cursor: pointer;  
+}
+
+.table thead th {
+  color: #f4f1ed; 
+  padding: 12px;
+  text-align: left;
+}
+
+.th, td {
+  padding: 10px;
+  text-align: left;
+  color: #ffcc00; 
+  border-bottom: 1px solid #444; 
+}
+
+.table tbody tr:nth-child(odd) td {
+  background-color: #3b3b3b; 
+}
+
+.table tbody tr:hover td {
+  background-color: #725703; 
+  color: #ebe4e4; 
+}
+
+.page-number {
+  color: #ffcc00;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+}
+
+.page-number:hover {
+  color: #ebe4e4; 
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: #ffcc00;
+}
+
+.button:hover {
+  color: #fff;
+}
+
+.add-ticket-div {
+  background-color: #333;
+  border-radius: 8px;
+  padding: 16px;
 }

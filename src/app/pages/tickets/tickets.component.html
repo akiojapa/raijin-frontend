@@ -1,6 +1,5 @@
-<div class="row"> 
-    <div class="row mt-2 col-lg-4 d-flex">
-        <!-- Header -->
+<div class="row h-100 mt-2">
+    <div class="row col-lg-4 d-flex">
         <div class="menu">
             <div class="d-flex justify-content-between flex-column">
                 <div class="header flex-row">
@@ -8,12 +7,11 @@
                 </div>
             </div>
         </div>
-    
-        <!-- Filtro -->
+
         <div class="d-flex justify-content-between flex-column">
-            <h2 class="tickets-filter m-3">Gestão de Chamados</h2>  
+            <h2 class="tickets-filter mx-3 mb-2">Gestão de Chamados</h2>
             <form class="mt-3 filter-nav">
-                <div class="row ms-4 form-group align-items-center">                
+                <div class="row ms-2 form-group align-items-center">
                     <div class="col-lg-12">
                         <h4>ID Chamado</h4>
                         <div class="input-group mb-4">
@@ -22,7 +20,7 @@
                                 <fa-icon [icon]="faMagnifyingGlass" class="fs-5"></fa-icon>
                             </span>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="col-lg-12">
                         <h4>Título</h4>
                         <div class="input-group mb-4">
@@ -32,11 +30,11 @@
                             </span>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-12">
                         <h4>Data</h4>
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control" placeholder="Selecione uma data">  
+                            <input type="text" class="form-control" placeholder="Selecione uma data">
                             <span class="input-group-text no-bg">
                                 <fa-icon [icon]="faCalendarDays" class="fs-5"></fa-icon>
                             </span>
@@ -45,7 +43,7 @@
                     <div class="col-lg-12">
                         <h4>Projeto</h4>
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control" placeholder="Insira um projeto">  
+                            <input type="text" class="form-control" placeholder="Insira um projeto">
                             <span class="input-group-text no-bg">
                                 <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
                             </span>
@@ -54,7 +52,7 @@
                     <div class="col-lg-12">
                         <h4>Solicitante</h4>
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control" placeholder="Insira um solicitante">  
+                            <input type="text" class="form-control" placeholder="Insira um solicitante">
                             <span class="input-group-text no-bg">
                                 <fa-icon [icon]="faChevronDown" class="fs-5"></fa-icon>
                             </span>
@@ -79,32 +77,143 @@
                                 </span>
                             </div>
                         </div>
-                    </div>                                       
+                    </div>
                 </div>
-            </form>  
-            <!-- Footer -->
+            </form>
+
             <div class="footer mt-auto position-fixed bottom-0">
                 <div class="d-flex w-100">
                     <div class="col-lg-4 d-flex align-items-center">
-                        <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon" class="footer-icon"
-                        ></fa-icon>
-                        </div>
-        
+                        <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon"
+                            class="footer-icon"></fa-icon>
+                    </div>
+
                     <div class="col-lg-2 d-flex justify-content-center align-items-center navbar-transform">
                         <fa-icon [icon]="faAnglesLeft"></fa-icon>
                     </div>
                 </div>
-            </div>    
-        </div>   
+            </div>
+        </div>
     </div>
 
-    <div class="row mt-2 col-lg-8">
-        <div class="menu">
-            <div class="d-flex justify-content-between flex-column">
-                <div class="header flex-row">
-                    <app-header></app-header>
+    <div class="col-lg-8 d-flex flex-column h-100">
+        <div class="header-tickets d-flex justify-content-center align-items-center">
+            <div class="d-flex justify-content-between w-100">
+                <div class="d-flex align-items-center">
+                    <fa-icon [icon]="faTicket" alt="Tela de Chamado" class="m-3 fa-2x"></fa-icon>
+                    <h4>Chamados</h4>
                 </div>
             </div>
+        </div>
+        <div *ngIf="!showAddTicketDiv">
+            <div class="d-flex align-items-center justify-content-end m-3 border-line">
+                <button class="btn btn-outline-warning mx-2 no-bg" (click)="navigateToPage('addTicket')">
+                    <fa-icon [icon]="faPlus" class="fa-2x"></fa-icon>
+                </button>
+                <button class="btn btn-outline-warning no-bg">
+                    <fa-icon [icon]="faDownload" class="fa-2x"></fa-icon>
+                </button>
+            </div>
+    
+            <div class="table-responsive mt-4">
+                <table class="table table-dark">
+                    <thead>
+                        <tr (click)="toggleAddTicketDiv()">
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Atendente</th>
+                            <th>Projeto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr (click)="navigateToPage('updateTicket')">
+                            <td>#2357</td>
+                            <td>Chat Teste</td>
+                            <td>Caio</td>
+                            <td>Projeto 1</td>
+                        </tr>
+                        <tr>
+                            <td>#1983</td>
+                            <td>Chat Teste</td>
+                            <td>Eduardo</td>
+                            <td>Projeto 12</td>
+                        </tr>
+                        <tr>
+                            <td>#2327</td>
+                            <td>Chat Teste</td>
+                            <td>João</td>
+                            <td>Projeto 49</td>
+                        </tr>
+                        <tr>
+                            <td>#4782</td>
+                            <td>Chat Teste</td>
+                            <td>Renan</td>
+                            <td>Projeto 9</td>
+                        </tr>
+                        <tr>
+                            <td>#1209</td>
+                            <td>Chat Teste</td>
+                            <td>Gustavo</td>
+                            <td>Projeto 3</td>
+                        </tr>
+                        <tr>
+                            <td>#1398</td>
+                            <td>Chat Teste</td>
+                            <td>Felipe</td>
+                            <td>Projeto 5</td>
+                        </tr>
+                        <tr>
+                            <td>#1367</td>
+                            <td>Chat Teste</td>
+                            <td>Lucas</td>
+                            <td>Projeto 2</td>
+                        </tr>
+                        <tr>
+                            <td>#4938</td>
+                            <td>Chat Teste</td>
+                            <td>Pedro</td>
+                            <td>Projeto 82</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <button class="btn btn-outline-warning no-bg">
+                    <fa-icon [icon]="faAnglesLeft"></fa-icon>
+                </button>
+            
+                <button class="btn btn-outline-warning mx-1 no-bg page-number">1</button>
+                <button class="btn btn-outline-warning mx-1 no-bg page-number">2</button>
+                <button class="btn btn-outline-warning mx-1 no-bg page-number">3</button>
+                <span class="mx-2 no-bg">...</span>
+                <button class="btn btn-outline-warning mx-1 no-bg page-number">7</button>
+            
+                <button class="btn btn-outline-warning no-bg">
+                    <fa-icon [icon]="faAnglesRight"></fa-icon>
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="showAddTicketDiv">
+            <div class="d-flex align-items-center justify-content-start m-3 border-line">
+                <button class="btn btn-outline-warning no-bg">
+                    <fa-icon [icon]="faArrowLeft" class="fa-2x me-4"></fa-icon>
+                </button>
+                <h4>Abertura de chamado</h4>
+            </div>
+            <form>
+                <div class="mb-3">
+                    <label for="ticketId" class="form-label">ID do Ticket</label>
+                    <input type="text" class="form-control" id="ticketId" placeholder="Insira o ID do Ticket">
+                </div>
+                <div class="mb-3">
+                    <label for="ticketTitle" class="form-label">Título do Ticket</label>
+                    <input type="text" class="form-control" id="ticketTitle" placeholder="Insira o Título do Ticket">
+                </div>
+                <button type="submit" class="btn btn-warning">Adicionar Ticket</button>
+                <button type="button" class="btn btn-secondary ms-2" (click)="toggleAddTicketDiv()">Voltar</button>
+            </form>
         </div>
     </div>
 </div>

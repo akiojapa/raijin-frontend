@@ -2,12 +2,13 @@ import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt, faMagnifyingGlass, faCalendarDays, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt, faMagnifyingGlass, faCalendarDays, faChevronDown, faTicket, faPlus, faDownload, faAnglesRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { HeaderComponent } from "../../components/header/header.component";
 import { GROUPS } from "../../helpers/groups";
 import { PAGES } from "../../helpers/pages";
 import { IGroup } from "../../interfaces/groups";
 import { IPages } from "../../interfaces/pages";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -30,10 +31,18 @@ export class TicketsComponent {
   faCalendarDays = faCalendarDays;
   faMagnifyingGlass = faMagnifyingGlass;
   faChevronDown = faChevronDown;
+  faTicket = faTicket;
+  faPlus = faPlus;
+  faDownload = faDownload;
+  faAnglesRight =faAnglesRight
+  faArrowLeft = faArrowLeft;
   choosenGroup: IGroup = this.groups[0];
   newMessageContent: string = '';
+  Router: any;
+  showAddTicketDiv = false;
 
-  constructor(private fb: FormBuilder) {}
+  
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   chamados = [
     { id: '#2357', titulo: 'Chat Teste', atendente: 'Caio', projeto: 'Projeto 1' },
@@ -45,4 +54,22 @@ export class TicketsComponent {
     { id: '#1367', titulo: 'Chat Teste', atendente: 'Lucas', projeto: 'Projeto 2' },
     { id: '#4938', titulo: 'Chat Teste', atendente: 'Pedro', projeto: 'Projeto 82' },
   ];
+
+  navigateToPage(test: string) {
+    switch (test) {
+      case 'addTicket':
+        this.router.navigate(['/menu']);        
+        break;
+      case 'updateTicket':
+        this.router.navigate(['/login']);
+        break;
+      default:
+        break;
+    }
+  }
+
+  toggleAddTicketDiv() {
+    this.showAddTicketDiv = !this.showAddTicketDiv;
+  }
+
 }
