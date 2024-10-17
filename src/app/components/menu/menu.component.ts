@@ -18,6 +18,7 @@ import { IPages } from '../../interfaces/pages';
 import { IGroup, IMessage } from '../../interfaces/groups';
 import { GROUPS } from '../../helpers/groups';
 import { Router } from '@angular/router';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
@@ -25,7 +26,37 @@ import { Router } from '@angular/router';
   imports: [FontAwesomeModule, HeaderComponent, ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  standalone: true
+  standalone: true,
+  animations: [
+    // Animação para o menu lateral
+    trigger('toggleSidebar', [
+      state('expanded', style({
+        transform: 'translateX(0)',
+        opacity: 1
+      })),
+      state('collapsed', style({
+        transform: 'translateX(-100%)',
+        opacity: 0
+      })),
+      transition('expanded <=> collapsed', [
+        animate('0.3s ease-in-out')
+      ])
+    ]),
+    // Animação para o menu horizontal
+    trigger('toggleFooter', [
+      state('expanded', style({
+        transform: 'translateY(0)',
+        opacity: 1
+      })),
+      state('collapsed', style({
+        transform: 'translateY(100%)',
+        opacity: 0
+      })),
+      transition('expanded <=> collapsed', [
+        animate('0.3s ease-in-out')
+      ])
+    ])
+  ]
 })
 export class MenuComponent implements AfterViewChecked {
   @ViewChild('messagesContainer')
@@ -56,7 +87,8 @@ export class MenuComponent implements AfterViewChecked {
   showDropdownMenu: boolean = false;
   showEmojiPicker: boolean = false;
   showDropdown: boolean = false;
-  isCollapsed: boolean = false;
+  isCollapsed: boolean = true;
+  isFooterCollapsed: boolean = true;
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
 
 
@@ -116,8 +148,21 @@ export class MenuComponent implements AfterViewChecked {
     console.log('Saindo do grupo');
   }
 
-  toggleMenu(): void {
-    this.isCollapsed = !this.isCollapsed;
+
+  toggleMenu() {
+    // Primeiro fecha a sidebar e depois abre o footer
+    if (this.isCollapsed) {
+      this.isCollapsed = !this.isCollapsed;
+      setTimeout(() => {
+        this.isFooterCollapsed = !this.isFooterCollapsed;
+      }, 400); // Define o tempo da animação da sidebar antes de abrir o footer
+    } else {
+      // Primeiro fecha o footer e depois abre a sidebar
+      this.isFooterCollapsed = !this.isFooterCollapsed;
+      setTimeout(() => {
+        this.isCollapsed = !this.isCollapsed;
+      }, 400); // Define o tempo da animação do footer antes de abrir a sidebar
+    }
   }
 
   toggleDropdownMenu(event: Event) {
