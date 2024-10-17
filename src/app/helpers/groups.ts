@@ -7,9 +7,9 @@ export const GROUPS: IGroup[] = [
     time: '18:30',
     imageUrl: 'https://picsum.photos/200?random=1',
     messages: [
-      { sender: 'Alice', content: 'See you at dinner!', time: '18:30' },
-      { sender: 'Bob', content: 'Sure, see you!', time: '18:31' },
-      { sender: 'Usuário', content: 'I will be there!', time: '18:32' }
+      // { sender: 'Alice', content: 'See you at dinner!', time: '18:30' },
+      // { sender: 'Bob', content: 'Sure, see you!', time: '18:31' },
+      // { sender: 'Usuário', content: 'I will be there!', time: '18:32' }
     ],
     participants: ['Alice', 'Bob', 'Charlie', 'Usuário']
   },

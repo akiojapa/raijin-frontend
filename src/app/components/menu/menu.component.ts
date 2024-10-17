@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -17,6 +17,8 @@ import { IPages } from '../../interfaces/pages';
 import { IGroup, IMessage } from '../../interfaces/groups';
 import { GROUPS } from '../../helpers/groups';
 import { Router } from '@angular/router';
+import { WebSocketService } from '../../services/webhook.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 
 @Component({
@@ -26,7 +28,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.scss'],
   standalone: true
 })
-export class MenuComponent implements AfterViewChecked {
+export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy{
   @ViewChild('messagesContainer')
   private messagesContainer!: ElementRef;
   @ViewChild('imageInput')
@@ -55,9 +57,42 @@ export class MenuComponent implements AfterViewChecked {
   showEmojiPicker: boolean = false;
   showDropdown: boolean = false;
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
+  websocketSubscription!: Subscription
 
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private websocketService: WebSocketService
+  ) { }
+
+  ngOnInit(): void {
+    const websocketUrl = 'ws://127.0.0.1:8000/ws/chat/lobby'; // Isso pode vir de uma variável, rota, ou backend
+
+    // Conectando ao WebSocket com a URL dinâmica
+    this.websocketService.connect(websocketUrl);
+
+    // Inscrevendo-se para receber mensagens do WebSocket
+    this.websocketSubscription = this.websocketService.onMessage().subscribe({
+      next: msg => {
+        const newMessage: IMessage = {
+          sender: 'Externo',
+          content: msg.message,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        this.choosenGroup.messages.push(newMessage); // Armazena as mensagens recebidas
+        console.log('Received message: ', msg); // Exibe no console a mensagem
+        console.log(newMessage); // Exibe no console a mensagem
+      },
+      error: error => console.error('WebSocket error:', error) // Tratamento de erro
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Desinscrevendo-se do Observable quando o componente é destruído
+    if (this.websocketSubscription) {
+      this.websocketSubscription.unsubscribe();
+    }
+  }
 
   chooseGroup(group: IGroup): void {
     this.choosenGroup = group;
@@ -92,6 +127,9 @@ export class MenuComponent implements AfterViewChecked {
         content: this.newMessageContent,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
+      this.websocketService.sendMessage({
+          'message': newMessage.content
+      });
       this.choosenGroup.messages.push(newMessage);
       this.newMessageContent = '';
     }
