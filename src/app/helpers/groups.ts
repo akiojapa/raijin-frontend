@@ -2,6 +2,7 @@ import { IGroup } from "../interfaces/groups";
 
 export const GROUPS: IGroup[] = [
   {
+    whats_id: '120363217209632703@g.us',
     name: 'Raijin Copilot 1',
     lastMessage: 'See you at dinner!',
     time: '18:30',
@@ -14,6 +15,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Alice', 'Bob', 'Charlie', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 2',
     lastMessage: 'Let\'s go to the movies!',
     time: '17:45',
@@ -26,6 +28,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Dave', 'Eve', 'Frank', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 3',
     lastMessage: 'Meeting at 10 AM',
     time: '09:00',
@@ -38,6 +41,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Grace', 'Heidi', 'Ivan', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 4',
     lastMessage: 'Workout at 6 AM?',
     time: '20:15',
@@ -50,6 +54,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Judy', 'Mallory', 'Niaj', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 5',
     lastMessage: 'Next meeting on Friday',
     time: '14:30',
@@ -62,6 +67,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Olivia', 'Peggy', 'Sybil', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 6',
     lastMessage: 'Tickets booked for Paris!',
     time: '11:00',
@@ -74,6 +80,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Trent', 'Victor', 'Walter', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 7',
     lastMessage: 'Game night at 8 PM',
     time: '19:45',
@@ -86,6 +93,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Xander', 'Yvonne', 'Zara', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 8',
     lastMessage: 'Recipe for tonight?',
     time: '16:20',
@@ -98,6 +106,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Alice', 'Bob', 'Charlie', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 9',
     lastMessage: 'Exam prep session tomorrow',
     time: '13:00',
@@ -110,6 +119,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Dave', 'Eve', 'Frank', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 10',
     lastMessage: 'Community meeting on Saturday',
     time: '10:30',
@@ -122,6 +132,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Grace', 'Heidi', 'Ivan', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 11',
     lastMessage: 'Practice session at 5 PM',
     time: '15:45',
@@ -134,6 +145,7 @@ export const GROUPS: IGroup[] = [
     participants: ['Judy', 'Mallory', 'Niaj', 'Usuário']
   },
   {
+    whats_id: '',
     name: 'Raijin Copilot 12',
     lastMessage: 'Event planning at 3 PM',
     time: '12:00',

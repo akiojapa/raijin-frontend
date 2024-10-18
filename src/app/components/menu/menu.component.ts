@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./menu.component.scss'],
   standalone: true
 })
-export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy{
+export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
   @ViewChild('messagesContainer')
   private messagesContainer!: ElementRef;
   @ViewChild('imageInput')
@@ -66,7 +66,8 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy{
   ) { }
 
   ngOnInit(): void {
-    const websocketUrl = 'ws://127.0.0.1:8000/ws/chat/lobby'; // Isso pode vir de uma variável, rota, ou backend
+    const conexao = this.choosenGroup.whats_id
+    const websocketUrl = `ws://127.0.0.1:8000/ws/chat?chat=${conexao}`; // Isso pode vir de uma variável, rota, ou backend
 
     // Conectando ao WebSocket com a URL dinâmica
     this.websocketService.connect(websocketUrl);
@@ -118,7 +119,7 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy{
   navigateTo(path: string) {
     console.log(path)
     this.router.navigate([path]);
-  } 
+  }
 
   sendMessage(): void {
     if (this.newMessageContent.trim()) {
@@ -127,9 +128,15 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy{
         content: this.newMessageContent,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
+
       this.websocketService.sendMessage({
-          'message': newMessage.content
+        'chat_id': this.choosenGroup.whats_id,
+        'from_number': '44997732694',
+        'content': newMessage.content,
+        'type': 'Text',
+        'received': false
       });
+
       this.choosenGroup.messages.push(newMessage);
       this.newMessageContent = '';
     }

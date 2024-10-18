@@ -1,14 +1,15 @@
 export interface IMessage {
-    sender: string;
-    content: string;
-    time: string;
-  }
-  
+  sender: string;
+  content: string;
+  time: string;
+}
+
 export interface IGroup {
-    name: string;
-    lastMessage: string;
-    time: string;
-    imageUrl: string;
-    messages: IMessage[];
-    participants: string[];
-  }
+  whats_id: string;
+  name: string;
+  lastMessage: string;
+  time: string;
+  imageUrl: string;
+  messages: IMessage[];
+  participants: string[];
+}
