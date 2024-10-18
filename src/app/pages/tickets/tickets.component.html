@@ -107,7 +107,7 @@
         </div>
         <div *ngIf="!showAddTicketDiv">
             <div class="d-flex align-items-center justify-content-end m-3 border-line">
-                <button class="btn btn-outline-warning mx-2 no-bg" (click)="navigateToPage('addTicket')">
+                <button class="btn btn-outline-warning mx-2 no-bg" (click)="toggleAddTicketDiv()">
                     <fa-icon [icon]="faPlus" class="fa-2x"></fa-icon>
                 </button>
                 <button class="btn btn-outline-warning no-bg">
@@ -116,67 +116,25 @@
             </div>
     
             <div class="table-responsive mt-4">
-                <table class="table table-dark">
-                    <thead>
-                        <tr (click)="toggleAddTicketDiv()">
-                            <th>ID</th>
-                            <th>Título</th>
-                            <th>Atendente</th>
-                            <th>Projeto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr (click)="navigateToPage('updateTicket')">
-                            <td>#2357</td>
-                            <td>Chat Teste</td>
-                            <td>Caio</td>
-                            <td>Projeto 1</td>
-                        </tr>
-                        <tr>
-                            <td>#1983</td>
-                            <td>Chat Teste</td>
-                            <td>Eduardo</td>
-                            <td>Projeto 12</td>
-                        </tr>
-                        <tr>
-                            <td>#2327</td>
-                            <td>Chat Teste</td>
-                            <td>João</td>
-                            <td>Projeto 49</td>
-                        </tr>
-                        <tr>
-                            <td>#4782</td>
-                            <td>Chat Teste</td>
-                            <td>Renan</td>
-                            <td>Projeto 9</td>
-                        </tr>
-                        <tr>
-                            <td>#1209</td>
-                            <td>Chat Teste</td>
-                            <td>Gustavo</td>
-                            <td>Projeto 3</td>
-                        </tr>
-                        <tr>
-                            <td>#1398</td>
-                            <td>Chat Teste</td>
-                            <td>Felipe</td>
-                            <td>Projeto 5</td>
-                        </tr>
-                        <tr>
-                            <td>#1367</td>
-                            <td>Chat Teste</td>
-                            <td>Lucas</td>
-                            <td>Projeto 2</td>
-                        </tr>
-                        <tr>
-                            <td>#4938</td>
-                            <td>Chat Teste</td>
-                            <td>Pedro</td>
-                            <td>Projeto 82</td>
-                        </tr>
-                    </tbody>
+                <table class="table table-dark table-striped table-hover">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Título</th>
+                      <th>Atendente</th>
+                      <th>Projeto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let chamado of chamados" (click)="navigateToPage()">
+                      <td>{{ chamado.id }}</td>
+                      <td>{{ chamado.titulo }}</td>
+                      <td>{{ chamado.atendente }}</td>
+                      <td>{{ chamado.projeto }}</td>
+                    </tr>
+                  </tbody>
                 </table>
-            </div>
+              </div>
             
             <div class="d-flex justify-content-center align-items-center mt-4">
                 <button class="btn btn-outline-warning no-bg">
@@ -197,22 +155,82 @@
 
         <div *ngIf="showAddTicketDiv">
             <div class="d-flex align-items-center justify-content-start m-3 border-line">
-                <button class="btn btn-outline-warning no-bg">
+                <button class="btn btn-outline-warning no-bg" (click)="toggleAddTicketDiv()">
                     <fa-icon [icon]="faArrowLeft" class="fa-2x me-4"></fa-icon>
                 </button>
                 <h4>Abertura de chamado</h4>
             </div>
             <form>
-                <div class="mb-3">
-                    <label for="ticketId" class="form-label">ID do Ticket</label>
-                    <input type="text" class="form-control" id="ticketId" placeholder="Insira o ID do Ticket">
+                <div class="row add-tickets">
+                    <div class="col-md-6 mb-3"> 
+                        <label for="ticketId" class="form-label">ID do Chamado</label>
+                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                            <input type="text" class="form-control fs-5" id="ticketId" value="gerado automaticamente" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="ticketProject" class="form-label">Projeto</label>
+                        <div class="input-group"> <!-- Mantenha input-group para o campo com ícone -->
+                            <input type="text" class="form-control fs-5" id="ticketProject" placeholder="Insira o Projeto">
+                            <span class="input-group-text no-bg input-icon">
+                                <fa-icon [icon]="faChevronDown"></fa-icon>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="ticketTitle" class="form-label">Título</label>
+                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                            <input type="text" class="form-control fs-5" id="ticketTitle" placeholder="Insira o Título do Ticket">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="ticketDate" class="form-label">Data</label>
+                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                            <input type="text" class="form-control fs-5" id="ticketDate" value="gerado automaticamente" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="ticketAttendant" class="form-label">Atendente</label>
+                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                            <input type="text" class="form-control fs-5" id="ticketAttendant" placeholder="Insira o Atendente">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="ticketDescription" class="form-label">Descrição</label>
+                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                            <input type="textarea" class="form-control fs-5 custom-textarea" id="ticketDescription" placeholder="Insira a Descrição" rows="4">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="ticketType" class="form-label">Tipos</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="ticketType" placeholder="Selecione o Tipo">
+                            <span class="input-group-text no-bg input-icon">
+                                <fa-icon [icon]="faChevronDown"></fa-icon>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="ticketSubtype" class="form-label">Subtipos</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="ticketSubtype" placeholder="Selecione o Subtipo">
+                            <span class="input-group-text no-bg input-icon">
+                                <fa-icon [icon]="faChevronDown"></fa-icon>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="ticketFiles" class="form-label">Arquivos</label>
+                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                            <input type="text" class="form-control fs-5" id="ticketFiles" placeholder="Insira os Arquivos">                            
+                            <span class="input-group-text no-bg input-icon">
+                                <fa-icon [icon]="faPaperclip" (click)="navigateToPage()"></fa-icon>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="ticketTitle" class="form-label">Título do Ticket</label>
-                    <input type="text" class="form-control" id="ticketTitle" placeholder="Insira o Título do Ticket">
-                </div>
-                <button type="submit" class="btn btn-warning">Adicionar Ticket</button>
-                <button type="button" class="btn btn-secondary ms-2" (click)="toggleAddTicketDiv()">Voltar</button>
+                
+                    <button type="submit" class="btn custom-btn float-end">Salvar</button>
             </form>
         </div>
     </div>

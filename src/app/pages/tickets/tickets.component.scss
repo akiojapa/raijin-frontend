@@ -57,7 +57,7 @@ input::placeholder {
 .footer-icon {
   font-size: 25px;
   margin-left: 10px;
-  cursor: pointer;
+  
 }
 
 .navbar-transform {
@@ -79,9 +79,9 @@ input::placeholder {
 }
 
 .header-tickets {
-    height: 59px;
-    width: 100%;
-    background-color:#121212;
+  height: 59px;
+  width: 100%;
+  background-color:#121212;
 }
 
 .divider-line {
@@ -148,4 +148,37 @@ input::placeholder {
   background-color: #333;
   border-radius: 8px;
   padding: 16px;
+}
+
+.add-tickets{
+  font-size: 22px;
+}
+
+fa-icon{
+  cursor: pointer;
+}
+
+.custom-textarea {
+  width: 100%; /* Faz com que o textarea ocupe toda a largura da coluna */
+  height: auto; /* A altura é automaticamente ajustada com base nas linhas */
+  background-color: transparent; /* Cor de fundo similar aos outros inputs */
+  color: #7D7D7D; /* Cor do texto */
+  border: 1px solid #7D7D7D; /* Cor da borda */
+  border-radius: 4px; /* Bordas arredondadas para combinar com o estilo dos outros campos */
+  padding: 10px; /* Espaçamento interno para um visual melhor */
+}
+
+.custom-textarea::placeholder {
+  color: #7D7D7D; /* Cor do texto do placeholder */
+  opacity: 0.7; /* Opacidade do placeholder */
+}
+
+.custom-btn {
+  background-color: #ffcc00; /* Cor de fundo personalizada */
+  color: #111010; /* Cor do texto */
+  border: none; /* Sem borda */
+}
+
+.custom-btn:hover {
+  background-color: #bf9c13; /* Cor ao passar o mouse */
 }

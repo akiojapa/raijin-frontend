@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt, faMagnifyingGlass, faCalendarDays, faChevronDown, faTicket, faPlus, faDownload, faAnglesRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt, faMagnifyingGlass, faCalendarDays, faChevronDown, faTicket, faPlus, faDownload, faAnglesRight, faArrowLeft, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { HeaderComponent } from "../../components/header/header.component";
 import { GROUPS } from "../../helpers/groups";
 import { PAGES } from "../../helpers/pages";
@@ -36,6 +36,7 @@ export class TicketsComponent {
   faDownload = faDownload;
   faAnglesRight =faAnglesRight
   faArrowLeft = faArrowLeft;
+  faPaperclip = faPaperclip;
   choosenGroup: IGroup = this.groups[0];
   newMessageContent: string = '';
   Router: any;
@@ -55,17 +56,8 @@ export class TicketsComponent {
     { id: '#4938', titulo: 'Chat Teste', atendente: 'Pedro', projeto: 'Projeto 82' },
   ];
 
-  navigateToPage(test: string) {
-    switch (test) {
-      case 'addTicket':
-        this.router.navigate(['/menu']);        
-        break;
-      case 'updateTicket':
-        this.router.navigate(['/login']);
-        break;
-      default:
-        break;
-    }
+  navigateToPage() {
+    alert('test');
   }
 
   toggleAddTicketDiv() {
