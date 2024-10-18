@@ -72,7 +72,7 @@ input[type="checkbox"]:checked::after {
 /* Estilos para input[type="text"] e input[type="password"] */
 input[type="text"], input[type="password"] {
     color:#7D7D7D;
-    font-size: 10px; /* Força o tamanho do texto digitado */
+    font-size: 16px; /* Força o tamanho do texto digitado */
     border: 1px solid #7D7D7D; /* Borda cinza */
     background-color: transparent; /* Fundo transparente */
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição */
@@ -82,7 +82,7 @@ input[type="text"], input[type="password"] {
 /* Estilos para o placeholder */
 input[type="text"]::placeholder, input[type="password"]::placeholder {
     color: #7D7D7D; /* Cor do placeholder */
-    font-size: 10px;
+    font-size: 16px;
 }
 
 /* Estilos quando o input está focado */

@@ -35,7 +35,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         opacity: 1
       })),
       state('collapsed', style({
-        transform: 'translateX(-100%)',
+        transform: 'translateX(100%)',
         opacity: 0
       })),
       transition('expanded <=> collapsed', [
@@ -155,13 +155,13 @@ export class MenuComponent implements AfterViewChecked {
       this.isCollapsed = !this.isCollapsed;
       setTimeout(() => {
         this.isFooterCollapsed = !this.isFooterCollapsed;
-      }, 400); // Define o tempo da animação da sidebar antes de abrir o footer
+      }, 200); // Define o tempo da animação da sidebar antes de abrir o footer
     } else {
       // Primeiro fecha o footer e depois abre a sidebar
       this.isFooterCollapsed = !this.isFooterCollapsed;
       setTimeout(() => {
         this.isCollapsed = !this.isCollapsed;
-      }, 400); // Define o tempo da animação do footer antes de abrir a sidebar
+      }, 100); // Define o tempo da animação do footer antes de abrir a sidebar
     }
   }
 

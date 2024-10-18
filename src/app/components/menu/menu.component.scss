@@ -138,10 +138,13 @@
   color: #f1f1f1
 }
 
+.footer-nav {
+  border-radius: 10px;
+}
+
 .navbar-transform {
   cursor: pointer;
   transition: transform 0.3s, background-color 0.5s;
-
 
   fa-icon {
     color: #FFA324;
@@ -219,6 +222,7 @@
   background-color: #f1f1f1;
   border-top: 1px solid #ddd;
   padding: 10px;
+  font-size: 20px;
 }
 
 .message-input-container .form-control {
@@ -231,7 +235,6 @@
 }
 
 .footer-icon {
-  font-size: 25px;
   margin-left: 10px;
   cursor: pointer;
 }
