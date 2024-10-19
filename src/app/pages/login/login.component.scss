@@ -1,0 +1,245 @@
+.login-col .card {
+    background-color: #1A1919;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1),
+        0 6px 20px rgba(0, 0, 0, 0.5);
+    border-color: #7D7D7D;
+}
+
+.custom-checkbox {
+    width: 12px;
+    height: 12px;
+    transform: scale(0.75);
+    margin-right: 5px;
+}
+
+.form-check-label {
+    padding: 0px !important;
+}
+
+label,
+p,
+a {
+    color: #C7B5B5;
+    font-size: 12px;
+}
+
+a.forgot-password {
+    color: #7D7D7D;
+    font-size: 10px
+}
+
+.card-body {
+    max-width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.image-logo img {
+    max-width: 50%;
+    height: auto;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.btn-principal {
+    width: 100%;
+}
+
+.help-button {
+    margin-left: 3px;
+    color: #C7B5B5;
+    font-size: 10px;
+}
+
+.icon {
+    color: #7D7D7D;
+    font-size: 10px;
+}
+
+.form-control {
+    height: auto;
+    box-sizing: border-box;
+}
+
+.input-group .btn-outline-secondary {
+    padding: 0.375rem 0.75rem; 
+    display: flex;
+    align-items: center;
+}
+
+.input-group-text .fa-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.login-apresentation {
+    background: linear-gradient(180deg, #FFA324 23%, #B8BDBE 85%);
+}
+
+.login-apresentation .card {
+    width: 100%; 
+    max-width: 700px; 
+    margin: auto; 
+    background: none;
+    border: none;
+    padding: 20px;
+    box-shadow: none;
+}
+
+.line {
+    position: relative;
+}
+
+.line::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 15%; 
+    border-bottom: 3px solid #1A1919;
+}
+
+.company-logo-name {
+    bottom: 10px;
+    left: 20px;
+    display: flex;    
+    align-items: center;
+    color: #7D7D7D;
+}
+
+.company-logo-name img.logo-footer {
+    max-width: 6%; 
+    height: auto;
+}
+
+.company-logo-name .company-name {
+    margin-left: 10px; 
+    font-size: 1rem;
+    text-align: left; 
+}
+
+@media (max-width: 768px) {
+    .company-logo-name {
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .company-logo-name img.logo-footer {
+        max-width: 50px; 
+    }
+
+    .company-logo-name .company-name {
+        font-size: 0.9rem;
+        margin-left: 8px; 
+    }
+}
+
+.feedback-card {    
+    position: relative;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    background: #dfdddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 2; 
+}
+
+::ng-deep button.p-ripple.p-element{
+    background: none !important;
+    border: none;
+
+    svg{
+        color: #2c2b2b;
+        height: 30px;
+        width: 30px;
+    }
+}
+
+.feedback-quote {
+    font-style: italic;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.feedback-author {
+    font-weight: bold;
+    color: #666;
+    font-size: 1em; 
+    align-self: flex-start; 
+}
+
+@media (max-width: 768px) {
+    .login-apresentation .card {
+        max-width: 90%; 
+        padding: 10px; 
+    }
+
+    .feedback-card {
+        padding: 15px; 
+    }
+
+    .feedback-quote {
+        font-size: 14px; 
+        line-height: 1.4;
+    }
+
+    .feedback-author {
+        font-size: 0.9em; 
+    }
+}
+
+@media (max-width: 576px) {
+    .login-apresentation .card {
+        max-width: 100%; 
+        padding: 5px; 
+    }
+
+    .feedback-card {
+        padding: 10px; 
+    }
+
+    .feedback-quote {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    .feedback-author {
+        font-size: 0.8em; 
+    }
+}
+
+.feedback-image {
+    position: absolute;
+    bottom: -40px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 100%;
+    max-width: 55vh;
+    z-index: 1; 
+}
+
+.feedback-image img {
+    width: 100%; 
+    height: auto; 
+}
+
+@media (max-width: 768px) {
+    .feedback-image {
+        max-width: 10vh; 
+    }
+}

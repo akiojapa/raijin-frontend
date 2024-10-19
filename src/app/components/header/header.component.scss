@@ -1,0 +1,61 @@
+// Header
+.header {
+    height: 8vh;
+    width: 100%;
+    background-color: #121212;
+}
+
+.configurations{
+    font-size: 35px;
+    margin-right: 20px;
+    color: #FFA324;
+    cursor: pointer;
+}
+
+.user-details {
+    margin-left: 10px;
+
+    h5 {
+        font-size: 1.25rem;
+        color: #FFA324;
+        margin-bottom: 0;
+    }
+
+    p {
+        font-size: 0.875rem;
+        color: #C7B5B5;
+        margin-top: 0;
+    }
+}
+
+.user-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #FFA324;
+    margin-left: 10px;
+}
+// Fim header
+
+.dropdown-menu-config {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    z-index: 1000;
+  }
+  
+  .dropdown-item-config {
+    padding: 10px;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .dropdown-item-config:hover {
+    background-color: #f0f0f0;
+  }

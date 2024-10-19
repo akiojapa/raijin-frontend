@@ -1,0 +1,151 @@
+<div class="row h-100 mt-2">
+  <div class="col-lg-4 menu">
+    <div class="d-flex justify-content-between flex-column">
+
+      <div class="header flex-row mb-3">
+        <app-header></app-header>
+      </div>
+
+      <!-- Componente de Chat -->
+      <div class="d-flex justify-content-between p-2">
+        <input type="text" class="form-control" placeholder="Pesquise por um grupo ou palavra-chave">
+        <fa-icon [icon]="faSquarePlus" class="search-icon"></fa-icon>
+      </div>
+
+      <div class="row chat-nav p-2">
+        <div *ngFor="let group of groups" class="chat-group p-2 mb-3">
+          <div class="d-flex justify-content-between" (click)="chooseGroup(group)">
+            <div class="d-flex align-items-center">
+              <img [src]="group.imageUrl" alt="Logo" class="user user-image">
+              <div class="user-details d-flex flex-column mt-3">
+                <h5 class="d-flex align-items-center">{{group.name}}</h5>
+                <p class="small"> {{group.lastMessage}}</p>
+              </div>
+            </div>
+            <div class="user-details">
+              <small class="align-items-start">{{ group.time }}</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- Componente de Chat -->
+
+      <div class="footer mt-auto w-100 bottom-0">
+        <div class="d-flex w-100">
+          <div class="col-lg-10 d-flex align-items-center justify-content-start">
+            <div *ngFor="let page of pages; let i = index"
+            [ngClass]="{'selected': isSelected(page)}"
+            (click)="navigateTo(page.path)"
+            class="h-100 d-flex justify-content-center align-items-center px-3">
+              <fa-icon 
+              [icon]="page.icon"
+              class="footer-icon">
+            </fa-icon>
+            </div>
+          </div>
+
+          <div class="col-lg-2 p-3 d-flex justify-content-center align-items-center navbar-transform">
+            <fa-icon [icon]="faAnglesLeft"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8 d-flex flex-column h-100">
+      <!-- Componente de Chat(Header) -->
+  
+    <div class="header d-flex justify-content-center align-items-center">
+      <div class="d-flex justify-content-between w-100">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- Imagem e nome do grupo -->
+          <img [src]="choosenGroup.imageUrl" alt="Logo" class="user user-image">
+          <div class="user-details d-flex flex-column mt-3">
+            <h5 class="d-flex align-items-center">{{ choosenGroup.name }}</h5>
+            <p class="small">{{ choosenGroup.participants.join(', ') }}</p>
+          </div>
+        </div>
+
+        <!-- Ícone de três pontos com dropdown -->
+        <div class="d-flex justify-content-center align-items-center position-relative">
+          <fa-icon [icon]="faEllipsisV" class="manager-icon" (click)="toggleDropdownMenu($event)"></fa-icon>
+
+          <!-- Dropdown de opções -->
+          <div *ngIf="showDropdownMenu" class="dropdown-menu-manager">
+            <div class="dropdown-item-manager" (click)="openGroupInfo()">Informações do Grupo</div>
+            <div class="dropdown-item-manager" (click)="muteGroup()">Silenciar Grupo</div>
+            <div class="dropdown-item-manager" (click)="openCall()">Abrir Chamado</div>
+            <div class="dropdown-item-manager" (click)="exitGroup()">Sair do Grupo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Componente de Chat(Header) -->
+
+<!-- Componente de Chat(Body) -->
+    <div class="messages-container p-3 flex-grow-1" #messagesContainer>
+      <div *ngFor="let message of choosenGroup.messages" class="d-flex mb-2 w-100"
+        [ngStyle]="{'justify-content': message.sender === 'Usuário' ? 'end' : 'start'}">
+        <div class="message"
+          [ngClass]="{'sent': message.sender === 'Usuário', 'received': message.sender !== 'Usuário'}">
+          <div class="d-flex justify-content-between">
+            <strong>{{ message.sender }}</strong>
+            <small>{{ message.time }}</small>
+          </div>
+          <p>{{ message.content }}</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="footer mt-5 w-100 p-3 bottom-0">
+      <div class="d-flex w-100 row align-items-center">
+        <!-- Ícone de Smile com evento de clique -->
+        <div class="col-lg-1 position-relative">
+          <fa-icon [icon]="faSmile" class="footer-icon" (click)="toggleEmojiPicker()"></fa-icon>
+
+          <!-- Dropdown de Emojis -->
+          <div *ngIf="showEmojiPicker" class="emoji-picker">
+            <div class="emoji" *ngFor="let emoji of emojis" (click)="addEmoji(emoji)">
+              {{ emoji }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-1 position-relative">
+          <fa-icon [icon]="faPlus" class="footer-icon" (click)="toggleDropdown()"></fa-icon>
+
+          <!-- Dropdown de opções de envio -->
+          <div *ngIf="showDropdown" class="dropdown-menu">
+            <div class="dropdown-item" (click)="triggerFileInput('image')">
+              <fa-icon [icon]="faImage"></fa-icon> Enviar Imagem
+            </div>
+            <div class="dropdown-item" (click)="triggerFileInput('file')">
+              <fa-icon [icon]="faFile"></fa-icon> Enviar Arquivo
+            </div>
+          </div>
+          <!-- Ícone de adicionar (para abrir o dropdown) -->
+
+          <!-- Inputs de arquivos ocultos -->
+          <input type="file" #imageInput accept="image/*" (change)="handleFileInput($event, 'image')"
+            style="display: none;">
+          <input type="file" #fileInput (change)="handleFileInput($event, 'file')" style="display: none;">
+        </div>
+
+        <!-- Input de mensagem -->
+        <div class="col-lg-9 d-flex align-items-center">
+          <input type="text" class="form-control" [(ngModel)]="newMessageContent" placeholder="Digite sua mensagem...">
+        </div>
+
+        <!-- Ícone de enviar mensagem -->
+        <div class="col-lg-1">
+          <fa-icon [icon]="faPaperPlane" class="footer-icon" (click)="sendMessage()"></fa-icon>
+        </div>
+
+      </div>
+    </div>
+<!-- Componente de Chat(Body) -->
+ 
+  </div>
+</div>
