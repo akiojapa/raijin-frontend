@@ -107,10 +107,10 @@
         </div>
         <div *ngIf="!showAddTicketDiv">
             <div class="d-flex align-items-center justify-content-end m-3 border-line">
-                <button class="btn btn-outline-warning mx-2 no-bg" (click)="toggleAddTicketDiv()">
+                <button class="btn btn-outline-warning mx-2 no-bg ticket-btn" (click)="toggleAddTicketDiv()">
                     <fa-icon [icon]="faPlus" class="fa-2x"></fa-icon>
                 </button>
-                <button class="btn btn-outline-warning no-bg">
+                <button class="btn btn-outline-warning no-bg ticket-btn">
                     <fa-icon [icon]="faDownload" class="fa-2x"></fa-icon>
                 </button>
             </div>
@@ -137,7 +137,7 @@
               </div>
             
             <div class="d-flex justify-content-center align-items-center mt-4">
-                <button class="btn btn-outline-warning no-bg">
+                <button class="btn btn-outline-warning no-bg ticket-btn">
                     <fa-icon [icon]="faAnglesLeft"></fa-icon>
                 </button>
             
@@ -147,7 +147,7 @@
                 <span class="mx-2 no-bg">...</span>
                 <button class="btn btn-outline-warning mx-1 no-bg page-number">7</button>
             
-                <button class="btn btn-outline-warning no-bg">
+                <button class="btn btn-outline-warning no-bg ticket-btn">
                     <fa-icon [icon]="faAnglesRight"></fa-icon>
                 </button>
             </div>
@@ -155,50 +155,60 @@
 
         <div *ngIf="showAddTicketDiv">
             <div class="d-flex align-items-center justify-content-start m-3 border-line">
-                <button class="btn btn-outline-warning no-bg" (click)="toggleAddTicketDiv()">
-                    <fa-icon [icon]="faArrowLeft" class="fa-2x me-4"></fa-icon>
+                <button class="btn btn-outline-warning no-bg ticket-btn" (click)="toggleAddTicketDiv()">
+                    <fa-icon [icon]="faArrowLeft" class="fa-2x"></fa-icon>
                 </button>
-                <h4>Abertura de chamado</h4>
+                <h4 class="ms-2">Abertura de chamado</h4>
             </div>
             <form>
                 <div class="row add-tickets">
                     <div class="col-md-6 mb-3"> 
                         <label for="ticketId" class="form-label">ID do Chamado</label>
-                        <div class="input-group"> <!-- Adicione input-group aqui -->
-                            <input type="text" class="form-control fs-5" id="ticketId" value="gerado automaticamente" readonly>
+                        <div class="input-group"> 
+                            <input type="text" class="form-control fs-5" id="ticketId" placeholder="gerado automaticamente" readonly>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="ticketProject" class="form-label">Projeto</label>
-                        <div class="input-group"> <!-- Mantenha input-group para o campo com ícone -->
+                        <div class="input-group"> 
                             <input type="text" class="form-control fs-5" id="ticketProject" placeholder="Insira o Projeto">
-                            <span class="input-group-text no-bg input-icon">
+                            <div class="input-group-text no-bg input-icon" (click)="toggleDropdownMenu($event)">
                                 <fa-icon [icon]="faChevronDown"></fa-icon>
-                            </span>
+
+                                <div *ngIf="showDropdownMenu" class="dropdown-menu-manager">
+                                    <div class="dropdown-item-manager">Projeto 1</div>
+                                    <div class="dropdown-item-manager">Projeto 1</div>
+                                    <div class="dropdown-item-manager">Projeto 1</div>
+                                    <div class="dropdown-item-manager">Projeto 1</div>
+                                  </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ticketTitle" class="form-label">Título</label>
-                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                        <div class="input-group"> 
                             <input type="text" class="form-control fs-5" id="ticketTitle" placeholder="Insira o Título do Ticket">
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ticketDate" class="form-label">Data</label>
-                        <div class="input-group"> <!-- Adicione input-group aqui -->
-                            <input type="text" class="form-control fs-5" id="ticketDate" value="gerado automaticamente" readonly>
+                        <div class="input-group"> 
+                            <input type="text" class="form-control fs-5" id="ticketDate" placeholder="gerado automaticamente" readonly>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ticketAttendant" class="form-label">Atendente</label>
-                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                        <div class="input-group"> 
                             <input type="text" class="form-control fs-5" id="ticketAttendant" placeholder="Insira o Atendente">
+                            <div class="input-group-text no-bg input-icon">
+                                <fa-icon [icon]="faChevronDown"></fa-icon>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="ticketDescription" class="form-label">Descrição</label>
-                        <div class="input-group"> <!-- Adicione input-group aqui -->
-                            <input type="textarea" class="form-control fs-5 custom-textarea" id="ticketDescription" placeholder="Insira a Descrição" rows="4">
+                        <div class="input-group">
+                            <textarea class="form-control fs-5 custom-textarea" placeholder="Insira a Descrição" rows="3"></textarea>                            
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -221,15 +231,27 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ticketFiles" class="form-label">Arquivos</label>
-                        <div class="input-group"> <!-- Adicione input-group aqui -->
+                        <div class="input-group"> 
                             <input type="text" class="form-control fs-5" id="ticketFiles" placeholder="Insira os Arquivos">                            
-                            <span class="input-group-text no-bg input-icon">
-                                <fa-icon [icon]="faPaperclip" (click)="navigateToPage()"></fa-icon>
-                            </span>
+                            <div class="col-lg-1 position-relative input-group-text no-bg input-icon">
+                                <fa-icon [icon]="faPaperclip" (click)="toggleDropdown()"></fa-icon>
+
+                                <div *ngIf="showDropdown" class="dropdown-menu">
+                                    <div class="dropdown-item" (click)="triggerFileInput('image')">
+                                      <fa-icon [icon]="faImage"></fa-icon> Enviar Imagem
+                                    </div>
+                                    <div class="dropdown-item" (click)="triggerFileInput('file')">
+                                      <fa-icon [icon]="faFile"></fa-icon> Enviar Arquivo
+                                    </div>
+                                </div>
+
+                                <input type="file" #imageInput accept="image/*" (change)="handleFileInput($event, 'image')"
+                                style="display: none;">
+                              <input type="file" #fileInput (change)="handleFileInput($event, 'file')" style="display: none;">
+                            </div>
                         </div>
                     </div>
-                </div>
-                
+                </div>                
                     <button type="submit" class="btn custom-btn float-end">Salvar</button>
             </form>
         </div>

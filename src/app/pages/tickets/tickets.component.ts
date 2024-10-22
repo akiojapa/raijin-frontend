@@ -1,8 +1,13 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, ElementRef, HostListener, ViewChild } from "@angular/core";
 import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { faSquarePlus, faComment, faUser, faCog, faAnglesLeft, faSignInAlt, faMagnifyingGlass, faCalendarDays, faChevronDown, faTicket, faPlus, faDownload, faAnglesRight, faArrowLeft, faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { 
+  faSquarePlus, faComment, faUser, faCog, 
+  faAnglesLeft, faSignInAlt, faMagnifyingGlass, faCalendarDays, 
+  faChevronDown, faTicket, faPlus, faDownload, faAnglesRight, 
+  faArrowLeft, faPaperclip, faImage, faFile
+} from "@fortawesome/free-solid-svg-icons";
 import { HeaderComponent } from "../../components/header/header.component";
 import { GROUPS } from "../../helpers/groups";
 import { PAGES } from "../../helpers/pages";
@@ -19,6 +24,11 @@ import { Router } from '@angular/router';
   styleUrl: './tickets.component.scss'
 })
 export class TicketsComponent {
+  @ViewChild('imageInput')
+  imageInput!: ElementRef;
+  @ViewChild('fileInput')
+  fileInput!: ElementRef;
+  
   pages: IPages[] = PAGES;
   groups: IGroup[] = GROUPS;
 
@@ -37,10 +47,14 @@ export class TicketsComponent {
   faAnglesRight =faAnglesRight
   faArrowLeft = faArrowLeft;
   faPaperclip = faPaperclip;
+  faImage = faImage;
+  faFile = faFile;
   choosenGroup: IGroup = this.groups[0];
   newMessageContent: string = '';
   Router: any;
   showAddTicketDiv = false;
+  showDropdownMenu: boolean = false;
+  showDropdown: boolean = false;
 
   
   constructor(private fb: FormBuilder, private router: Router) {}
@@ -62,6 +76,62 @@ export class TicketsComponent {
 
   toggleAddTicketDiv() {
     this.showAddTicketDiv = !this.showAddTicketDiv;
+  }
+
+  toggleDropdownMenu(event: Event) {
+    this.showDropdownMenu = !this.showDropdownMenu;
+    this.showDropdown = false
+    event.stopPropagation(); // Evita que o clique no ícone feche o dropdown
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event) {
+    this.showDropdownMenu = false;
+  }
+
+  toggleDropdown() {    
+    this.showDropdown = !this.showDropdown;
+  }
+
+  // Dispara o campo de seleção de arquivo
+  triggerFileInput(type: string) {
+    if (type === 'image') {
+      this.imageInput.nativeElement.click();
+    } else if (type === 'file') {
+      this.fileInput.nativeElement.click();
+    }
+  }
+
+  // Lida com a seleção de arquivo
+  handleFileInput(event: any, type: string) {
+    const file = event.target.files[0];
+    if (file) {
+      if (type === 'image') {
+        this.uploadImage(file);
+      } else if (type === 'file') {
+        this.uploadFile(file);
+      }
+    }
+  }
+
+  // Lógica para upload de imagem
+  uploadImage(file: File) {
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    // Exemplo de upload (substituir com sua lógica de envio para o backend)
+    console.log('Uploading image:', file.name);
+    // Enviar o formData para o servidor
+  }
+
+  // Lógica para upload de arquivo genérico
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    // Exemplo de upload (substituir com sua lógica de envio para o backend)
+    console.log('Uploading file:', file.name);
+    // Enviar o formData para o servidor
   }
 
 }
