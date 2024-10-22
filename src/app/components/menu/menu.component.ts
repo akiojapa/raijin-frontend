@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { PAGES } from '../../helpers/pages';
 import { IPages } from '../../interfaces/pages';
 import { IGroup, IMessage } from '../../interfaces/groups';
@@ -19,6 +19,7 @@ import { GROUPS } from '../../helpers/groups';
 import { Router } from '@angular/router';
 import { WebSocketService } from '../../services/webhook.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ConfigService } from '../../services/config.service';
 
 
 @Component({
@@ -62,27 +63,27 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private websocketService: WebSocketService
+    private websocketService: WebSocketService,
+    private http: ConfigService,
+    @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit(): void {
-    const conexao = this.choosenGroup.whats_id
-    const websocketUrl = `ws://127.0.0.1:8000/ws/chat?chat=${conexao}`; // Isso pode vir de uma variável, rota, ou backend
+    const websocketUrl = `ws://127.0.0.1:8000/ws/chat`; // Isso pode vir de uma variável, rota, ou backend
 
     // Conectando ao WebSocket com a URL dinâmica
     this.websocketService.connect(websocketUrl);
 
     // Inscrevendo-se para receber mensagens do WebSocket
     this.websocketSubscription = this.websocketService.onMessage().subscribe({
-      next: msg => {
+      next: data => {
         const newMessage: IMessage = {
-          sender: 'Externo',
-          content: msg.message,
+          sender: data['name'] ?? 'Externo',
+          content: data.message,
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
-        this.choosenGroup.messages.push(newMessage); // Armazena as mensagens recebidas
-        console.log('Received message: ', msg); // Exibe no console a mensagem
-        console.log(newMessage); // Exibe no console a mensagem
+        this.groups.find(item => item.whats_id === data.chat)?.messages.push(newMessage)
+        console.log(data); // Exibe no console a mensagem
       },
       error: error => console.error('WebSocket error:', error) // Tratamento de erro
     });
@@ -129,12 +130,17 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
 
+      const url = this.document.location.hostname
+      const domains = url.split('.')
+      const company = domains.length > 1 ? `${domains[0]}` : ''
+
       this.websocketService.sendMessage({
         'chat_id': this.choosenGroup.whats_id,
         'from_number': '44997732694',
         'content': newMessage.content,
         'type': 'Text',
-        'received': false
+        'received': false,
+        'company': company
       });
 
       this.choosenGroup.messages.push(newMessage);

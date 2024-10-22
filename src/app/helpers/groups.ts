@@ -2,8 +2,8 @@ import { IGroup } from "../interfaces/groups";
 
 export const GROUPS: IGroup[] = [
   {
-    whats_id: '120363217209632703@g.us',
-    name: 'Raijin Copilot 1',
+    whats_id: '120363333152450709@g.us',
+    name: 'Teste',
     lastMessage: 'See you at dinner!',
     time: '18:30',
     imageUrl: 'https://picsum.photos/200?random=1',
@@ -15,15 +15,15 @@ export const GROUPS: IGroup[] = [
     participants: ['Alice', 'Bob', 'Charlie', 'Usuário']
   },
   {
-    whats_id: '',
-    name: 'Raijin Copilot 2',
+    whats_id: '120363217209632703@g.us',
+    name: 'Raijin Group - 06',
     lastMessage: 'Let\'s go to the movies!',
     time: '17:45',
     imageUrl: 'https://picsum.photos/200?random=2',
     messages: [
-      { sender: 'Dave', content: 'Let\'s go to the movies! KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', time: '17:45' },
-      { sender: 'Eve', content: 'I\'m in!', time: '17:46' },
-      { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
+      // { sender: 'Dave', content: 'Let\'s go to the movies! KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', time: '17:45' },
+      // { sender: 'Eve', content: 'I\'m in!', time: '17:46' },
+      // { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
     ],
     participants: ['Dave', 'Eve', 'Frank', 'Usuário']
   },
