@@ -11,7 +11,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Bob', content: 'Sure, see you!', time: '18:31' },
       { sender: 'Usuário', content: 'I will be there!', time: '18:32' }
     ],
-    participants: ['Alice', 'Bob', 'Charlie', 'Usuário']
+    participants: ['Alice', 'Bob', 'Charlie', 'Usuário'],
+    priority: 4
   },
   {
     name: 'Raijin Copilot 2',
@@ -23,7 +24,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Eve', content: 'I\'m in!', time: '17:46' },
       { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
     ],
-    participants: ['Dave', 'Eve', 'Frank', 'Usuário']
+    participants: ['Dave', 'Eve', 'Frank', 'Usuário'],
+    priority: 2
   },
   {
     name: 'Raijin Copilot 3',
@@ -35,7 +37,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Heidi', content: 'Got it!', time: '09:01' },
       { sender: 'Usuário', content: 'I will join!', time: '09:02' }
     ],
-    participants: ['Grace', 'Heidi', 'Ivan', 'Usuário']
+    participants: ['Grace', 'Heidi', 'Ivan', 'Usuário'],
+    priority: 3
   },
   {
     name: 'Raijin Copilot 4',
@@ -47,7 +50,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Mallory', content: 'Sounds good!', time: '20:16' },
       { sender: 'Usuário', content: 'I will be there!', time: '20:17' }
     ],
-    participants: ['Judy', 'Mallory', 'Niaj', 'Usuário']
+    participants: ['Judy', 'Mallory', 'Niaj', 'Usuário'],
+    priority: 3
   },
   {
     name: 'Raijin Copilot 5',
@@ -59,7 +63,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Peggy', content: 'Okay!', time: '14:31' },
       { sender: 'Usuário', content: 'I will be there!', time: '14:32' }
     ],
-    participants: ['Olivia', 'Peggy', 'Sybil', 'Usuário']
+    participants: ['Olivia', 'Peggy', 'Sybil', 'Usuário'],
+    priority: 4
   },
   {
     name: 'Raijin Copilot 6',
@@ -71,7 +76,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Victor', content: 'Can\'t wait!', time: '11:01' },
       { sender: 'Usuário', content: 'Excited!', time: '11:02' }
     ],
-    participants: ['Trent', 'Victor', 'Walter', 'Usuário']
+    participants: ['Trent', 'Victor', 'Walter', 'Usuário'],
+    priority: 3
   },
   {
     name: 'Raijin Copilot 7',
@@ -83,7 +89,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Yvonne', content: 'I\'ll be there!', time: '19:46' },
       { sender: 'Usuário', content: 'Count me in!', time: '19:47' }
     ],
-    participants: ['Xander', 'Yvonne', 'Zara', 'Usuário']
+    participants: ['Xander', 'Yvonne', 'Zara', 'Usuário'],
+    priority: 2
   },
   {
     name: 'Raijin Copilot 8',
@@ -95,7 +102,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Bob', content: 'I have a great one!', time: '16:21' },
       { sender: 'Usuário', content: 'Can\'t wait to try it!', time: '16:22' }
     ],
-    participants: ['Alice', 'Bob', 'Charlie', 'Usuário']
+    participants: ['Alice', 'Bob', 'Charlie', 'Usuário'],
+    priority: 2
   },
   {
     name: 'Raijin Copilot 9',
@@ -107,7 +115,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Eve', content: 'Let\'s do it!', time: '13:01' },
       { sender: 'Usuário', content: 'I will join!', time: '13:02' }
     ],
-    participants: ['Dave', 'Eve', 'Frank', 'Usuário']
+    participants: ['Dave', 'Eve', 'Frank', 'Usuário'],
+    priority: 1
   },
   {
     name: 'Raijin Copilot 10',
@@ -119,7 +128,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Heidi', content: 'I\'ll be there!', time: '10:31' },
       { sender: 'Usuário', content: 'Looking forward to it!', time: '10:32' }
     ],
-    participants: ['Grace', 'Heidi', 'Ivan', 'Usuário']
+    participants: ['Grace', 'Heidi', 'Ivan', 'Usuário'],
+    priority: 4
   },
   {
     name: 'Raijin Copilot 11',
@@ -131,7 +141,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Mallory', content: 'Got it!', time: '15:46' },
       { sender: 'Usuário', content: 'I will be there!', time: '15:47' }
     ],
-    participants: ['Judy', 'Mallory', 'Niaj', 'Usuário']
+    participants: ['Judy', 'Mallory', 'Niaj', 'Usuário'],
+    priority: 3
   },
   {
     name: 'Raijin Copilot 12',
@@ -143,6 +154,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Peggy', content: 'Sounds good!', time: '12:01' },
       { sender: 'Usuário', content: 'I will join!', time: '12:02' }
     ],
-    participants: ['Olivia', 'Peggy', 'Sybil', 'Usuário']
+    participants: ['Olivia', 'Peggy', 'Sybil', 'Usuário'], 
+    priority: 4
   }
 ];
