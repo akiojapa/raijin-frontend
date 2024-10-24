@@ -127,7 +127,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let chamado of chamados" (click)="viewTicket(chamado)">
+                        <tr *ngFor="let chamado of chamados" (click)="manageDisplay('viewTicket', chamado)">
                             <td>{{ chamado.id }}</td>
                             <td>{{ chamado.titulo }}</td>
                             <td>{{ chamado.atendente }}</td>
@@ -162,7 +162,7 @@
                 <h4 class="ms-2">Abertura de chamado</h4>
             </div>
             <form>
-                <div class="row add-tickets">
+                <div class="row add-tickets" >
                     <!-- Campos para Abertura de Chamado -->
                     <div class="col-md-6 mb-3">
                         <label for="ticketId" class="form-label">ID do Chamado</label>
@@ -241,7 +241,7 @@
                 </div>
             </form>
             <div>
-                <button type="submit" class="btn custom-btn float-end" (click)="toggleViewTicketDiv()">Salvar</button>
+                <button type="submit" class="btn custom-btn float-end" (click)="manageDisplay('filter')">Salvar</button>
             </div>
         </div>
         
@@ -313,7 +313,7 @@
                 </div>
             </form>
             <div>
-                <button type="submit" class="btn custom-btn float-end" (click)="toggleViewTicketDiv()">Salvar</button>
+                <button type="submit" class="btn custom-btn float-end" (click)="manageDisplay('filter')">Salvar</button>
             </div>
         </div>
     </div>

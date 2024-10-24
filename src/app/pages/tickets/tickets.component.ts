@@ -52,15 +52,13 @@ export class TicketsComponent {
   choosenGroup: IGroup = this.groups[0];
   newMessageContent: string = '';
 
-  // Controle de visibilidade das divs
   showFilterTicketDiv = true;
   showAddTicketDiv = false;
-  showViewTicketDiv = false; // Nova propriedade para visualizar tickets
+  showViewTicketDiv = false;
   updateTicketDiv = false;
   showDropdownMenu: boolean = false;
   showDropdown: boolean = false;
 
-  // Chamados e chamado selecionado para visualização
   chamados = [
     { id: '#2357', titulo: 'Chat Teste', atendente: 'Caio', projeto: 'Projeto 1', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
     { id: '#1983', titulo: 'Chat Teste', atendente: 'Eduardo', projeto: 'Projeto 12', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
@@ -72,39 +70,50 @@ export class TicketsComponent {
     { id: '#4938', titulo: 'Chat Teste', atendente: 'Pedro', projeto: 'Projeto 82', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
   ];
 
-  selectedTicket: any; // Para armazenar o chamado selecionado
+  selectedTicket: any;
 
   constructor(private fb: FormBuilder, private router: Router) {}
+
+  manageDisplay(view: string, chamado?: any) {
+    this.showFilterTicketDiv = false;
+    this.showAddTicketDiv = false;
+    this.showViewTicketDiv = false;
+    this.updateTicketDiv = false;
+
+    switch (view) {
+      case 'addTicket':
+        this.showAddTicketDiv = true;
+        break;
+      case 'viewTicket':
+        this.showViewTicketDiv = true;
+        this.selectedTicket = chamado;
+        break;
+      case 'updateTicket':
+        this.updateTicketDiv = true;
+        this.newMessageContent = `Detalhes do chamado: ${chamado?.titulo}`;
+        break;
+      default:
+        this.showFilterTicketDiv = true;
+        break;
+    }
+  }
 
   toggleAddTicketDiv() {
     this.showAddTicketDiv = !this.showAddTicketDiv;
     this.showFilterTicketDiv = !this.showFilterTicketDiv;
-    this.showViewTicketDiv = false; // Esconder a visualização ao abrir um chamado
+    this.showViewTicketDiv = false; 
   }
 
   toggleViewTicketDiv() {
     this.showViewTicketDiv = !this.showViewTicketDiv;
-    this.showFilterTicketDiv = !this.showFilterTicketDiv; // Esconder o filtro ao visualizar um chamado
-    this.showAddTicketDiv = false; // Esconder a abertura de chamado ao visualizar
-  }
-
-  // Método para visualizar um chamado
-  viewTicket(chamado: any) {
-    this.selectedTicket = chamado; // Armazena o chamado selecionado
-    this.toggleViewTicketDiv(); // Alterna para a visualização do chamado
-  }
-
-  toggleUpdateTicketDiv(chamado: any) {
-    this.showFilterTicketDiv = !this.showFilterTicketDiv;
-    this.showAddTicketDiv = !this.showAddTicketDiv;
-    this.updateTicketDiv = !this.updateTicketDiv;
-    this.newMessageContent = `Detalhes do chamado: ${chamado.titulo}`;
+    this.showFilterTicketDiv = !this.showFilterTicketDiv; 
+    this.showAddTicketDiv = false; 
   }
 
   toggleDropdownMenu(event: Event) {
     this.showDropdownMenu = !this.showDropdownMenu;
     this.showDropdown = false;
-    event.stopPropagation(); // Evita que o clique no ícone feche o dropdown
+    event.stopPropagation(); 
   }
 
   @HostListener('document:click', ['$event'])
@@ -116,7 +125,6 @@ export class TicketsComponent {
     this.showDropdown = !this.showDropdown;
   }
 
-  // Dispara o campo de seleção de arquivo
   triggerFileInput(type: string) {
     if (type === 'image') {
       this.imageInput.nativeElement.click();
@@ -125,7 +133,6 @@ export class TicketsComponent {
     }
   }
 
-  // Lida com a seleção de arquivo
   handleFileInput(event: any, type: string) {
     const file = event.target.files[0];
     if (file) {
@@ -137,23 +144,17 @@ export class TicketsComponent {
     }
   }
 
-  // Lógica para upload de imagem
   uploadImage(file: File) {
     const formData = new FormData();
     formData.append('image', file);
     
-    // Exemplo de upload (substituir com sua lógica de envio para o backend)
     console.log('Uploading image:', file.name);
-    // Enviar o formData para o servidor
   }
 
-  // Lógica para upload de arquivo genérico
   uploadFile(file: File) {
     const formData = new FormData();
     formData.append('file', file);
     
-    // Exemplo de upload (substituir com sua lógica de envio para o backend)
     console.log('Uploading file:', file.name);
-    // Enviar o formData para o servidor
   }
 }
