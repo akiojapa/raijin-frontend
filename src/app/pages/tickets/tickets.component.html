@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-between flex-column">
+        <div *ngIf="showFilterTicketDiv" class="d-flex justify-content-between flex-column">
             <h2 class="tickets-filter mx-3 mb-2">Gestão de Chamados</h2>
             <form class="mt-3 filter-nav">
                 <div class="row ms-2 form-group align-items-center">
@@ -81,16 +81,16 @@
                 </div>
             </form>
 
-            <div class="footer mt-auto position-fixed bottom-0">
-                <div class="d-flex w-100">
-                    <div class="col-lg-4 d-flex align-items-center">
-                        <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon"
-                            class="footer-icon"></fa-icon>
-                    </div>
+        </div>
+        <div class="footer mt-auto position-fixed bottom-0">
+            <div class="d-flex w-100">
+                <div class="col-lg-4 d-flex align-items-center">
+                    <fa-icon *ngFor="let page of pages; let i = index" [icon]="page.icon"
+                        class="footer-icon"></fa-icon>
+                </div>
 
-                    <div class="col-lg-2 d-flex justify-content-center align-items-center navbar-transform">
-                        <fa-icon [icon]="faAnglesLeft"></fa-icon>
-                    </div>
+                <div class="col-lg-2 d-flex justify-content-center align-items-center navbar-transform">
+                    <fa-icon [icon]="faAnglesLeft"></fa-icon>
                 </div>
             </div>
         </div>
@@ -105,7 +105,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="!showAddTicketDiv">
+        
+        <div *ngIf="!showAddTicketDiv && !showViewTicketDiv">
             <div class="d-flex align-items-center justify-content-end m-3 border-line">
                 <button class="btn btn-outline-warning mx-2 no-bg ticket-btn" (click)="toggleAddTicketDiv()">
                     <fa-icon [icon]="faPlus" class="fa-2x"></fa-icon>
@@ -117,36 +118,35 @@
     
             <div class="table-responsive mt-4">
                 <table class="table table-dark table-striped table-hover">
-                  <thead class="thead-light">
-                    <tr>
-                      <th>ID</th>
-                      <th>Título</th>
-                      <th>Atendente</th>
-                      <th>Projeto</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let chamado of chamados" (click)="navigateToPage()">
-                      <td>{{ chamado.id }}</td>
-                      <td>{{ chamado.titulo }}</td>
-                      <td>{{ chamado.atendente }}</td>
-                      <td>{{ chamado.projeto }}</td>
-                    </tr>
-                  </tbody>
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Atendente</th>
+                            <th>Projeto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let chamado of chamados" (click)="viewTicket(chamado)">
+                            <td>{{ chamado.id }}</td>
+                            <td>{{ chamado.titulo }}</td>
+                            <td>{{ chamado.atendente }}</td>
+                            <td>{{ chamado.projeto }}</td>
+                        </tr>
+                    </tbody>
                 </table>
-              </div>
+            </div>
             
             <div class="d-flex justify-content-center align-items-center mt-4">
+                <!-- Controles de paginação -->
                 <button class="btn btn-outline-warning no-bg ticket-btn">
                     <fa-icon [icon]="faAnglesLeft"></fa-icon>
                 </button>
-            
                 <button class="btn btn-outline-warning mx-1 no-bg page-number">1</button>
                 <button class="btn btn-outline-warning mx-1 no-bg page-number">2</button>
                 <button class="btn btn-outline-warning mx-1 no-bg page-number">3</button>
                 <span class="mx-2 no-bg">...</span>
                 <button class="btn btn-outline-warning mx-1 no-bg page-number">7</button>
-            
                 <button class="btn btn-outline-warning no-bg ticket-btn">
                     <fa-icon [icon]="faAnglesRight"></fa-icon>
                 </button>
@@ -154,6 +154,7 @@
         </div>
 
         <div *ngIf="showAddTicketDiv">
+            <!-- Seção de Abertura de Chamado -->
             <div class="d-flex align-items-center justify-content-start m-3 border-line">
                 <button class="btn btn-outline-warning no-bg ticket-btn" (click)="toggleAddTicketDiv()">
                     <fa-icon [icon]="faArrowLeft" class="fa-2x"></fa-icon>
@@ -162,43 +163,42 @@
             </div>
             <form>
                 <div class="row add-tickets">
-                    <div class="col-md-6 mb-3"> 
+                    <!-- Campos para Abertura de Chamado -->
+                    <div class="col-md-6 mb-3">
                         <label for="ticketId" class="form-label">ID do Chamado</label>
-                        <div class="input-group"> 
+                        <div class="input-group">
                             <input type="text" class="form-control fs-5" id="ticketId" placeholder="gerado automaticamente" readonly>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="ticketProject" class="form-label">Projeto</label>
-                        <div class="input-group"> 
+                        <div class="input-group">
                             <input type="text" class="form-control fs-5" id="ticketProject" placeholder="Insira o Projeto">
                             <div class="input-group-text no-bg input-icon" (click)="toggleDropdownMenu($event)">
                                 <fa-icon [icon]="faChevronDown"></fa-icon>
-
                                 <div *ngIf="showDropdownMenu" class="dropdown-menu-manager">
                                     <div class="dropdown-item-manager">Projeto 1</div>
-                                    <div class="dropdown-item-manager">Projeto 1</div>
-                                    <div class="dropdown-item-manager">Projeto 1</div>
-                                    <div class="dropdown-item-manager">Projeto 1</div>
-                                  </div>
+                                    <div class="dropdown-item-manager">Projeto 2</div>
+                                    <div class="dropdown-item-manager">Projeto 3</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ticketTitle" class="form-label">Título</label>
-                        <div class="input-group"> 
+                        <div class="input-group">
                             <input type="text" class="form-control fs-5" id="ticketTitle" placeholder="Insira o Título do Ticket">
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ticketDate" class="form-label">Data</label>
-                        <div class="input-group"> 
+                        <div class="input-group">
                             <input type="text" class="form-control fs-5" id="ticketDate" placeholder="gerado automaticamente" readonly>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ticketAttendant" class="form-label">Atendente</label>
-                        <div class="input-group"> 
+                        <div class="input-group">
                             <input type="text" class="form-control fs-5" id="ticketAttendant" placeholder="Insira o Atendente">
                             <div class="input-group-text no-bg input-icon">
                                 <fa-icon [icon]="faChevronDown"></fa-icon>
@@ -208,7 +208,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="ticketDescription" class="form-label">Descrição</label>
                         <div class="input-group">
-                            <textarea class="form-control fs-5 custom-textarea" placeholder="Insira a Descrição" rows="3"></textarea>                            
+                            <textarea class="form-control fs-5 custom-textarea" placeholder="Insira a Descrição" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -231,29 +231,90 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ticketFiles" class="form-label">Arquivos</label>
-                        <div class="input-group"> 
-                            <input type="text" class="form-control fs-5" id="ticketFiles" placeholder="Insira os Arquivos">                            
-                            <div class="col-lg-1 position-relative input-group-text no-bg input-icon">
-                                <fa-icon [icon]="faPaperclip" (click)="toggleDropdown()"></fa-icon>
-
-                                <div *ngIf="showDropdown" class="dropdown-menu">
-                                    <div class="dropdown-item" (click)="triggerFileInput('image')">
-                                      <fa-icon [icon]="faImage"></fa-icon> Enviar Imagem
-                                    </div>
-                                    <div class="dropdown-item" (click)="triggerFileInput('file')">
-                                      <fa-icon [icon]="faFile"></fa-icon> Enviar Arquivo
-                                    </div>
-                                </div>
-
-                                <input type="file" #imageInput accept="image/*" (change)="handleFileInput($event, 'image')"
-                                style="display: none;">
-                              <input type="file" #fileInput (change)="handleFileInput($event, 'file')" style="display: none;">
-                            </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="ticketFiles" placeholder="Anexar Arquivos">
+                            <span class="input-group-text no-bg input-icon">
+                                <fa-icon [icon]="faPaperclip"></fa-icon>
+                            </span>
                         </div>
                     </div>
-                </div>                
-                    <button type="submit" class="btn custom-btn float-end">Salvar</button>
+                </div>
             </form>
+            <div>
+                <button type="submit" class="btn custom-btn float-end" (click)="toggleViewTicketDiv()">Salvar</button>
+            </div>
+        </div>
+        
+        <div *ngIf="showViewTicketDiv">
+            <!-- Seção de Visualização de Chamado -->
+            <div class="d-flex align-items-center justify-content-start m-3 border-line">
+                <button class="btn btn-outline-warning no-bg ticket-btn" (click)="toggleViewTicketDiv()">
+                    <fa-icon [icon]="faArrowLeft" class="fa-2x"></fa-icon>
+                </button>
+                <h4 class="ms-2">Visualização de Chamado</h4>
+            </div>
+            <form>
+                <div class="row view-tickets">
+                    <!-- Campos para Visualização de Chamado -->
+                    <div class="col-md-6 mb-3">
+                        <label for="viewTicketId" class="form-label">ID do Chamado</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="viewTicketId" [value]="selectedTicket?.id" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="viewTicketProject" class="form-label">Projeto</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="viewTicketProject" [value]="selectedTicket?.projeto" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="viewTicketTitle" class="form-label">Título</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="viewTicketTitle" [value]="selectedTicket?.titulo" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="viewTicketDate" class="form-label">Data</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="viewTicketDate" [value]="selectedTicket?.data" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="viewTicketAttendant" class="form-label">Atendente</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="viewTicketAttendant" [value]="selectedTicket?.atendente" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="viewTicketDescription" class="form-label">Descrição</label>
+                        <div class="input-group">
+                            <textarea class="form-control fs-5 custom-textarea" [value]="selectedTicket?.descricao" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="viewTicketType" class="form-label">Tipos</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="viewTicketType" [value]="selectedTicket?.tipo" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="viewTicketSubtype" class="form-label">Subtipos</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="viewTicketSubtype" [value]="selectedTicket?.subtipo" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="viewTicketFiles" class="form-label">Arquivos</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control fs-5" id="viewTicketFiles" [value]="selectedTicket?.arquivos" readonly>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <button type="submit" class="btn custom-btn float-end" (click)="toggleViewTicketDiv()">Salvar</button>
+            </div>
         </div>
     </div>
 </div>

@@ -15,7 +15,6 @@ import { IGroup } from "../../interfaces/groups";
 import { IPages } from "../../interfaces/pages";
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-tickets',
   standalone: true,
@@ -28,7 +27,7 @@ export class TicketsComponent {
   imageInput!: ElementRef;
   @ViewChild('fileInput')
   fileInput!: ElementRef;
-  
+
   pages: IPages[] = PAGES;
   groups: IGroup[] = GROUPS;
 
@@ -44,43 +43,67 @@ export class TicketsComponent {
   faTicket = faTicket;
   faPlus = faPlus;
   faDownload = faDownload;
-  faAnglesRight =faAnglesRight
+  faAnglesRight = faAnglesRight;
   faArrowLeft = faArrowLeft;
   faPaperclip = faPaperclip;
   faImage = faImage;
   faFile = faFile;
+
   choosenGroup: IGroup = this.groups[0];
   newMessageContent: string = '';
-  Router: any;
+
+  // Controle de visibilidade das divs
+  showFilterTicketDiv = true;
   showAddTicketDiv = false;
+  showViewTicketDiv = false; // Nova propriedade para visualizar tickets
+  updateTicketDiv = false;
   showDropdownMenu: boolean = false;
   showDropdown: boolean = false;
 
-  
-  constructor(private fb: FormBuilder, private router: Router) {}
-
+  // Chamados e chamado selecionado para visualização
   chamados = [
-    { id: '#2357', titulo: 'Chat Teste', atendente: 'Caio', projeto: 'Projeto 1' },
-    { id: '#1983', titulo: 'Chat Teste', atendente: 'Eduardo', projeto: 'Projeto 12' },
-    { id: '#2327', titulo: 'Chat Teste', atendente: 'João', projeto: 'Projeto 49' },
-    { id: '#4782', titulo: 'Chat Teste', atendente: 'Renan', projeto: 'Projeto 9' },
-    { id: '#1209', titulo: 'Chat Teste', atendente: 'Gustavo', projeto: 'Projeto 3' },
-    { id: '#1398', titulo: 'Chat Teste', atendente: 'Felipe', projeto: 'Projeto 5' },
-    { id: '#1367', titulo: 'Chat Teste', atendente: 'Lucas', projeto: 'Projeto 2' },
-    { id: '#4938', titulo: 'Chat Teste', atendente: 'Pedro', projeto: 'Projeto 82' },
+    { id: '#2357', titulo: 'Chat Teste', atendente: 'Caio', projeto: 'Projeto 1', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
+    { id: '#1983', titulo: 'Chat Teste', atendente: 'Eduardo', projeto: 'Projeto 12', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
+    { id: '#2327', titulo: 'Chat Teste', atendente: 'João', projeto: 'Projeto 49', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
+    { id: '#4782', titulo: 'Chat Teste', atendente: 'Renan', projeto: 'Projeto 9', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
+    { id: '#1209', titulo: 'Chat Teste', atendente: 'Gustavo', projeto: 'Projeto 3', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
+    { id: '#1398', titulo: 'Chat Teste', atendente: 'Felipe', projeto: 'Projeto 5', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
+    { id: '#1367', titulo: 'Chat Teste', atendente: 'Lucas', projeto: 'Projeto 2', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
+    { id: '#4938', titulo: 'Chat Teste', atendente: 'Pedro', projeto: 'Projeto 82', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
   ];
 
-  navigateToPage() {
-    alert('test');
-  }
+  selectedTicket: any; // Para armazenar o chamado selecionado
+
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   toggleAddTicketDiv() {
     this.showAddTicketDiv = !this.showAddTicketDiv;
+    this.showFilterTicketDiv = !this.showFilterTicketDiv;
+    this.showViewTicketDiv = false; // Esconder a visualização ao abrir um chamado
+  }
+
+  toggleViewTicketDiv() {
+    this.showViewTicketDiv = !this.showViewTicketDiv;
+    this.showFilterTicketDiv = !this.showFilterTicketDiv; // Esconder o filtro ao visualizar um chamado
+    this.showAddTicketDiv = false; // Esconder a abertura de chamado ao visualizar
+  }
+
+  // Método para visualizar um chamado
+  viewTicket(chamado: any) {
+    this.selectedTicket = chamado; // Armazena o chamado selecionado
+    this.toggleViewTicketDiv(); // Alterna para a visualização do chamado
+  }
+
+  toggleUpdateTicketDiv(chamado: any) {
+    this.showFilterTicketDiv = !this.showFilterTicketDiv;
+    this.showAddTicketDiv = !this.showAddTicketDiv;
+    this.updateTicketDiv = !this.updateTicketDiv;
+    this.newMessageContent = `Detalhes do chamado: ${chamado.titulo}`;
   }
 
   toggleDropdownMenu(event: Event) {
     this.showDropdownMenu = !this.showDropdownMenu;
-    this.showDropdown = false
+    this.showDropdown = false;
     event.stopPropagation(); // Evita que o clique no ícone feche o dropdown
   }
 
@@ -133,5 +156,4 @@ export class TicketsComponent {
     console.log('Uploading file:', file.name);
     // Enviar o formData para o servidor
   }
-
 }
