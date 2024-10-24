@@ -16,7 +16,7 @@
         <div *ngFor="let group of groups" class="chat-group p-2 mb-3">
           <div class="d-flex justify-content-between" (click)="chooseGroup(group)">
             <div class="d-flex align-items-center">
-              <div class="chat-tag" [ngStyle]="{'background-color': getTagColor(group.priority)}"></div>
+              <div *ngIf="group.priority" class="chat-tag" [ngStyle]="{'background-color': getTagColor(group.priority)}"></div>
               <img [src]="group.imageUrl" alt="Logo" class="user user-image">
               <div class="user-details d-flex flex-column mt-3">
                 <h5 class="d-flex align-items-center">{{group.name}}</h5>

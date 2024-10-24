@@ -77,7 +77,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'Excited!', time: '11:02' }
     ],
     participants: ['Trent', 'Victor', 'Walter', 'Usuário'],
-    priority: 3
+    priority: null
   },
   {
     name: 'Raijin Copilot 7',
