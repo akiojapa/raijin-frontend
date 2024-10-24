@@ -128,9 +128,12 @@
 }
 
 .footer-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 25px;
-  margin-left: 10px;
   cursor: pointer;
+  margin: 0;
 }
 
 .selected {

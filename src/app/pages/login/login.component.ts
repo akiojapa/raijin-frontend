@@ -6,6 +6,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { CarouselModule } from 'primeng/carousel'; 
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -54,6 +55,7 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, 
     private authService: AuthService,
+    private router: Router,
     private toastService: ToastrService) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -68,6 +70,7 @@ export class LoginComponent {
       this.authService.login(username, password).subscribe({
         next: () => {
           this.toastService.success('Usuário logado com sucesso!');
+          this.router.navigate(['/menu/chat']); // Navega para /menu/chat
         },
         error: (error: any) => {
           this.toastService.error('Erro ao logar usuário!');
