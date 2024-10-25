@@ -1,10 +1,11 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ChatService } from '../../../services/chat.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -14,7 +15,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './chat-list.component.scss'
 })
 
-export class ChatListComponent {
+export class ChatListComponent implements OnInit{
   @ViewChild('messagesContainer')
   private messagesContainer!: ElementRef;
   @ViewChild('imageInput')
@@ -39,6 +40,17 @@ export class ChatListComponent {
   faSmile = faSmile;
   faPaperPlane = faPaperPlane
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
+
+  constructor(private chatService: ChatService) { }
+
+  ngOnInit(): void {
+    this.chatService.selectedGroupChat$.subscribe((group) => {
+      if (group !== null) {
+        this.choosenGroup = group; // Função para carregar dados do grupo
+      }
+    });
+  }
+
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;

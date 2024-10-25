@@ -15,13 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PAGES } from '../../helpers/pages';
 import { IPages } from '../../interfaces/pages';
-import { IGroup, IMessage } from '../../interfaces/groups';
-import { GROUPS } from '../../helpers/groups';
-import { Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChatWindowComponent } from "../../pages/chat/chat-window/chat-window.component";
-import { ChatListComponent } from "../../pages/chat/chat-list/chat-list.component";
-
 
 @Component({
   selector: 'app-menu',
@@ -74,7 +69,9 @@ export class MenuComponent {
   isFooterCollapsed: boolean = true;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
 
   isSelected(page: any): boolean {
@@ -83,24 +80,28 @@ export class MenuComponent {
   }
 
   navigateTo(path: string) {
-    console.log(path)
-    this.router.navigate([path]);
+    console.log(path);
+    this.router.navigate(
+      [
+        'menu',
+        {
+          outlets: { left: path, right: path }
+        }
+      ],
+    );
   }
 
-
   toggleMenu() {
-    // Primeiro fecha a sidebar e depois abre o footer
     if (this.isCollapsed) {
       this.isCollapsed = !this.isCollapsed;
       setTimeout(() => {
         this.isFooterCollapsed = !this.isFooterCollapsed;
-      }, 200); // Define o tempo da animação da sidebar antes de abrir o footer
+      }, 200);
     } else {
-      // Primeiro fecha o footer e depois abre a sidebar
       this.isFooterCollapsed = !this.isFooterCollapsed;
       setTimeout(() => {
         this.isCollapsed = !this.isCollapsed;
-      }, 100); // Define o tempo da animação do footer antes de abrir a sidebar
+      }, 100);
     }
   }
 

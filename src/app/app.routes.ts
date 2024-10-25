@@ -21,10 +21,6 @@ export const routes: Routes = [
         children: [
             { path: 'chat', outlet: 'left', component: ChatWindowComponent }, 
             { path: 'chat', outlet: 'right', component: ChatListComponent }, 
-            {
-                path: 'menu/ticket',
-                component: TestPageComponent
-            },
         ]
         
     }

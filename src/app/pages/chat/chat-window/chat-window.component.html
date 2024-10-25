@@ -1,17 +1,19 @@
 <!-- Componente de Chat -->
 <div class="d-flex justify-content-between p-2">
-    <input type="text" class="form-control" placeholder="Pesquise por um grupo ou palavra-chave">
+    <input type="text" class="form-control" placeholder="Pesquise por um grupo ou palavra-chave"
+    [(ngModel)]="searchQuery"
+    (input)="filterGroups()">
     <fa-icon [icon]="faSquarePlus" class="search-icon"></fa-icon>
 </div>
 
 <div class="row chat-nav p-2">
-    <div *ngFor="let group of groups" class="chat-group p-2 mb-3">
-        <div class="d-flex justify-content-between" (click)="chooseGroup(group)">
+    <div *ngFor="let group of filteredGroups" class="chat-group p-2 mb-3">
+        <div class="d-flex justify-content-between" (click)="onSelectChat(group)">
             <div class="d-flex align-items-center">
                 <img [src]="group.imageUrl" alt="Logo" class="user user-image">
                 <div class="user-details d-flex flex-column mt-3">
                     <h5 class="d-flex align-items-center">{{group.name}}</h5>
-                    <p class="small"> {{group.lastMessage}}</p>
+                    <p class="small"> {{lastMessage(group)}}</p>
                 </div>
             </div>
             <div class="user-details">

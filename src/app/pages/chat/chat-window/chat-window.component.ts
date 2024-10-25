@@ -4,29 +4,49 @@ import { FaIconComponent, FontAwesomeModule } from '@fortawesome/angular-fontawe
 import { faSquarePlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IGroup } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
+import { ChatService } from '../../../services/chat.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-chat-window',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, FormsModule],
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.scss']
 })
 export class ChatWindowComponent {
-  @Input() groups: IGroup[] = GROUPS;
-  @Input() chooseGroup!: (group: any) => void;
+  groups: IGroup[] = GROUPS;
 
   filteredGroups: any[] = [];
   searchQuery: string = '';
   faSquarePlus: IconDefinition = faSquarePlus;
-  ngOnInit() {
-    this.filteredGroups = this.groups;
+
+  selectedChat: IGroup | null = null;
+
+  constructor(private chatService: ChatService) {}
+
+  onSelectChat(chatGroup: IGroup) {
+    this.selectedChat = chatGroup;
+    this.chatService.selectChat(chatGroup);
   }
 
-  // Método para filtrar grupos com base na consulta de pesquisa
+  lastMessage(group: IGroup) {
+    return group.messages[group.messages.length - 1].content;
+  }
+
+  ngOnInit() {
+    this.filteredGroups = this.groups;
+    this.chatService.selectedGroupChat$.subscribe(group => {
+      this.selectedChat = group;
+    });
+    this.onSelectChat(this.selectedChat ? this.selectedChat : this.groups[0]);
+  }
+  
   filterGroups() {
-    this.filteredGroups = this.groups.filter(group => 
-      group.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+    const query = this.searchQuery.toLowerCase();
+    this.filteredGroups = this.groups.filter(group =>
+      group.name.toLowerCase().includes(query) ||
+      group.lastMessage.toLowerCase().includes(query)
     );
   }
 }
