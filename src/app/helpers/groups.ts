@@ -12,7 +12,7 @@ export const GROUPS: IGroup[] = [
       // { sender: 'Bob', content: 'Sure, see you!', time: '18:31' },
       // { sender: 'Usuário', content: 'I will be there!', time: '18:32' }
     ],
-    participants: ['Alice', 'Bob', 'Charlie', 'Usuário']
+    participants: 4
   },
   {
     whats_id: '120363217209632703@g.us',
@@ -25,11 +25,11 @@ export const GROUPS: IGroup[] = [
       // { sender: 'Eve', content: 'I\'m in!', time: '17:46' },
       // { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
     ],
-    participants: ['Dave', 'Eve', 'Frank', 'Usuário']
+    participants: 4
   },
   {
-    whats_id: '',
-    name: 'Raijin Copilot 3',
+    whats_id: '120363321720242985@g.us',
+    name: 'Só as antas - Versão ZAP',
     lastMessage: 'Meeting at 10 AM',
     time: '09:00',
     imageUrl: 'https://picsum.photos/200?random=3',
@@ -38,7 +38,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Heidi', content: 'Got it!', time: '09:01' },
       { sender: 'Usuário', content: 'I will join!', time: '09:02' }
     ],
-    participants: ['Grace', 'Heidi', 'Ivan', 'Usuário']
+    participants: 5
   },
   {
     whats_id: '',
@@ -51,7 +51,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Mallory', content: 'Sounds good!', time: '20:16' },
       { sender: 'Usuário', content: 'I will be there!', time: '20:17' }
     ],
-    participants: ['Judy', 'Mallory', 'Niaj', 'Usuário']
+    participants: 10
   },
   {
     whats_id: '',
@@ -64,7 +64,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Peggy', content: 'Okay!', time: '14:31' },
       { sender: 'Usuário', content: 'I will be there!', time: '14:32' }
     ],
-    participants: ['Olivia', 'Peggy', 'Sybil', 'Usuário']
+    participants: 100
   },
   {
     whats_id: '',
@@ -77,7 +77,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Victor', content: 'Can\'t wait!', time: '11:01' },
       { sender: 'Usuário', content: 'Excited!', time: '11:02' }
     ],
-    participants: ['Trent', 'Victor', 'Walter', 'Usuário']
+    participants: 34
   },
   {
     whats_id: '',
@@ -90,7 +90,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Yvonne', content: 'I\'ll be there!', time: '19:46' },
       { sender: 'Usuário', content: 'Count me in!', time: '19:47' }
     ],
-    participants: ['Xander', 'Yvonne', 'Zara', 'Usuário']
+    participants: 22
   },
   {
     whats_id: '',
@@ -103,7 +103,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Bob', content: 'I have a great one!', time: '16:21' },
       { sender: 'Usuário', content: 'Can\'t wait to try it!', time: '16:22' }
     ],
-    participants: ['Alice', 'Bob', 'Charlie', 'Usuário']
+    participants: 11
   },
   {
     whats_id: '',
@@ -116,7 +116,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Eve', content: 'Let\'s do it!', time: '13:01' },
       { sender: 'Usuário', content: 'I will join!', time: '13:02' }
     ],
-    participants: ['Dave', 'Eve', 'Frank', 'Usuário']
+    participants: 66
   },
   {
     whats_id: '',
@@ -129,7 +129,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Heidi', content: 'I\'ll be there!', time: '10:31' },
       { sender: 'Usuário', content: 'Looking forward to it!', time: '10:32' }
     ],
-    participants: ['Grace', 'Heidi', 'Ivan', 'Usuário']
+    participants: 15
   },
   {
     whats_id: '',
@@ -142,7 +142,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Mallory', content: 'Got it!', time: '15:46' },
       { sender: 'Usuário', content: 'I will be there!', time: '15:47' }
     ],
-    participants: ['Judy', 'Mallory', 'Niaj', 'Usuário']
+    participants: 32
   },
   {
     whats_id: '',
@@ -155,6 +155,6 @@ export const GROUPS: IGroup[] = [
       { sender: 'Peggy', content: 'Sounds good!', time: '12:01' },
       { sender: 'Usuário', content: 'I will join!', time: '12:02' }
     ],
-    participants: ['Olivia', 'Peggy', 'Sybil', 'Usuário']
+    participants: 12
   }
 ];

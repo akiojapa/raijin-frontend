@@ -26,7 +26,7 @@ export class WebSocketService {
           console.log(`Tentativa de reconexão #${retryCount} após erro:`, error);
           return timer(2000); // Atraso de 2 segundos antes de tentar reconectar
         }
-      })
+      }),
     ).subscribe({
       next: msg => console.log('Received: ', msg),
       error: err => console.error('WebSocket error: ', err),
@@ -36,7 +36,11 @@ export class WebSocketService {
 
   // Método para enviar uma mensagem via WebSocket
   public sendMessage(msg: any): void {
-    this.socket$.next(msg);
+    if (this.socket$) {
+      this.socket$.next(msg);
+    } else {
+      console.error('WebSocket connection is not established.');
+    }
   }
 
   // Método para receber mensagens

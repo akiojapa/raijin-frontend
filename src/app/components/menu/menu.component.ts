@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PAGES } from '../../helpers/pages';
 import { IPages } from '../../interfaces/pages';
 import { IGroup, IMessage } from '../../interfaces/groups';
@@ -20,8 +20,6 @@ import { Router } from '@angular/router';
 import { WebSocketService } from '../../services/webhook.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ConfigService } from '../../services/config.service';
-
-
 @Component({
   selector: 'app-menu',
   imports: [FontAwesomeModule, HeaderComponent, ReactiveFormsModule, CommonModule, FormsModule],
@@ -37,7 +35,7 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
   @ViewChild('fileInput')
   fileInput!: ElementRef;
   pages: IPages[] = PAGES;
-  groups: IGroup[] = GROUPS;
+  groups: IGroup[] = [];
 
   faSquarePlus = faSquarePlus;
   faComment = faComment;
@@ -63,18 +61,28 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private elementRef: ElementRef,
     private websocketService: WebSocketService,
     private http: ConfigService,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit(): void {
-    const websocketUrl = `ws://127.0.0.1:8000/ws/chat`; // Isso pode vir de uma variável, rota, ou backend
+    if (!isPlatformBrowser(this.elementRef.nativeElement)) {
+      this.http.get('groups', {
+        "number": 997732694
+      }).subscribe({
+        next: (response) => {
+          this.groups = response.body
+          this.choosenGroup = this.groups[0]
+        }
+      })
+    }
 
-    // Conectando ao WebSocket com a URL dinâmica
-    this.websocketService.connect(websocketUrl);
+    const websocketUrl = `ws://127.0.0.1:8000/ws/chat`;
 
-    // Inscrevendo-se para receber mensagens do WebSocket
+    this.websocketService?.connect(websocketUrl);
+
     this.websocketSubscription = this.websocketService.onMessage().subscribe({
       next: data => {
         const newMessage: IMessage = {
@@ -83,9 +91,8 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
         this.groups.find(item => item.whats_id === data.chat)?.messages.push(newMessage)
-        console.log(data); // Exibe no console a mensagem
       },
-      error: error => console.error('WebSocket error:', error) // Tratamento de erro
+      error: error => console.error('WebSocket error:', error)
     });
   }
 
@@ -136,11 +143,12 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
 
       this.websocketService.sendMessage({
         'chat_id': this.choosenGroup.whats_id,
-        'from_number': '44997732694',
+        'from_number': '997732694',
         'content': newMessage.content,
         'type': 'Text',
         'received': false,
-        'company': company
+        'company': company,
+        'timestamp': new Date().getTime()
       });
 
       this.choosenGroup.messages.push(newMessage);

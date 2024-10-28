@@ -60,10 +60,10 @@
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex justify-content-between align-items-center">
           <!-- Imagem e nome do grupo -->
-          <img [src]="choosenGroup.imageUrl" alt="Logo" class="user user-image">
+          <img [src]="choosenGroup?.imageUrl" alt="Logo" class="user user-image">
           <div class="user-details d-flex flex-column mt-3">
-            <h5 class="d-flex align-items-center">{{ choosenGroup.name }}</h5>
-            <p class="small">{{ choosenGroup.participants.join(', ') }}</p>
+            <h5 class="d-flex align-items-center">{{ choosenGroup?.name }}</h5>
+            <p class="small">{{ choosenGroup?.participants }} participantes</p>
           </div>
         </div>
 
@@ -85,7 +85,7 @@
 
 <!-- Componente de Chat(Body) -->
     <div class="messages-container p-3 flex-grow-1" #messagesContainer>
-      <div *ngFor="let message of choosenGroup.messages" class="d-flex mb-2 w-100"
+      <div *ngFor="let message of choosenGroup?.messages" class="d-flex mb-2 w-100"
         [ngStyle]="{'justify-content': message.sender === 'Usuário' ? 'end' : 'start'}">
         <div class="message"
           [ngClass]="{'sent': message.sender === 'Usuário', 'received': message.sender !== 'Usuário'}">

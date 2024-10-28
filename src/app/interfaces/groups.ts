@@ -11,5 +11,5 @@ export interface IGroup {
   time: string;
   imageUrl: string;
   messages: IMessage[];
-  participants: string[];
+  participants: number;
 }
