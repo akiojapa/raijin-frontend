@@ -7,6 +7,8 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi
 import { DOCUMENT } from '@angular/common';
 import { LoggingInterceptor } from './app.interceptors';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +16,15 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
+    provideAnimations(),
+    provideToastr({
+      positionClass: 'toast-top-center', // Classe personalizada para centralizar o toast
+      timeOut: 5000, // Tempo de exibição do toast
+      extendedTimeOut: 1000, // Tempo adicional de exibição do toast
+      closeButton: true, // Adiciona um botão de fechar
+      progressBar: true, // Adiciona uma barra de progresso
+      tapToDismiss: true, // Permite fechar o toast ao clicar nele
+    }),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     { provide: APP_INITIALIZER, useFactory: resolveEnviroment, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }

@@ -5,7 +5,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 1',
     lastMessage: 'See you at dinner!',
     time: '18:30',
-    imageUrl: 'https://picsum.photos/200?random=1',
+    imageUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
     messages: [
       { sender: 'Alice', content: 'See you at dinner!', time: '18:30' },
       { sender: 'Bob', content: 'Sure, see you!', time: '18:31' },
@@ -18,9 +18,9 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 2',
     lastMessage: 'Let\'s go to the movies!',
     time: '17:45',
-    imageUrl: 'https://picsum.photos/200?random=2',
+    imageUrl: 'https://randomuser.me/api/portraits/women/1.jpg',
     messages: [
-      { sender: 'Dave', content: 'Let\'s go to the movies! KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', time: '17:45' },
+      { sender: 'Dave', content: 'Let\'s go to the movies!', time: '17:45' },
       { sender: 'Eve', content: 'I\'m in!', time: '17:46' },
       { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
     ],
@@ -31,7 +31,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 3',
     lastMessage: 'Meeting at 10 AM',
     time: '09:00',
-    imageUrl: 'https://picsum.photos/200?random=3',
+    imageUrl: 'https://randomuser.me/api/portraits/men/2.jpg',
     messages: [
       { sender: 'Grace', content: 'Meeting at 10 AM', time: '09:00' },
       { sender: 'Heidi', content: 'Got it!', time: '09:01' },
@@ -44,7 +44,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 4',
     lastMessage: 'Workout at 6 AM?',
     time: '20:15',
-    imageUrl: 'https://picsum.photos/200?random=4',
+    imageUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
     messages: [
       { sender: 'Judy', content: 'Workout at 6 AM?', time: '20:15' },
       { sender: 'Mallory', content: 'Sounds good!', time: '20:16' },
@@ -57,7 +57,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 5',
     lastMessage: 'Next meeting on Friday',
     time: '14:30',
-    imageUrl: 'https://picsum.photos/200?random=5',
+    imageUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
     messages: [
       { sender: 'Olivia', content: 'Next meeting on Friday', time: '14:30' },
       { sender: 'Peggy', content: 'Okay!', time: '14:31' },
@@ -70,7 +70,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 6',
     lastMessage: 'Tickets booked for Paris!',
     time: '11:00',
-    imageUrl: 'https://picsum.photos/200?random=6',
+    imageUrl: 'https://randomuser.me/api/portraits/men/4.jpg',
     messages: [
       { sender: 'Trent', content: 'Tickets booked for Paris!', time: '11:00' },
       { sender: 'Victor', content: 'Can\'t wait!', time: '11:01' },
@@ -83,7 +83,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 7',
     lastMessage: 'Game night at 8 PM',
     time: '19:45',
-    imageUrl: 'https://picsum.photos/200?random=7',
+    imageUrl: 'https://randomuser.me/api/portraits/women/3.jpg',
     messages: [
       { sender: 'Xander', content: 'Game night at 8 PM', time: '19:45' },
       { sender: 'Yvonne', content: 'I\'ll be there!', time: '19:46' },
@@ -96,7 +96,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 8',
     lastMessage: 'Recipe for tonight?',
     time: '16:20',
-    imageUrl: 'https://picsum.photos/200?random=8',
+    imageUrl: 'https://randomuser.me/api/portraits/men/5.jpg',
     messages: [
       { sender: 'Alice', content: 'Recipe for tonight?', time: '16:20' },
       { sender: 'Bob', content: 'I have a great one!', time: '16:21' },
@@ -109,7 +109,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 9',
     lastMessage: 'Exam prep session tomorrow',
     time: '13:00',
-    imageUrl: 'https://picsum.photos/200?random=9',
+    imageUrl: 'https://randomuser.me/api/portraits/women/4.jpg',
     messages: [
       { sender: 'Dave', content: 'Exam prep session tomorrow', time: '13:00' },
       { sender: 'Eve', content: 'Let\'s do it!', time: '13:01' },
@@ -122,7 +122,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 10',
     lastMessage: 'Community meeting on Saturday',
     time: '10:30',
-    imageUrl: 'https://picsum.photos/200?random=10',
+    imageUrl: 'https://randomuser.me/api/portraits/men/6.jpg',
     messages: [
       { sender: 'Grace', content: 'Community meeting on Saturday', time: '10:30' },
       { sender: 'Heidi', content: 'I\'ll be there!', time: '10:31' },
@@ -135,7 +135,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 11',
     lastMessage: 'Practice session at 5 PM',
     time: '15:45',
-    imageUrl: 'https://picsum.photos/200?random=11',
+    imageUrl: 'https://randomuser.me/api/portraits/women/5.jpg',
     messages: [
       { sender: 'Judy', content: 'Practice session at 5 PM', time: '15:45' },
       { sender: 'Mallory', content: 'Got it!', time: '15:46' },
@@ -148,7 +148,7 @@ export const GROUPS: IGroup[] = [
     name: 'Raijin Copilot 12',
     lastMessage: 'Event planning at 3 PM',
     time: '12:00',
-    imageUrl: 'https://picsum.photos/200?random=12',
+    imageUrl: 'https://randomuser.me/api/portraits/men/7.jpg',
     messages: [
       { sender: 'Olivia', content: 'Event planning at 3 PM', time: '12:00' },
       { sender: 'Peggy', content: 'Sounds good!', time: '12:01' },
