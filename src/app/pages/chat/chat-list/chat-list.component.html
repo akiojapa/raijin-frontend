@@ -81,8 +81,7 @@
   
           <!-- Input de mensagem -->
           <div class="col-lg-9 d-flex align-items-center">
-            <input type="text" class="form-control" [(ngModel)]="newMessageContent" placeholder="Digite sua mensagem...">
-          </div>
+            <input type="text" class="form-control" [(ngModel)]="newMessageContent" placeholder="Digite sua mensagem..." (keydown.enter)="sendMessage()">          </div>
   
           <!-- Ícone de enviar mensagem -->
           <div class="col-lg-1">

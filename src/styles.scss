@@ -214,6 +214,7 @@ input:-webkit-autofill {
     overflow-y: auto;
     flex-grow: 1;
     max-height: calc(100vh - 200px);
+    
   
     &::-webkit-scrollbar {
       width: 8px;
