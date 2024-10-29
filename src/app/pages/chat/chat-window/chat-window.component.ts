@@ -49,4 +49,19 @@ export class ChatWindowComponent {
       group.lastMessage.toLowerCase().includes(query)
     );
   }
+
+  getTagColor(level: number): string {
+    switch (level) {
+        case 1:
+            return '#FF5733';
+        case 2:
+            return '#F3FF33'; 
+        case 3:
+            return '#33FF57'; 
+        case 4:
+            return '#3357FF'; 
+        default:
+            return '#FFFFFF';
+    }
+}
 }
