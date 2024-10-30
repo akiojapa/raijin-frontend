@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -8,116 +8,71 @@ import {
   faFile,
   faVideo,
   faEllipsisV,
+  faAnglesRight
 } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { PAGES } from '../../helpers/pages';
 import { IPages } from '../../interfaces/pages';
-import { IGroup, IMessage } from '../../interfaces/groups';
-import { GROUPS } from '../../helpers/groups';
-import { Router } from '@angular/router';
-import { WebSocketService } from '../../services/webhook.service';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { ConfigService } from '../../services/config.service';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
 @Component({
   selector: 'app-menu',
-  imports: [FontAwesomeModule, HeaderComponent, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [FontAwesomeModule, HeaderComponent, ReactiveFormsModule, CommonModule, FormsModule, RouterOutlet],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  standalone: true
+  standalone: true,
+  animations: [
+    // Animação para o menu lateral
+    trigger('toggleSidebar', [
+      state('expanded', style({
+        transform: 'translateX(0)',
+        opacity: 1,
+        zIndex: 10
+      })),
+      state('collapsed', style({
+        transform: 'translateX(100%)',
+        opacity: 0,
+        zIndex: -1
+      })),
+      transition('expanded <=> collapsed', [
+        animate('0.3s ease-in-out')
+      ])
+    ]),
+    // Animação para o menu horizontal
+    trigger('toggleFooter', [
+      state('expanded', style({
+        transform: 'translateY(0)',
+        opacity: 1
+      })),
+      state('collapsed', style({
+        transform: 'translateY(100%)',
+        opacity: 0
+      })),
+      transition('expanded <=> collapsed', [
+        animate('0.3s ease-in-out')
+      ])
+    ])
+  ]
 })
-export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
-  @ViewChild('messagesContainer')
-  private messagesContainer!: ElementRef;
-  @ViewChild('imageInput')
-  imageInput!: ElementRef;
-  @ViewChild('fileInput')
-  fileInput!: ElementRef;
+export class MenuComponent {
   pages: IPages[] = PAGES;
-  groups: IGroup[] = [];
 
-  faSquarePlus = faSquarePlus;
-  faComment = faComment;
-  faUser = faUser;
-  faCog = faCog;
-  faSmile = faSmile;
-  faPaperPlane = faPaperPlane
+
   faAnglesLeft = faAnglesLeft;
+  faAnglesRight = faAnglesRight;
   faSignOutAlt = faSignInAlt;
-  faPlus = faSquarePlus;
-  faImage = faImage;
-  faFile = faFile;
-  faVideo = faVideo;
-  faEllipsisV = faEllipsisV;
-  choosenGroup: IGroup = this.groups[0];
-  newMessageContent: string = '';
-  showDropdownMenu: boolean = false;
-  showEmojiPicker: boolean = false;
-  showDropdown: boolean = false;
-  emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
-  websocketSubscription!: Subscription
+
+  isCollapsed: boolean = true;
+  isFooterCollapsed: boolean = true;
 
 
-  constructor(
-    private router: Router,
-    private elementRef: ElementRef,
-    private websocketService: WebSocketService,
-    private http: ConfigService,
-    @Inject(DOCUMENT) private document: Document
+  constructor(private router: Router,
+    private route: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {
-    if (!isPlatformBrowser(this.elementRef.nativeElement)) {
-      this.http.get('groups', {
-        "number": 997732694
-      }).subscribe({
-        next: (response) => {
-          this.groups = response.body
-          this.choosenGroup = this.groups[0]
-        }
-      })
-    }
-
-    const websocketUrl = `ws://127.0.0.1:8000/ws/chat`;
-
-    this.websocketService?.connect(websocketUrl);
-
-    this.websocketSubscription = this.websocketService.onMessage().subscribe({
-      next: data => {
-        const newMessage: IMessage = {
-          sender: data['name'] ?? 'Externo',
-          content: data.message,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-        this.groups.find(item => item.whats_id === data.chat)?.messages.push(newMessage)
-      },
-      error: error => console.error('WebSocket error:', error)
-    });
-  }
-
-  ngOnDestroy(): void {
-    // Desinscrevendo-se do Observable quando o componente é destruído
-    if (this.websocketSubscription) {
-      this.websocketSubscription.unsubscribe();
-    }
-  }
-
-  chooseGroup(group: IGroup): void {
-    this.choosenGroup = group;
-  }
-
-  ngAfterViewChecked() {
-    this.scrollToBottom();
-  }
-
-  scrollToBottom(): void {
-    try {
-      this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error('Erro ao tentar rolar para o fim:', err);
-    }
-  }
 
   isSelected(page: any): boolean {
     console.log(this.router.url);
@@ -125,108 +80,29 @@ export class MenuComponent implements AfterViewChecked, OnInit, OnDestroy {
   }
 
   navigateTo(path: string) {
-    console.log(path)
-    this.router.navigate([path]);
+    console.log(path);
+    this.router.navigate(
+      [
+        'menu',
+        {
+          outlets: { left: path, right: path }
+        }
+      ],
+    );
   }
 
-  sendMessage(): void {
-    if (this.newMessageContent.trim()) {
-      const newMessage: IMessage = {
-        sender: 'Usuário',
-        content: this.newMessageContent,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      const url = this.document.location.hostname
-      const domains = url.split('.')
-      const company = domains.length > 1 ? `${domains[0]}` : ''
-
-      this.websocketService.sendMessage({
-        'chat_id': this.choosenGroup.whats_id,
-        'from_number': '997732694',
-        'content': newMessage.content,
-        'type': 'Text',
-        'received': false,
-        'company': company,
-        'timestamp': new Date().getTime()
-      });
-
-      this.choosenGroup.messages.push(newMessage);
-      this.newMessageContent = '';
+  toggleMenu() {
+    if (this.isCollapsed) {
+      this.isCollapsed = !this.isCollapsed;
+      setTimeout(() => {
+        this.isFooterCollapsed = !this.isFooterCollapsed;
+      }, 200);
+    } else {
+      this.isFooterCollapsed = !this.isFooterCollapsed;
+      setTimeout(() => {
+        this.isCollapsed = !this.isCollapsed;
+      }, 100);
     }
   }
 
-  openGroupInfo() {
-    console.log('Abrindo informações do grupo');
-  }
-
-  muteGroup() {
-    console.log('Silenciando grupo');
-  }
-
-  openCall() {
-    console.log('Abrindo chamado');
-  }
-
-  exitGroup() {
-    console.log('Saindo do grupo');
-  }
-
-  toggleDropdownMenu(event: Event) {
-    this.showDropdownMenu = !this.showDropdownMenu;
-    this.showDropdown = false
-    this.showEmojiPicker = false;
-    event.stopPropagation();
-  }
-
-  @HostListener('document:click', ['$event'])
-  closeDropdown(event: Event) {
-    this.showDropdownMenu = false;
-  }
-
-  toggleEmojiPicker() {
-    this.showEmojiPicker = !this.showEmojiPicker;
-    this.showDropdown = false;
-  }
-
-  toggleDropdown() {
-    this.showDropdown = !this.showDropdown;
-    this.showEmojiPicker = false;
-  }
-
-  addEmoji(emoji: string) {
-    this.newMessageContent += emoji;
-    this.showEmojiPicker = false;
-  }
-
-  triggerFileInput(type: string) {
-    if (type === 'image') {
-      this.imageInput.nativeElement.click();
-    } else if (type === 'file') {
-      this.fileInput.nativeElement.click();
-    }
-  }
-
-  handleFileInput(event: any, type: string) {
-    const file = event.target.files[0];
-    if (file) {
-      if (type === 'image') {
-        this.uploadImage(file);
-      } else if (type === 'file') {
-        this.uploadFile(file);
-      }
-    }
-  }
-
-  uploadImage(file: File) {
-    const formData = new FormData();
-    formData.append('image', file);
-    console.log('Uploading image:', file.name);
-  }
-
-  uploadFile(file: File) {
-    const formData = new FormData();
-    formData.append('file', file);
-    console.log('Uploading file:', file.name);
-  }
 }

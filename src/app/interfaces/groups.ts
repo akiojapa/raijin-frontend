@@ -12,4 +12,5 @@ export interface IGroup {
   imageUrl: string;
   messages: IMessage[];
   participants: number;
+  priority: number| null;
 }
