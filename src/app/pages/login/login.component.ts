@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { CarouselModule } from 'primeng/carousel'; 
+import { CarouselModule } from 'primeng/carousel';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -53,7 +53,7 @@ export class LoginComponent {
     }
   ];
 
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private toastService: ToastrService) {
@@ -62,7 +62,7 @@ export class LoginComponent {
       password: ['', Validators.required]
     });
   }
-  
+
   onSubmit() {
     if (this.loginForm.valid) {
       const username = this.loginForm.get('username')?.value;
@@ -70,7 +70,7 @@ export class LoginComponent {
       this.authService.login(username, password).subscribe({
         next: () => {
           this.toastService.success('Usuário logado com sucesso!');
-          this.router.navigate(['/menu/chat']); // Navega para /menu/chat
+          this.router.navigate(['menu', { outlets: { left: ['chat'], right: ['chat'] } }]);
         },
         error: (error: any) => {
           this.toastService.error('Erro ao logar usuário!');

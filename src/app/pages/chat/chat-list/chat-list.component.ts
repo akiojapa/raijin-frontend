@@ -1,10 +1,10 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { ChatService } from '../../../services/chat.service';
   styleUrl: './chat-list.component.scss'
 })
 
-export class ChatListComponent implements OnInit{
+export class ChatListComponent implements OnInit {
   @ViewChild('messagesContainer')
   private messagesContainer!: ElementRef;
   @ViewChild('imageInput')
@@ -41,7 +41,10 @@ export class ChatListComponent implements OnInit{
   faPaperPlane = faPaperPlane
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
 
-  constructor(private chatService: ChatService) { }
+  constructor(
+    private chatService: ChatService,
+    @Inject(DOCUMENT) private document: Document
+  ) { }
 
   ngOnInit(): void {
     this.chatService.selectedGroupChat$.subscribe((group) => {
@@ -98,7 +101,6 @@ export class ChatListComponent implements OnInit{
     console.log('Uploading file:', file.name);
   }
 
-
   sendMessage(): void {
     if (this.newMessageContent.trim()) {
       const newMessage: IMessage = {
@@ -106,6 +108,17 @@ export class ChatListComponent implements OnInit{
         content: this.newMessageContent,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
+
+      const url = this.document.location.hostname
+      const domains = url.split('.')
+      const companyName = domains.length > 1 ? `${domains[0]}` : ''
+
+      this.chatService.sendMessage(
+        this.choosenGroup.whats_id,
+        newMessage.content,
+        companyName
+      )
+
       this.choosenGroup.messages.push(newMessage);
       this.newMessageContent = '';
     }
