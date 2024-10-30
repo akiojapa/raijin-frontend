@@ -249,3 +249,16 @@ fa-icon{
   color: #121212;
   margin-right: 10px;
 }
+
+.footer-salvar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000; /* Certifique-se de que o botão esteja no topo */
+  background-color: transparent; /* Ajuste conforme sua preferência */
+}
+
+.footer-salvar .custom-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+}

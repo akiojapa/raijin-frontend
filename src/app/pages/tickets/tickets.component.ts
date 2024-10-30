@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, ElementRef, HostListener, ViewChild } from "@angular/core";
-import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { 
   faSquarePlus, faComment, faUser, faCog, 
@@ -58,21 +58,31 @@ export class TicketsComponent {
   updateTicketDiv = false;
   showDropdownMenu: boolean = false;
   showDropdown: boolean = false;
+  selectedTicket: any;
 
   chamados = [
     { id: '#2357', titulo: 'Chat Teste', atendente: 'Caio', projeto: 'Projeto 1', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
     { id: '#1983', titulo: 'Chat Teste', atendente: 'Eduardo', projeto: 'Projeto 12', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
     { id: '#2327', titulo: 'Chat Teste', atendente: 'João', projeto: 'Projeto 49', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-    { id: '#4782', titulo: 'Chat Teste', atendente: 'Renan', projeto: 'Projeto 9', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-    { id: '#1209', titulo: 'Chat Teste', atendente: 'Gustavo', projeto: 'Projeto 3', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-    { id: '#1398', titulo: 'Chat Teste', atendente: 'Felipe', projeto: 'Projeto 5', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-    { id: '#1367', titulo: 'Chat Teste', atendente: 'Lucas', projeto: 'Projeto 2', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-    { id: '#4938', titulo: 'Chat Teste', atendente: 'Pedro', projeto: 'Projeto 82', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-  ];
+];
 
-  selectedTicket: any;
+  addTicketForm: FormGroup;
+  updateTicketDescriptionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.addTicketForm = this.fb.group({
+      ticketProject: ['', Validators.required],
+      ticketTitle: ['', Validators.required],
+      ticketAttendant: ['', Validators.required],
+      ticketDescription: ['', Validators.required],
+      ticketType: ['', Validators.required],
+      ticketSubtype: ['', Validators.required],
+    });
+
+    this.updateTicketDescriptionForm = this.fb.group({
+      ticketDescription: ['', Validators.required],
+    });
+  }
 
   manageDisplay(view: string, chamado?: any) {
     this.showFilterTicketDiv = false;
@@ -85,12 +95,17 @@ export class TicketsComponent {
         this.showAddTicketDiv = true;
         break;
       case 'viewTicket':
-        this.showViewTicketDiv = true;
         this.selectedTicket = chamado;
+        this.showViewTicketDiv = true;
         break;
       case 'updateTicket':
+        this.showViewTicketDiv = true;
         this.updateTicketDiv = true;
-        this.newMessageContent = `Detalhes do chamado: ${chamado?.titulo}`;
+        this.selectedTicket = chamado;
+        // Preenche o campo de descrição com o valor do chamado selecionado
+        this.updateTicketDescriptionForm.patchValue({
+            ticketDescription: chamado?.descricao,
+        });
         break;
       default:
         this.showFilterTicketDiv = true;
@@ -114,6 +129,69 @@ export class TicketsComponent {
     this.showDropdownMenu = !this.showDropdownMenu;
     this.showDropdown = false;
     event.stopPropagation(); 
+  }
+
+  addTicket() {
+    const invalidFields = []; // Array para armazenar campos inválidos
+  
+    // Verifica quais campos obrigatórios estão inválidos
+    if (!this.addTicketForm.get('ticketProject')?.valid) {
+      invalidFields.push('Projeto');
+    }
+    if (!this.addTicketForm.get('ticketTitle')?.valid) {
+      invalidFields.push('Título');
+    }
+    if (!this.addTicketForm.get('ticketAttendant')?.valid) {
+      invalidFields.push('Atendente');
+    }
+    if (!this.addTicketForm.get('ticketDescription')?.valid) {
+      invalidFields.push('Descrição');
+    }
+    if (!this.addTicketForm.get('ticketType')?.valid) {
+      invalidFields.push('Tipo');
+    }
+    if (!this.addTicketForm.get('ticketSubtype')?.valid) {
+      invalidFields.push('Subtipo');
+    }
+  
+    // Se houver campos inválidos, exibe um alerta
+    if (invalidFields.length > 0) {
+      alert(`Os seguintes campos são obrigatórios e devem ser preenchidos: ${invalidFields.join(', ')}`);
+      return; // Para sair da função se houver campos inválidos
+    }
+  
+    // Se todos os campos obrigatórios estão preenchidos, prossegue
+    const newTicket = {
+      id: `#${Math.floor(1000 + Math.random() * 9000)}`,
+      projeto: this.addTicketForm.value.ticketProject,
+      titulo: this.addTicketForm.value.ticketTitle,
+      atendente: this.addTicketForm.value.ticketAttendant,
+      data: new Date().toLocaleDateString(),
+      descricao: this.addTicketForm.value.ticketDescription,
+      tipo: this.addTicketForm.value.ticketType,
+      subtipo: this.addTicketForm.value.ticketSubtype,
+      arquivos: 'Nenhum arquivo anexado',
+    };
+  
+    this.chamados.push(newTicket);
+    this.manageDisplay('filter');
+    this.addTicketForm.reset();
+  }
+
+  updateTicket() {
+    if (this.updateTicketDescriptionForm.valid) {
+      const updatedDescription = this.updateTicketDescriptionForm.value.ticketDescription;
+      const ticketIndex = this.chamados.findIndex(ticket => ticket.id === this.selectedTicket.id);
+
+      if (ticketIndex !== -1) {
+        this.chamados[ticketIndex].descricao = updatedDescription;
+        alert('Descrição do chamado atualizada com sucesso!');
+        this.manageDisplay('filter'); // Volta para a visualização de todos os chamados
+        this.updateTicketDescriptionForm.reset(); // Reseta o formulário de atualização
+      }
+    } else {
+      alert('O campo descrição é obrigatório e deve ser preenchido.');
+    }
   }
 
   @HostListener('document:click', ['$event'])

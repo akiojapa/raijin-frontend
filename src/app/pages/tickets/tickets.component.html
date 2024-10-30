@@ -30,7 +30,6 @@
                             </span>
                         </div>
                     </div>
-
                     <div class="col-lg-12">
                         <h4>Data</h4>
                         <div class="input-group mb-4">
@@ -127,7 +126,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let chamado of chamados" (click)="manageDisplay('viewTicket', chamado)">
+                        <tr *ngFor="let chamado of chamados" (click)="manageDisplay('updateTicket', chamado)">
                             <td>{{ chamado.id }}</td>
                             <td>{{ chamado.titulo }}</td>
                             <td>{{ chamado.atendente }}</td>
@@ -161,88 +160,75 @@
                 </button>
                 <h4 class="ms-2">Abertura de chamado</h4>
             </div>
-            <form>
-                <div class="row add-tickets" >
-                    <!-- Campos para Abertura de Chamado -->
-                    <div class="col-md-6 mb-3">
-                        <label for="ticketId" class="form-label">ID do Chamado</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control fs-5" id="ticketId" placeholder="gerado automaticamente" readonly>
-                        </div>
+            <form [formGroup]="addTicketForm">
+                <div class="row add-tickets">
+                  <!-- ID do Chamado -->
+                  <div class="col-md-6 mb-3">
+                    <label for="ticketId" class="form-label">ID do Chamado</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control fs-5" formControlName="ticketId" id="ticketId" placeholder="Gerado automaticamente" readonly>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="ticketProject" class="form-label">Projeto</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control fs-5" id="ticketProject" placeholder="Insira o Projeto">
-                            <div class="input-group-text no-bg input-icon" (click)="toggleDropdownMenu($event)">
-                                <fa-icon [icon]="faChevronDown"></fa-icon>
-                                <div *ngIf="showDropdownMenu" class="dropdown-menu-manager">
-                                    <div class="dropdown-item-manager">Projeto 1</div>
-                                    <div class="dropdown-item-manager">Projeto 2</div>
-                                    <div class="dropdown-item-manager">Projeto 3</div>
-                                </div>
-                            </div>
+                  </div>
+                  <!-- Projeto -->
+                  <div class="col-md-6 mb-3">
+                    <label for="ticketProject" class="form-label">Projeto</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control fs-5" formControlName="ticketProject" id="ticketProject" placeholder="Insira o Projeto">
+                      <div class="input-group-text no-bg input-icon" (click)="toggleDropdownMenu($event)">
+                        <fa-icon [icon]="faChevronDown"></fa-icon>
+                        <div *ngIf="showDropdownMenu" class="dropdown-menu-manager">
+                          <div class="dropdown-item-manager">Projeto 1</div>
+                          <div class="dropdown-item-manager">Projeto 2</div>
+                          <div class="dropdown-item-manager">Projeto 3</div>
                         </div>
+                      </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="ticketTitle" class="form-label">Título</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control fs-5" id="ticketTitle" placeholder="Insira o Título do Ticket">
-                        </div>
+                  </div>
+                  <!-- Título -->
+                  <div class="col-md-4 mb-3">
+                    <label for="ticketTitle" class="form-label">Título</label>
+                    <input type="text" class="form-control fs-5" formControlName="ticketTitle" id="ticketTitle" placeholder="Insira o Título do Ticket">
+                  </div>
+                  <!-- Data -->
+                  <div class="col-md-4 mb-3">
+                    <label for="ticketDate" class="form-label">Data</label>
+                    <input type="text" class="form-control fs-5" formControlName="ticketDate" id="ticketDate" placeholder="Gerado automaticamente" readonly>
+                  </div>
+                  <!-- Atendente -->
+                  <div class="col-md-4 mb-3">
+                    <label for="ticketAttendant" class="form-label">Atendente</label>
+                    <input type="text" class="form-control fs-5" formControlName="ticketAttendant" id="ticketAttendant" placeholder="Insira o Atendente">
+                  </div>
+                  <!-- Descrição -->
+                  <div class="col-md-12 mb-3">
+                    <label for="ticketDescription" class="form-label">Descrição</label>
+                    <textarea class="form-control fs-5 custom-textarea" formControlName="ticketDescription" placeholder="Insira a Descrição" rows="3"></textarea>
+                  </div>
+                  <!-- Tipo -->
+                  <div class="col-md-4 mb-3">
+                    <label for="ticketType" class="form-label">Tipos</label>
+                    <input type="text" class="form-control fs-5" formControlName="ticketType" id="ticketType" placeholder="Selecione o Tipo">
+                  </div>
+                  <!-- Subtipo -->
+                  <div class="col-md-4 mb-3">
+                    <label for="ticketSubtype" class="form-label">Subtipos</label>
+                    <input type="text" class="form-control fs-5" formControlName="ticketSubtype" id="ticketSubtype" placeholder="Selecione o Subtipo">
+                  </div>
+                  <!-- Arquivos -->
+                  <div class="col-md-4 mb-3">
+                    <label for="ticketFiles" class="form-label">Arquivos</label>
+                    <div class="input-group"> <!-- Adicione esta div para criar um grupo de entrada -->
+                      <input type="text" class="form-control fs-5" formControlName="ticketFiles" id="ticketFiles" placeholder="Anexar Arquivos">
+                      <span class="input-group-text no-bg input-icon">
+                        <fa-icon [icon]="faPaperclip"></fa-icon>
+                      </span>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="ticketDate" class="form-label">Data</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control fs-5" id="ticketDate" placeholder="gerado automaticamente" readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="ticketAttendant" class="form-label">Atendente</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control fs-5" id="ticketAttendant" placeholder="Insira o Atendente">
-                            <div class="input-group-text no-bg input-icon">
-                                <fa-icon [icon]="faChevronDown"></fa-icon>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <label for="ticketDescription" class="form-label">Descrição</label>
-                        <div class="input-group">
-                            <textarea class="form-control fs-5 custom-textarea" placeholder="Insira a Descrição" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="ticketType" class="form-label">Tipos</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control fs-5" id="ticketType" placeholder="Selecione o Tipo">
-                            <span class="input-group-text no-bg input-icon">
-                                <fa-icon [icon]="faChevronDown"></fa-icon>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="ticketSubtype" class="form-label">Subtipos</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control fs-5" id="ticketSubtype" placeholder="Selecione o Subtipo">
-                            <span class="input-group-text no-bg input-icon">
-                                <fa-icon [icon]="faChevronDown"></fa-icon>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="ticketFiles" class="form-label">Arquivos</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control fs-5" id="ticketFiles" placeholder="Anexar Arquivos">
-                            <span class="input-group-text no-bg input-icon">
-                                <fa-icon [icon]="faPaperclip"></fa-icon>
-                            </span>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </form>
-            <div>
-                <button type="submit" class="btn custom-btn float-end" (click)="manageDisplay('filter')">Salvar</button>
-            </div>
+                <footer class="footer-salvar">
+                    <button type="submit" class="btn custom-btn" (click)="addTicket()">Salvar</button>
+                </footer>
+              </form>
         </div>
         
         <div *ngIf="showViewTicketDiv">
@@ -253,7 +239,7 @@
                 </button>
                 <h4 class="ms-2">Visualização de Chamado</h4>
             </div>
-            <form>
+            <form [formGroup]="updateTicketDescriptionForm" (ngSubmit)="updateTicket()">
                 <div class="row view-tickets">
                     <!-- Campos para Visualização de Chamado -->
                     <div class="col-md-6 mb-3">
@@ -289,7 +275,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="viewTicketDescription" class="form-label">Descrição</label>
                         <div class="input-group">
-                            <textarea class="form-control fs-5 custom-textarea" [value]="selectedTicket?.descricao" rows="3"></textarea>
+                            <textarea class="form-control fs-5 custom-textarea" formControlName="ticketDescription" [value]="selectedTicket?.descricao" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -311,10 +297,10 @@
                         </div>
                     </div>
                 </div>
+                <footer class="footer-salvar">
+                    <button type="submit" class="btn custom-btn">Salvar</button>
+                </footer>
             </form>
-            <div>
-                <button type="submit" class="btn custom-btn float-end" (click)="manageDisplay('filter')">Salvar</button>
-            </div>
         </div>
     </div>
 </div>
