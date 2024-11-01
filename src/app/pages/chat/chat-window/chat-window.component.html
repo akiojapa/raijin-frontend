@@ -11,7 +11,7 @@
         <div class="d-flex justify-content-between" (click)="onSelectChat(group)">
             <div *ngIf="group.priority" class="chat-tag" [ngStyle]="{'background-color': getTagColor(group.priority)}"></div>
             <div class="d-flex align-items-center">
-                <img [src]="group.imageUrl" alt="Logo" class="user user-image">
+                <img [src]="group.imageUrl ?? 'liveseo-normal.png'" alt="Logo" class="user user-image">
                 <div class="user-details d-flex flex-column mt-3">
                     <h5 class="d-flex align-items-center">{{group.name}}</h5>
                     <p class="small"> {{lastMessage(group)}}</p>

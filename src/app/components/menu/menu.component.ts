@@ -65,8 +65,8 @@ export class MenuComponent {
   faAnglesRight = faAnglesRight;
   faSignOutAlt = faSignInAlt;
 
-  isCollapsed: boolean = true;
-  isFooterCollapsed: boolean = true;
+  isCollapsed: boolean = false;
+  isFooterCollapsed: boolean = false;
 
 
   constructor(private router: Router,

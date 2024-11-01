@@ -90,7 +90,8 @@ input[type="text"]:focus, input[type="password"]:focus {
     border-color: #FFA324; /* Cor da borda quando focado */
     box-shadow: 0 0 5px rgba(255, 163, 36, 0.5); /* Adiciona sombra */
     background-color: transparent;
-    color:#7D7D7D
+    color:#7D7D7D;
+    font-size: 16px;
 }
 
 input:-webkit-autofill {
