@@ -41,6 +41,7 @@ export class ChatService {
     this.websocketService.sendMessage({
       'chat_id': chat_id,
       'from_number': '997732694',
+      'from_name': 'Renan Dias',
       'content': message,
       'type': 'Text',
       'received': false,

@@ -32,8 +32,8 @@
   <!-- Componente de Chat(Body) -->
   <div class="messages-container p-3 flex-grow-1" #messagesContainer>
     <div *ngFor="let message of choosenGroup?.messages" class="d-flex mb-2 w-100"
-      [ngStyle]="{'justify-content': message.sender === 'Usuário' ? 'end' : 'start'}">
-      <div class="message" [ngClass]="{'sent': message.sender === 'Usuário', 'received': message.sender !== 'Usuário'}">
+      [ngStyle]="{'justify-content': message.sender === 'Renan Dias' ? 'end' : 'start'}">
+      <div class="message" [ngClass]="{'sent': message.sender === 'Renan Dias', 'received': message.sender !== 'Renan Dias'}">
         <div class="d-flex justify-content-between">
           <strong>{{ message.sender }}</strong>
           <small>{{ message.time }}</small>

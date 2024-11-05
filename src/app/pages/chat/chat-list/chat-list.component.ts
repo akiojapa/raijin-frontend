@@ -104,9 +104,9 @@ export class ChatListComponent implements OnInit {
   sendMessage(): void {
     if (this.newMessageContent.trim()) {
       const newMessage: IMessage = {
-        sender: 'Usuário',
+        sender: 'Renan Dias',
         content: this.newMessageContent,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
       };
 
       const url = this.document.location.hostname

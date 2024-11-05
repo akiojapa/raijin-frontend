@@ -55,33 +55,36 @@ export class ChatWindowComponent {
       this.websocketSubscription.unsubscribe();
     }
   }
-  
-  startGroups(){
+
+  startGroups() {
     if (isPlatformBrowser(this.elementRef.nativeElement)) {
       return
     }
-    
+
     this.loadingService.loadingOn()
     this.chatService.getGroups(997732694).pipe(
       finalize(() => this.loadingService.loadingOff())
     ).subscribe({
       next: (response) => {
         this.groups = response.body
-        this.groups[0].messages = [this.groups[0].messages[0]] 
         this.filteredGroups = this.groups;
         this.onSelectChat(this.selectedChat ? this.selectedChat : this.groups[0]);
       }
     })
   }
 
-  connectWebSocket(){
+  connectWebSocket() {
     this.chatService.connectWebSocket()
     this.websocketSubscription = this.chatService.receiveMessage().subscribe({
       next: data => {
+        let name = "Externo"
+        if (data.name) {
+          name = data.name
+        }
         const newMessage: IMessage = {
-          sender: data['name'] ?? 'Externo',
+          sender: name,
           content: data.message,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          time: data.time
         };
         this.groups.find(item => item.whats_id === data.chat)?.messages.push(newMessage)
       },
