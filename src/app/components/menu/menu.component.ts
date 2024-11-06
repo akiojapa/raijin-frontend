@@ -7,173 +7,102 @@ import {
   faImage,
   faFile,
   faVideo,
-  faEllipsisV
+  faEllipsisV,
+  faAnglesRight
 } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PAGES } from '../../helpers/pages';
 import { IPages } from '../../interfaces/pages';
-import { IGroup, IMessage } from '../../interfaces/groups';
-import { GROUPS } from '../../helpers/groups';
-
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-menu',
-  imports: [FontAwesomeModule, HeaderComponent, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [FontAwesomeModule, HeaderComponent, ReactiveFormsModule, CommonModule, FormsModule, RouterOutlet],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  standalone: true
+  standalone: true,
+  animations: [
+    // Animação para o menu lateral
+    trigger('toggleSidebar', [
+      state('expanded', style({
+        transform: 'translateX(0)',
+        opacity: 1,
+        zIndex: 10
+      })),
+      state('collapsed', style({
+        transform: 'translateX(100%)',
+        opacity: 0,
+        zIndex: -1
+      })),
+      transition('expanded <=> collapsed', [
+        animate('0.3s ease-in-out')
+      ])
+    ]),
+    // Animação para o menu horizontal
+    trigger('toggleFooter', [
+      state('expanded', style({
+        transform: 'translateY(0)',
+        opacity: 1
+      })),
+      state('collapsed', style({
+        transform: 'translateY(100%)',
+        opacity: 0
+      })),
+      transition('expanded <=> collapsed', [
+        animate('0.3s ease-in-out')
+      ])
+    ])
+  ]
 })
-export class MenuComponent implements AfterViewChecked {
-  @ViewChild('messagesContainer')
-  private messagesContainer!: ElementRef;
-  @ViewChild('imageInput')
-  imageInput!: ElementRef;
-  @ViewChild('fileInput')
-  fileInput!: ElementRef;
+export class MenuComponent {
   pages: IPages[] = PAGES;
-  groups: IGroup[] = GROUPS;
 
-  faSquarePlus = faSquarePlus;
-  faComment = faComment;
-  faUser = faUser;
-  faCog = faCog;
-  faSmile = faSmile;
-  faPaperPlane = faPaperPlane
+
   faAnglesLeft = faAnglesLeft;
+  faAnglesRight = faAnglesRight;
   faSignOutAlt = faSignInAlt;
-  faPlus = faSquarePlus;
-  faImage = faImage;
-  faFile = faFile;
-  faVideo = faVideo;
-  faEllipsisV = faEllipsisV;
-  choosenGroup: IGroup = this.groups[0];
-  newMessageContent: string = '';
-  showDropdownMenu: boolean = false;
-  showEmojiPicker: boolean = false;
-  showDropdown: boolean = false;
-  emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
+
+  isCollapsed: boolean = false;
+  isFooterCollapsed: boolean = false;
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
-  chooseGroup(group: IGroup): void {
-    this.choosenGroup = group;
+
+  isSelected(page: any): boolean {
+    console.log(this.router.url);
+    return this.router.url.includes(page.path);
   }
 
-  ngAfterViewChecked() {
-    this.scrollToBottom(); // Garante que o scroll esteja sempre no fim ao carregar a view
+  navigateTo(path: string) {
+    console.log(path);
+    this.router.navigate(
+      [
+        'menu',
+        {
+          outlets: { left: path, right: path }
+        }
+      ],
+    );
   }
 
-  // Método para rolar para o fim do container de mensagens
-  scrollToBottom(): void {
-    try {
-      this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error('Erro ao tentar rolar para o fim:', err);
+  toggleMenu() {
+    if (this.isCollapsed) {
+      this.isCollapsed = !this.isCollapsed;
+      setTimeout(() => {
+        this.isFooterCollapsed = !this.isFooterCollapsed;
+      }, 200);
+    } else {
+      this.isFooterCollapsed = !this.isFooterCollapsed;
+      setTimeout(() => {
+        this.isCollapsed = !this.isCollapsed;
+      }, 100);
     }
   }
 
-
-  sendMessage(): void {
-    if (this.newMessageContent.trim()) {
-      const newMessage: IMessage = {
-        sender: 'Usuário',
-        content: this.newMessageContent,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      this.choosenGroup.messages.push(newMessage);
-      this.newMessageContent = '';
-    }
-  }
-
-  openGroupInfo() {
-    console.log('Abrindo informações do grupo');
-    // Lógica para abrir informações do grupo
-  }
-
-  muteGroup() {
-    console.log('Silenciando grupo');
-    // Lógica para silenciar o grupo
-  }
-
-  openCall() {
-    console.log('Abrindo chamado');
-    // Lógica para abrir um chamado
-  }
-
-  exitGroup() {
-    console.log('Saindo do grupo');
-    // Lógica para sair do grupo
-  }
-
-  toggleDropdownMenu(event: Event) {
-    this.showDropdownMenu = !this.showDropdownMenu;
-    this.showDropdown = false
-    this.showEmojiPicker = false;
-    event.stopPropagation(); // Evita que o clique no ícone feche o dropdown
-  }
-
-  @HostListener('document:click', ['$event'])
-  closeDropdown(event: Event) {
-    this.showDropdownMenu = false;
-  }
-
-  toggleEmojiPicker() {
-    this.showEmojiPicker = !this.showEmojiPicker;
-    this.showDropdown = false; // Fecha o dropdown ao abrir o emoji picker
-  }
-
-  toggleDropdown() {
-    this.showDropdown = !this.showDropdown;
-    this.showEmojiPicker = false; // Fecha o emoji picker ao abrir o dropdown
-  }
-
-  // Adiciona o emoji à mensagem
-  addEmoji(emoji: string) {
-    this.newMessageContent += emoji; // Adiciona o emoji ao campo de mensagem
-    this.showEmojiPicker = false; // Fecha o seletor de emojis após selecionar
-  }
-
-  // Dispara o campo de seleção de arquivo
-  triggerFileInput(type: string) {
-    if (type === 'image') {
-      this.imageInput.nativeElement.click();
-    } else if (type === 'file') {
-      this.fileInput.nativeElement.click();
-    }
-  }
-
-  // Lida com a seleção de arquivo
-  handleFileInput(event: any, type: string) {
-    const file = event.target.files[0];
-    if (file) {
-      if (type === 'image') {
-        this.uploadImage(file);
-      } else if (type === 'file') {
-        this.uploadFile(file);
-      }
-    }
-  }
-
-  // Lógica para upload de imagem
-  uploadImage(file: File) {
-    const formData = new FormData();
-    formData.append('image', file);
-    
-    // Exemplo de upload (substituir com sua lógica de envio para o backend)
-    console.log('Uploading image:', file.name);
-    // Enviar o formData para o servidor
-  }
-
-  // Lógica para upload de arquivo genérico
-  uploadFile(file: File) {
-    const formData = new FormData();
-    formData.append('file', file);
-    
-    // Exemplo de upload (substituir com sua lógica de envio para o backend)
-    console.log('Uploading file:', file.name);
-    // Enviar o formData para o servidor
-  }
 }

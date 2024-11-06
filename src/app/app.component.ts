@@ -17,8 +17,9 @@ export class AppComponent {
     private loadingService: LoadingService
   ) {}
 
-  // ngOnInit() {
-  //   this.loadingService.loadingOn();
-  // }
+  ngOnInit() {
+    this.loadingService.loadingOn();
+    this.loadingService.loadingOff();
+  }
 
 }
