@@ -8,9 +8,9 @@ export const GROUPS: IGroup[] = [
     time: '18:30',
     imageUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
     messages: [
-      // { sender: 'Alice', content: 'See you at dinner!', time: '18:30' },
-      // { sender: 'Bob', content: 'Sure, see you!', time: '18:31' },
-      // { sender: 'Usuário', content: 'I will be there!', time: '18:32' }
+      { sender: 'Alice', content: 'See you at dinner!', time: '18:30' },
+      { sender: 'Bob', content: 'Sure, see you!', time: '18:31' },
+      { sender: 'Usuário', content: 'I will be there!', time: '18:32' }
     ],
     participants: 4,
     priority: 4
@@ -22,9 +22,9 @@ export const GROUPS: IGroup[] = [
     time: '17:45',
     imageUrl: 'https://randomuser.me/api/portraits/women/1.jpg',
     messages: [
-      // { sender: 'Dave', content: 'Let\'s go to the movies! KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', time: '17:45' },
-      // { sender: 'Eve', content: 'I\'m in!', time: '17:46' },
-      // { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
+      { sender: 'Dave', content: 'Let\'s go to the movies! KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', time: '17:45' },
+      { sender: 'Eve', content: 'I\'m in!', time: '17:46' },
+      { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
     ],
     participants: 4,
     priority: 4

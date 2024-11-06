@@ -62,16 +62,21 @@ export class ChatWindowComponent {
     }
     
     this.loadingService.loadingOn()
-    this.chatService.getGroups(997732694).pipe(
-      finalize(() => this.loadingService.loadingOff())
-    ).subscribe({
-      next: (response) => {
-        this.groups = response.body
-        this.groups[0].messages = [this.groups[0].messages[0]] 
-        this.filteredGroups = this.groups;
-        this.onSelectChat(this.selectedChat ? this.selectedChat : this.groups[0]);
-      }
-    })
+    this.groups = GROUPS
+    this.filteredGroups = this.groups
+    this.onSelectChat(this.selectedChat ? this.selectedChat : this.groups[0]);
+    this.loadingService.loadingOff()
+
+    // this.chatService.getGroups(997732694).pipe(
+    //   finalize(() => this.loadingService.loadingOff())
+    // ).subscribe({
+    //   next: (response) => {
+    //     this.groups = response.body
+    //     this.groups[0].messages = [this.groups[0].messages[0]] 
+    //     this.filteredGroups = this.groups;
+    //     this.onSelectChat(this.selectedChat ? this.selectedChat : this.groups[0]);
+    //   }
+    // })
   }
 
   connectWebSocket(){
