@@ -4,6 +4,19 @@
     [(ngModel)]="searchQuery"
     (input)="filterGroups()">
     <fa-icon [icon]="faSquarePlus" class="search-icon"></fa-icon>
+    
+    <div class="d-flex justify-content-center align-items-center position-relative">
+        <fa-icon [icon]="faFilter" class="filter-icon" (click)="toggleDropdownTags($event)"></fa-icon>
+
+        <!-- Dropdown de opções -->
+        <div *ngIf="showDropdownTags" class="dropdown-tags-manager">
+            <p>Filtre por tags</p>
+            <div class="dropdown-item-manager" (click)="openGroupInfo()">Informações do Grupo</div>
+            <div class="dropdown-item-manager" (click)="muteGroup()">Silenciar Grupo</div>
+            <div class="dropdown-item-manager" (click)="openCall()">Abrir Chamado</div>
+            <div class="dropdown-item-manager" (click)="exitGroup()">Sair do Grupo</div>
+        </div>
+    </div>
 </div>
 
 <div class="row chat-nav p-2">

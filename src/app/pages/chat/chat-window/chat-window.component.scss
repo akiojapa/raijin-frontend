@@ -1,0 +1,21 @@
+.dropdown-tags-manager {
+  position: absolute;
+  top: 100%; /* Aparece logo abaixo do ícone de filtro */
+  right: 0; /* Alinhe à direita conforme necessário */
+  z-index: 10;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  width: 160px; /* Ajuste conforme necessário */
+}
+
+.dropdown-item-manager {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.dropdown-item-manager:hover {
+  background-color: #f0f0f0;
+}

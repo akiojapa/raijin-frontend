@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { FaIconComponent, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faSquarePlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus, IconDefinition, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { ChatService } from '../../../services/chat.service';
@@ -23,6 +23,8 @@ export class ChatWindowComponent {
   filteredGroups: any[] = [];
   searchQuery: string = '';
   faSquarePlus: IconDefinition = faSquarePlus;
+  faFilter = faFilter;
+  showDropdownTags: boolean = false;
 
   selectedChat: IGroup | null = null;
   websocketSubscription!: Subscription
@@ -115,5 +117,31 @@ export class ChatWindowComponent {
       default:
         return '#FFFFFF';
     }
+  }
+
+  toggleDropdownTags(event: Event) {
+    this.showDropdownTags = !this.showDropdownTags;
+    event.stopPropagation();
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event) {
+    this.showDropdownTags = false;
+  }
+
+  openGroupInfo() {
+    console.log('Abrindo informações do grupo');
+  }
+
+  muteGroup() {
+    console.log('Silenciando grupo');
+  }
+
+  openCall() {
+    console.log('Abrindo chamado');
+  }
+
+  exitGroup() {
+    console.log('Saindo do grupo');
   }
 }
