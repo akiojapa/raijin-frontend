@@ -38,6 +38,7 @@ export class ChatWindowComponent {
   }
 
   lastMessage(group: IGroup) {
+    console.log(group)
     return group.messages[group.messages.length - 1].content;
   }
 

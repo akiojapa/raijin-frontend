@@ -7,8 +7,14 @@
                 <p class="small">Administrador</p>
             </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <fa-icon [icon]="faCog" class="configurations"></fa-icon>
-        </div>
+        <div class="d-flex justify-content-center align-items-center position-relative">
+            <fa-icon [icon]="faCog" class="configurations" (click)="toggleConfigDropdown($event)"></fa-icon>
+          
+            <!-- Dropdown de Configurações -->
+            <div *ngIf="showConfigDropdown" class="dropdown-menu-config">
+              <div class="dropdown-item-config" (click)="viewProfile()">Visualizar Perfil</div>
+              <div class="dropdown-item-config" (click)="logout()">Logout</div>
+            </div>
+          </div>
     </div>
 </div>

@@ -2,6 +2,9 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { TicketsComponent } from './pages/tickets/tickets.component';
+import { TestPageComponent } from './pages/test-page/test-page.component';
+import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
+import { ChatWindowComponent } from './pages/chat/chat-window/chat-window.component';
 
 export const routes: Routes = [
     {
@@ -15,10 +18,16 @@ export const routes: Routes = [
     },
     {
         path: 'menu',
-        component: MenuComponent
+        component: MenuComponent,
+        children: [
+            { path: 'chat', outlet: 'left', component: ChatWindowComponent }, 
+            { path: 'chat', outlet: 'right', component: ChatListComponent }, 
+        ]
+        
     },
     {
         path: 'chamados',
         component: TicketsComponent
     }
+
 ];
