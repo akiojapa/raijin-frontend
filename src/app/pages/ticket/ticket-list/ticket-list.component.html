@@ -1,0 +1,206 @@
+<div class="header-tickets d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-between w-100">
+        <div class="d-flex align-items-center">
+            <fa-icon [icon]="faTicket" alt="Tela de Chamado" class="m-3 fa-2x"></fa-icon>
+            <h4>Chamados</h4>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!showAddTicketDiv && !showViewTicketDiv">
+    <div class="d-flex align-items-center justify-content-end m-3 border-line">
+        <button class="btn btn-outline-warning mx-2 no-bg ticket-btn" (click)="toggleAddTicketDiv()">
+            <fa-icon [icon]="faPlus" class="fa-2x"></fa-icon>
+        </button>
+        <button class="btn btn-outline-warning no-bg ticket-btn">
+            <fa-icon [icon]="faDownload" class="fa-2x"></fa-icon>
+        </button>
+    </div>
+
+    <div class="table-responsive mt-4">
+        <table class="table table-dark table-striped table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Atendente</th>
+                    <th>Projeto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let chamado of chamados" (click)="manageDisplay('updateTicket', chamado)">
+                    <td>{{ chamado.id }}</td>
+                    <td>{{ chamado.titulo }}</td>
+                    <td>{{ chamado.atendente }}</td>
+                    <td>{{ chamado.projeto }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="d-flex justify-content-center align-items-center mt-4">
+        <!-- Controles de paginação -->
+        <button class="btn btn-outline-warning no-bg ticket-btn">
+            <fa-icon [icon]="faAnglesLeft"></fa-icon>
+        </button>
+        <button class="btn btn-outline-warning mx-1 no-bg page-number">1</button>
+        <button class="btn btn-outline-warning mx-1 no-bg page-number">2</button>
+        <button class="btn btn-outline-warning mx-1 no-bg page-number">3</button>
+        <span class="mx-2 no-bg">...</span>
+        <button class="btn btn-outline-warning mx-1 no-bg page-number">7</button>
+        <button class="btn btn-outline-warning no-bg ticket-btn">
+            <fa-icon [icon]="faAnglesRight"></fa-icon>
+        </button>
+    </div>
+</div>
+
+<div *ngIf="showAddTicketDiv">
+    <!-- Seção de Abertura de Chamado -->
+    <div class="d-flex align-items-center justify-content-start m-3 border-line">
+        <button class="btn btn-outline-warning no-bg ticket-btn" (click)="toggleAddTicketDiv()">
+            <fa-icon [icon]="faArrowLeft" class="fa-2x"></fa-icon>
+        </button>
+        <h4 class="ms-2">Abertura de chamado</h4>
+    </div>
+    <form [formGroup]="addTicketForm">
+        <div class="row add-tickets">
+          <!-- ID do Chamado -->
+          <div class="col-md-6 mb-3">
+            <label for="ticketId" class="form-label">ID do Chamado</label>
+            <div class="input-group">
+              <input type="text" class="form-control fs-5" formControlName="ticketId" id="ticketId" placeholder="Gerado automaticamente" readonly>
+            </div>
+          </div>
+          <!-- Projeto -->
+          <div class="col-md-6 mb-3">
+            <label for="ticketProject" class="form-label">Projeto</label>
+            <div class="input-group">
+              <input type="text" class="form-control fs-5" formControlName="ticketProject" id="ticketProject" placeholder="Insira o Projeto">
+              <div class="input-group-text no-bg input-icon" (click)="toggleDropdownMenu($event)">
+                <fa-icon [icon]="faChevronDown"></fa-icon>
+                <div *ngIf="showDropdownMenu" class="dropdown-menu-manager">
+                  <div class="dropdown-item-manager">Projeto 1</div>
+                  <div class="dropdown-item-manager">Projeto 2</div>
+                  <div class="dropdown-item-manager">Projeto 3</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Título -->
+          <div class="col-md-4 mb-3">
+            <label for="ticketTitle" class="form-label">Título</label>
+            <input type="text" class="form-control fs-5" formControlName="ticketTitle" id="ticketTitle" placeholder="Insira o Título do Ticket">
+          </div>
+          <!-- Data -->
+          <div class="col-md-4 mb-3">
+            <label for="ticketDate" class="form-label">Data</label>
+            <input type="text" class="form-control fs-5" formControlName="ticketDate" id="ticketDate" placeholder="Gerado automaticamente" readonly>
+          </div>
+          <!-- Atendente -->
+          <div class="col-md-4 mb-3">
+            <label for="ticketAttendant" class="form-label">Atendente</label>
+            <input type="text" class="form-control fs-5" formControlName="ticketAttendant" id="ticketAttendant" placeholder="Insira o Atendente">
+          </div>
+          <!-- Descrição -->
+          <div class="col-md-12 mb-3">
+            <label for="ticketDescription" class="form-label">Descrição</label>
+            <textarea class="form-control fs-5 custom-textarea" formControlName="ticketDescription" placeholder="Insira a Descrição" rows="3"></textarea>
+          </div>
+          <!-- Tipo -->
+          <div class="col-md-4 mb-3">
+            <label for="ticketType" class="form-label">Tipos</label>
+            <input type="text" class="form-control fs-5" formControlName="ticketType" id="ticketType" placeholder="Selecione o Tipo">
+          </div>
+          <!-- Subtipo -->
+          <div class="col-md-4 mb-3">
+            <label for="ticketSubtype" class="form-label">Subtipos</label>
+            <input type="text" class="form-control fs-5" formControlName="ticketSubtype" id="ticketSubtype" placeholder="Selecione o Subtipo">
+          </div>
+          <!-- Arquivos -->
+          <div class="col-md-4 mb-3">
+            <label for="ticketFiles" class="form-label">Arquivos</label>
+            <div class="input-group"> <!-- Adicione esta div para criar um grupo de entrada -->
+              <input type="text" class="form-control fs-5" formControlName="ticketFiles" id="ticketFiles" placeholder="Anexar Arquivos">
+              <span class="input-group-text no-bg input-icon">
+                <fa-icon [icon]="faPaperclip"></fa-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <footer class="footer-salvar">
+            <button type="submit" class="btn custom-btn" (click)="addTicket()">Salvar</button>
+        </footer>
+      </form>
+</div>
+
+<div *ngIf="showViewTicketDiv">
+    <!-- Seção de Visualização de Chamado -->
+    <div class="d-flex align-items-center justify-content-start m-3 border-line">
+        <button class="btn btn-outline-warning no-bg ticket-btn" (click)="toggleViewTicketDiv()">
+            <fa-icon [icon]="faArrowLeft" class="fa-2x"></fa-icon>
+        </button>
+        <h4 class="ms-2">Visualização de Chamado</h4>
+    </div>
+    <form [formGroup]="updateTicketDescriptionForm" (ngSubmit)="updateTicket()">
+        <div class="row view-tickets">
+            <!-- Campos para Visualização de Chamado -->
+            <div class="col-md-6 mb-3">
+                <label for="viewTicketId" class="form-label">ID do Chamado</label>
+                <div class="input-group">
+                    <input type="text" class="form-control fs-5" id="viewTicketId" [value]="selectedTicket?.id" readonly>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="viewTicketProject" class="form-label">Projeto</label>
+                <div class="input-group">
+                    <input type="text" class="form-control fs-5" id="viewTicketProject" [value]="selectedTicket?.projeto" readonly>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="viewTicketTitle" class="form-label">Título</label>
+                <div class="input-group">
+                    <input type="text" class="form-control fs-5" id="viewTicketTitle" [value]="selectedTicket?.titulo" readonly>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="viewTicketDate" class="form-label">Data</label>
+                <div class="input-group">
+                    <input type="text" class="form-control fs-5" id="viewTicketDate" [value]="selectedTicket?.data" readonly>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="viewTicketAttendant" class="form-label">Atendente</label>
+                <div class="input-group">
+                    <input type="text" class="form-control fs-5" id="viewTicketAttendant" [value]="selectedTicket?.atendente" readonly>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label for="viewTicketDescription" class="form-label">Descrição</label>
+                <div class="input-group">
+                    <textarea class="form-control fs-5 custom-textarea" formControlName="ticketDescription" [value]="selectedTicket?.descricao" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="viewTicketType" class="form-label">Tipos</label>
+                <div class="input-group">
+                    <input type="text" class="form-control fs-5" id="viewTicketType" [value]="selectedTicket?.tipo" readonly>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="viewTicketSubtype" class="form-label">Subtipos</label>
+                <div class="input-group">
+                    <input type="text" class="form-control fs-5" id="viewTicketSubtype" [value]="selectedTicket?.subtipo" readonly>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="viewTicketFiles" class="form-label">Arquivos</label>
+                <div class="input-group">
+                    <input type="text" class="form-control fs-5" id="viewTicketFiles" [value]="selectedTicket?.arquivos" readonly>
+                </div>
+            </div>
+        </div>
+        <footer class="footer-salvar">
+            <button type="submit" class="btn custom-btn">Salvar</button>
+        </footer>
+    </form>
+</div>
