@@ -5,6 +5,8 @@ import { TicketsComponent } from './pages/tickets/tickets.component';
 import { TestPageComponent } from './pages/test-page/test-page.component';
 import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
 import { ChatWindowComponent } from './pages/chat/chat-window/chat-window.component';
+import { TicketWindowComponent } from './pages/ticket/ticket-window/ticket-window.component';
+import { TicketListComponent } from './pages/ticket/ticket-list/ticket-list.component';
 
 export const routes: Routes = [
     {
@@ -21,7 +23,9 @@ export const routes: Routes = [
         component: MenuComponent,
         children: [
             { path: 'chat', outlet: 'left', component: ChatWindowComponent }, 
-            { path: 'chat', outlet: 'right', component: ChatListComponent }, 
+            { path: 'chat', outlet: 'right', component: ChatListComponent },
+            { path: 'ticket', outlet: 'left', component: TicketWindowComponent},
+            { path: 'ticket', outlet: 'right', component: TicketListComponent}, 
         ]
         
     },

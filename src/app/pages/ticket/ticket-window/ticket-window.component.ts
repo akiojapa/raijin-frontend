@@ -13,7 +13,7 @@ import { faCalendarDays, faChevronDown, faMagnifyingGlass } from '@fortawesome/f
     FontAwesomeModule,
     CommonModule],
   templateUrl: './ticket-window.component.html',
-  styleUrl: './ticket-window.component.scss'
+  styleUrls: ['./ticket-window.component.scss']
 })
 export class TicketWindowComponent {
   faMagnifyingGlass = faMagnifyingGlass;

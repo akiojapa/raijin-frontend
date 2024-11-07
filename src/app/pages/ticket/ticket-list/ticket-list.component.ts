@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTicket, faPlus, faDownload, faAnglesLeft, faAnglesRight, faArrowLeft, faPaperclip, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Router } from 'express';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ticket-list',
@@ -46,7 +47,7 @@ export class TicketListComponent {
   addTicketForm: FormGroup;
   updateTicketDescriptionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private toastService: ToastrService) {
     this.addTicketForm = this.fb.group({
       ticketProject: ['', Validators.required],
       ticketTitle: ['', Validators.required],
@@ -79,7 +80,6 @@ export class TicketListComponent {
         this.showViewTicketDiv = true;
         this.updateTicketDiv = true;
         this.selectedTicket = chamado;
-        // Preenche o campo de descrição com o valor do chamado selecionado
         this.updateTicketDescriptionForm.patchValue({
             ticketDescription: chamado?.descricao,
         });
@@ -109,9 +109,8 @@ export class TicketListComponent {
   }
 
   addTicket() {
-    const invalidFields = []; // Array para armazenar campos inválidos
+    const invalidFields = [];
   
-    // Verifica quais campos obrigatórios estão inválidos
     if (!this.addTicketForm.get('ticketProject')?.valid) {
       invalidFields.push('Projeto');
     }
@@ -131,13 +130,13 @@ export class TicketListComponent {
       invalidFields.push('Subtipo');
     }
   
-    // Se houver campos inválidos, exibe um alerta
     if (invalidFields.length > 0) {
-      alert(`Os seguintes campos são obrigatórios e devem ser preenchidos: ${invalidFields.join(', ')}`);
-      return; // Para sair da função se houver campos inválidos
+      this.toastService.warning(`Os seguintes campos são obrigatórios e devem ser preenchidos: ${invalidFields.join(', ')}`);
+      this.manageDisplay('filter');
+      this.addTicketForm.reset();
+      return
     }
   
-    // Se todos os campos obrigatórios estão preenchidos, prossegue
     const newTicket = {
       id: `#${Math.floor(1000 + Math.random() * 9000)}`,
       projeto: this.addTicketForm.value.ticketProject,
@@ -162,12 +161,12 @@ export class TicketListComponent {
 
       if (ticketIndex !== -1) {
         this.chamados[ticketIndex].descricao = updatedDescription;
-        alert('Descrição do chamado atualizada com sucesso!');
-        this.manageDisplay('filter'); // Volta para a visualização de todos os chamados
-        this.updateTicketDescriptionForm.reset(); // Reseta o formulário de atualização
+        this.toastService.success('Descrição do chamado atualizada com sucesso!');
+        this.manageDisplay('filter');
+        this.updateTicketDescriptionForm.reset();
       }
     } else {
-      alert('O campo descrição é obrigatório e deve ser preenchido.');
+      this.toastService.warning('O campo descrição é obrigatório e deve ser preenchido.');
     }
   }
 
