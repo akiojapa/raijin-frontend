@@ -1,25 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import {  MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTicket, faPlus, faDownload, faAnglesLeft, faAnglesRight, faArrowLeft, faPaperclip, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { Router } from 'express';
 import { ToastrService } from 'ngx-toastr';
+import { TICKETS } from '../../../helpers/tickets';
 
 @Component({
   selector: 'app-ticket-list',
   standalone: true,
   imports: [
-    FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule
+    FontAwesomeModule, ReactiveFormsModule, 
+    CommonModule, FormsModule, MatPaginatorModule, MatTableModule 
   ],
   templateUrl: './ticket-list.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./ticket-list.component.scss']
 })
-export class TicketListComponent {
-  @ViewChild('imageInput')
-  imageInput!: ElementRef;
-  @ViewChild('fileInput')
-  fileInput!: ElementRef;
+export class TicketListComponent implements AfterViewInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('imageInput') imageInput!: ElementRef;
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   faChevronDown = faChevronDown;
   faTicket = faTicket;
@@ -38,16 +41,14 @@ export class TicketListComponent {
   showDropdown: boolean = false;
   selectedTicket: any;
 
-  chamados = [
-    { id: '#2357', titulo: 'Chat Teste', atendente: 'Caio', projeto: 'Projeto 1', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-    { id: '#1983', titulo: 'Chat Teste', atendente: 'Eduardo', projeto: 'Projeto 12', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-    { id: '#2327', titulo: 'Chat Teste', atendente: 'João', projeto: 'Projeto 49', data: '23/10/2024', descricao: 'Descrição teste', tipo: 'Tipo teste', subtipo: 'Subtipo teste', arquivos: 'Arquivos teste' },
-];
+  tickets: any = TICKETS;
+  dataSource?: any;
+  displayedColumns: string[] = ['id', 'titulo', 'atendente', 'projeto'];
 
   addTicketForm: FormGroup;
   updateTicketDescriptionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastService: ToastrService) {
+  constructor(private fb: FormBuilder, private toastService: ToastrService, private cdr: ChangeDetectorRef) {
     this.addTicketForm = this.fb.group({
       ticketProject: ['', Validators.required],
       ticketTitle: ['', Validators.required],
@@ -60,6 +61,14 @@ export class TicketListComponent {
     this.updateTicketDescriptionForm = this.fb.group({
       ticketDescription: ['', Validators.required],
     });
+  }
+
+  ngAfterViewInit() {
+
+    this.dataSource = new MatTableDataSource(this.tickets);
+
+    this.dataSource.paginator = this.paginator;
+    this.cdr.detectChanges();
   }
 
   manageDisplay(view: string, chamado?: any) {
@@ -149,7 +158,7 @@ export class TicketListComponent {
       arquivos: 'Nenhum arquivo anexado',
     };
   
-    this.chamados.push(newTicket);
+    this.tickets.push(newTicket);
     this.manageDisplay('filter');
     this.addTicketForm.reset();
   }
@@ -157,10 +166,10 @@ export class TicketListComponent {
   updateTicket() {
     if (this.updateTicketDescriptionForm.valid) {
       const updatedDescription = this.updateTicketDescriptionForm.value.ticketDescription;
-      const ticketIndex = this.chamados.findIndex(ticket => ticket.id === this.selectedTicket.id);
+      const ticketIndex = this.tickets.findIndex((ticket: { id: any; }) => ticket.id === this.selectedTicket.id);
 
       if (ticketIndex !== -1) {
-        this.chamados[ticketIndex].descricao = updatedDescription;
+        this.tickets[ticketIndex].descricao = updatedDescription;
         this.toastService.success('Descrição do chamado atualizada com sucesso!');
         this.manageDisplay('filter');
         this.updateTicketDescriptionForm.reset();
