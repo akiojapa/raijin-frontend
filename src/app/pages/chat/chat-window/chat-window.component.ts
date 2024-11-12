@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { FaIconComponent, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSquarePlus, IconDefinition, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
@@ -25,6 +25,8 @@ export class ChatWindowComponent {
   faSquarePlus: IconDefinition = faSquarePlus;
   faFilter = faFilter;
   showDropdownTags: boolean = false;
+  tags: string[] = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
+  selectedTags: string[] = [];
 
   selectedChat: IGroup | null = null;
   websocketSubscription!: Subscription
@@ -118,30 +120,30 @@ export class ChatWindowComponent {
         return '#FFFFFF';
     }
   }
+  
+  // Referência à div de filtro
+  @ViewChild('dropdownTags') dropdownTags!: ElementRef;
 
-  toggleDropdownTags(event: Event) {
-    this.showDropdownTags = !this.showDropdownTags;
+  toggleDropdownTags(event: Event): void {
     event.stopPropagation();
+    this.showDropdownTags = !this.showDropdownTags;
   }
 
+  toggleTagSelection(tag: string): void {
+    const index = this.selectedTags.indexOf(tag);
+    if (index > -1) {
+        this.selectedTags.splice(index, 1); // Remove tag se já estiver selecionada
+    } else {
+        this.selectedTags.push(tag); // Adiciona tag se ainda não estiver selecionada
+    }
+  }
+
+  // Fecha a div se clicar fora dela
   @HostListener('document:click', ['$event'])
-  closeDropdown(event: Event) {
-    this.showDropdownTags = false;
-  }
-
-  openGroupInfo() {
-    console.log('Abrindo informações do grupo');
-  }
-
-  muteGroup() {
-    console.log('Silenciando grupo');
-  }
-
-  openCall() {
-    console.log('Abrindo chamado');
-  }
-
-  exitGroup() {
-    console.log('Saindo do grupo');
+  onClickOutside(event: Event): void {
+      const clickedInside = this.dropdownTags?.nativeElement.contains(event.target);
+      if (!clickedInside) {
+          this.showDropdownTags = false;
+      }
   }
 }

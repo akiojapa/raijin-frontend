@@ -9,13 +9,27 @@
         <fa-icon [icon]="faFilter" class="filter-icon" (click)="toggleDropdownTags($event)"></fa-icon>
 
         <!-- Dropdown de opções -->
-        <div *ngIf="showDropdownTags" class="dropdown-tags-manager">
+        <div *ngIf="showDropdownTags" class="dropdown-tags-manager" #dropdownTags>
             <p>Filtre por tags</p>
-            <div class="dropdown-item-manager" (click)="openGroupInfo()">Informações do Grupo</div>
-            <div class="dropdown-item-manager" (click)="muteGroup()">Silenciar Grupo</div>
-            <div class="dropdown-item-manager" (click)="openCall()">Abrir Chamado</div>
-            <div class="dropdown-item-manager" (click)="exitGroup()">Sair do Grupo</div>
-        </div>
+            <div class="tags-options">
+              <div *ngFor="let tag of tags" class="form-check">
+                <input 
+                  type="checkbox" 
+                  [id]="tag" 
+                  [checked]="selectedTags.includes(tag)"
+                  (change)="toggleTagSelection(tag)"
+                  class="form-check-input"
+                >
+                <label 
+                  [for]="tag" 
+                  class="form-check-label"
+                  [ngStyle]="{ 'background-color': getTagColor(tag) }"
+                >
+                  {{ tag }}
+                </label>
+              </div>
+            </div>
+          </div>
     </div>
 </div>
 
