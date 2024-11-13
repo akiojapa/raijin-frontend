@@ -19,15 +19,20 @@ export const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'menu',
+        path: 'menu/chat',
         component: MenuComponent,
         children: [
-            { path: 'chat', outlet: 'left', component: ChatWindowComponent }, 
-            { path: 'chat', outlet: 'right', component: ChatListComponent },
-            { path: 'ticket', outlet: 'left', component: TicketWindowComponent},
-            { path: 'ticket', outlet: 'right', component: TicketListComponent}, 
+            { path: '', component: ChatWindowComponent, outlet: 'left' },
+            { path: '', component: ChatListComponent, outlet: 'right' },
         ]
-        
+    },
+    {
+        path: 'menu/ticket',
+        component: MenuComponent,
+        children: [
+            { path: '', component: TicketWindowComponent, outlet: 'left' },
+            { path: '', component: TicketListComponent, outlet: 'right' },
+        ]
     },
     {
         path: 'chamados',

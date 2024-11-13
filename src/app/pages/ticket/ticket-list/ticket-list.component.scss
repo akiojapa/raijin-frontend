@@ -1,9 +1,34 @@
-h4, label, p, h5, h6, small, td, th {
+h4,
+label,
+p,
+h5,
+h6,
+small,
+td,
+th {
   color: #FFA324;
 }
 
-::ng-deep .mat-mdc-paginator-range-actions {
-  color: #FFA324;
+.custom-paginator div.mat-mdc-paginator-range-label,
+.custom-paginator button {
+  color: #FFA324 !important;
+}
+
+.custom-paginator button {
+  color: #FFA324 !important;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-paginator button:hover {
+  color: #ebe4e4 !important;
+}
+
+
+.custom-paginator .mat-mdc-button-disabled {
+  color: #FFA324 !important;
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .icon {
@@ -34,7 +59,8 @@ input::placeholder {
 }
 
 .ticket-btn:hover {
-  background-color: #50504d;
+  background-color: transparent;
+  color: #ebe4e4;
 }
 
 .divider-line {

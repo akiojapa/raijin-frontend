@@ -39,13 +39,21 @@
           <th mat-header-cell *matHeaderCellDef>Projeto</th>
           <td mat-cell *matCellDef="let element">{{ element.projeto }}</td>
         </ng-container>
+
+        <ng-container matColumnDef="sincronizado">
+          <th mat-header-cell *matHeaderCellDef class="text-center">Sincronizado</th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+            <fa-icon *ngIf="element.sincronizado" [icon]="faCheckCircle" class="text-success"></fa-icon>
+            <fa-icon *ngIf="!element.sincronizado" [icon]="faTimesCircle" class="text-danger"></fa-icon>
+          </td>
+        </ng-container>
   
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="manageDisplay('updateTicket', row)"></tr>
       </table>
     </div>
   
-    <mat-paginator [pageSize]="10" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
+    <mat-paginator class="custom-paginator" [pageSize]="10" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
   </div>
 
 <div *ngIf="showAddTicketDiv">
@@ -98,7 +106,7 @@
           <!-- Descrição -->
           <div class="col-md-12 mb-3">
             <label for="ticketDescription" class="form-label">Descrição</label>
-            <textarea class="form-control fs-5 custom-textarea" formControlName="ticketDescription" placeholder="Insira a Descrição" rows="3"></textarea>
+            <textarea class="form-control fs-5 custom-textarea" formControlName="ticketDescription" rows="3"></textarea>
           </div>
           <!-- Tipo -->
           <div class="col-md-4 mb-3">
@@ -181,6 +189,7 @@
                 </div>
             </div>
             <div class="col-md-4 mb-3">
+
                 <label for="viewTicketSubtype" class="form-label">Subtipos</label>
                 <div class="input-group">
                     <input type="text" class="form-control fs-5" id="viewTicketSubtype" [value]="selectedTicket?.subtipo" readonly>

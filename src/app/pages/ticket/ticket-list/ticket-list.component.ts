@@ -4,9 +4,11 @@ import {  MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTicket, faPlus, faDownload, faAnglesLeft, faAnglesRight, faArrowLeft, faPaperclip, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faTicket, faPlus, faDownload, faAnglesLeft, faAnglesRight, faArrowLeft, faPaperclip, faChevronDown, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { TICKETS } from '../../../helpers/tickets';
+import { IMessage } from '../../../interfaces/groups';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -41,14 +43,18 @@ export class TicketListComponent implements AfterViewInit {
   showDropdown: boolean = false;
   selectedTicket: any;
 
+  faCheckCircle: any = faCheckCircle;
+  faTimesCircle: any = faTimesCircle;
+
   tickets: any = TICKETS;
+  ticketMessages?: string;
   dataSource?: any;
-  displayedColumns: string[] = ['id', 'titulo', 'atendente', 'projeto'];
+  displayedColumns: string[] = ['id', 'titulo', 'atendente', 'projeto', 'sincronizado'];
 
   addTicketForm: FormGroup;
   updateTicketDescriptionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastService: ToastrService, private cdr: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private toastService: ToastrService, private cdr: ChangeDetectorRef, private loadingService: LoadingService) {
     this.addTicketForm = this.fb.group({
       ticketProject: ['', Validators.required],
       ticketTitle: ['', Validators.required],
@@ -63,12 +69,34 @@ export class TicketListComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
+    this.loadingService.loadingOn();
+    if (this.hasMessages()) {
+      const messages = await JSON.parse(localStorage.getItem('selectedMessages') || '{}');
+       this.addTicketForm.patchValue({
+        ticketDescription: this.formatMessagesForDescription(messages)
+      });
+      this.loadingService.loadingOff();
+      this.toggleAddTicketDiv();
+    }
+    this.loadingService.loadingOff();
+
+    
 
     this.dataSource = new MatTableDataSource(this.tickets);
 
     this.dataSource.paginator = this.paginator;
     this.cdr.detectChanges();
+  }
+
+  hasMessages() {
+    return localStorage.getItem('selectedMessages');
+  }
+
+  formatMessagesForDescription(messages: IMessage[]) {
+    return messages.map((message: IMessage) => {
+      return `${message.sender} relatou: ${message.content} - às ${message.time}`;
+    }).join('\n');
   }
 
   manageDisplay(view: string, chamado?: any) {
@@ -152,7 +180,7 @@ export class TicketListComponent implements AfterViewInit {
       titulo: this.addTicketForm.value.ticketTitle,
       atendente: this.addTicketForm.value.ticketAttendant,
       data: new Date().toLocaleDateString(),
-      descricao: this.addTicketForm.value.ticketDescription,
+      descricao: this.ticketMessages ?? this.addTicketForm.value.ticketDescription,
       tipo: this.addTicketForm.value.ticketType,
       subtipo: this.addTicketForm.value.ticketSubtype,
       arquivos: 'Nenhum arquivo anexado',
