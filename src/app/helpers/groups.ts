@@ -1,172 +1,148 @@
-import { IGroup } from "../interfaces/groups";
+import { Group, Message } from "../interfaces/groups";
 
-export const GROUPS: IGroup[] = [
-  {
+export const GROUPS: Group[] = [
+  new Group({
     whats_id: '120363333152450709@g.us',
     name: 'Teste',
-    lastMessage: 'See you at dinner!',
-    time: '18:30',
     imageUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
     messages: [
-      // { sender: 'Alice', content: 'See you at dinner!', time: '18:30' },
-      // { sender: 'Bob', content: 'Sure, see you!', time: '18:31' },
-      // { sender: 'Usuário', content: 'I will be there!', time: '18:32' }
+      new Message({ sender: 'Alice', content: 'See you at dinner!', time: 1731349800 }),
+      new Message({ sender: 'Bob', content: 'Sure, see you!', time: 1731349860 }),
+      new Message({ sender: 'Usuário', content: 'I will be there!', time: 1731349920 })
     ],
     participants: 4,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '120363217209632703@g.us',
     name: 'Raijin Group - 06',
-    lastMessage: 'Let\'s go to the movies!',
-    time: '17:45',
     imageUrl: 'https://randomuser.me/api/portraits/women/1.jpg',
     messages: [
-      // { sender: 'Dave', content: 'Let\'s go to the movies! KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', time: '17:45' },
-      // { sender: 'Eve', content: 'I\'m in!', time: '17:46' },
-      // { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
+      new Message({ sender: 'Dave', content: 'Let\'s go to the movies! KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', time: 1731347100 }),
+      new Message({ sender: 'Eve', content: 'I\'m in!', time: 1731347160 }),
+      new Message({ sender: 'Usuário', content: 'Count me in!', time: 1731347220 })
     ],
     participants: 4,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '120363321720242985@g.us',
     name: 'Só as antas - Versão ZAP',
-    lastMessage: 'Meeting at 10 AM',
-    time: '09:00',
     imageUrl: 'https://randomuser.me/api/portraits/men/2.jpg',
     messages: [
-      { sender: 'Grace', content: 'Meeting at 10 AM', time: '09:00' },
-      { sender: 'Heidi', content: 'Got it!', time: '09:01' },
-      { sender: 'Usuário', content: 'I will join!', time: '09:02' }
+      new Message({ sender: 'Grace', content: 'Meeting at 10 AM', time: 1731315600 }),
+      new Message({ sender: 'Heidi', content: 'Got it!', time: 1731315660 }),
+      new Message({ sender: 'Usuário', content: 'I will join!', time: 1731315720 })
     ],
     participants: 5,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 4',
-    lastMessage: 'Workout at 6 AM?',
-    time: '20:15',
     imageUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
     messages: [
-      { sender: 'Judy', content: 'Workout at 6 AM?', time: '20:15' },
-      { sender: 'Mallory', content: 'Sounds good!', time: '20:16' },
-      { sender: 'Usuário', content: 'I will be there!', time: '20:17' }
+      new Message({ sender: 'Judy', content: 'Workout at 6 AM?', time: 1731356100 }),
+      new Message({ sender: 'Mallory', content: 'Sounds good!', time: 1731356160 }),
+      new Message({ sender: 'Usuário', content: 'I will be there!', time: 1731356220 })
     ],
     participants: 10,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 5',
-    lastMessage: 'Next meeting on Friday',
-    time: '14:30',
     imageUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
     messages: [
-      { sender: 'Olivia', content: 'Next meeting on Friday', time: '14:30' },
-      { sender: 'Peggy', content: 'Okay!', time: '14:31' },
-      { sender: 'Usuário', content: 'I will be there!', time: '14:32' }
+      new Message({ sender: 'Olivia', content: 'Next meeting on Friday', time: 1731335400 }),
+      new Message({ sender: 'Peggy', content: 'Okay!', time: 1731335460 }),
+      new Message({ sender: 'Usuário', content: 'I will be there!', time: 1731335520 })
     ],
     participants: 100,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 6',
-    lastMessage: 'Tickets booked for Paris!',
-    time: '11:00',
     imageUrl: 'https://randomuser.me/api/portraits/men/4.jpg',
     messages: [
-      { sender: 'Trent', content: 'Tickets booked for Paris!', time: '11:00' },
-      { sender: 'Victor', content: 'Can\'t wait!', time: '11:01' },
-      { sender: 'Usuário', content: 'Excited!', time: '11:02' }
+      new Message({ sender: 'Trent', content: 'Tickets booked for Paris!', time: 1731322800 }),
+      new Message({ sender: 'Victor', content: 'Can\'t wait!', time: 1731322860 }),
+      new Message({ sender: 'Usuário', content: 'Excited!', time: 1731322920 })
     ],
     participants: 34,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 7',
-    lastMessage: 'Game night at 8 PM',
-    time: '19:45',
     imageUrl: 'https://randomuser.me/api/portraits/women/3.jpg',
     messages: [
-      { sender: 'Xander', content: 'Game night at 8 PM', time: '19:45' },
-      { sender: 'Yvonne', content: 'I\'ll be there!', time: '19:46' },
-      { sender: 'Usuário', content: 'Count me in!', time: '19:47' }
+      new Message({ sender: 'Xander', content: 'Game night at 8 PM', time: 1731354300 }),
+      new Message({ sender: 'Yvonne', content: 'I\'ll be there!', time: 1731354360 }),
+      new Message({ sender: 'Usuário', content: 'Count me in!', time: 1731354420 })
     ],
     participants: 22,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 8',
-    lastMessage: 'Recipe for tonight?',
-    time: '16:20',
     imageUrl: 'https://randomuser.me/api/portraits/men/5.jpg',
     messages: [
-      { sender: 'Alice', content: 'Recipe for tonight?', time: '16:20' },
-      { sender: 'Bob', content: 'I have a great one!', time: '16:21' },
-      { sender: 'Usuário', content: 'Can\'t wait to try it!', time: '16:22' }
+      new Message({ sender: 'Alice', content: 'Recipe for tonight?', time: 1731342000 }),
+      new Message({ sender: 'Bob', content: 'I have a great one!', time: 1731342060 }),
+      new Message({ sender: 'Usuário', content: 'Can\'t wait to try it!', time: 1731342120 })
     ],
     participants: 11,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 9',
-    lastMessage: 'Exam prep session tomorrow',
-    time: '13:00',
     imageUrl: 'https://randomuser.me/api/portraits/women/4.jpg',
     messages: [
-      { sender: 'Dave', content: 'Exam prep session tomorrow', time: '13:00' },
-      { sender: 'Eve', content: 'Let\'s do it!', time: '13:01' },
-      { sender: 'Usuário', content: 'I will join!', time: '13:02' }
+      new Message({ sender: 'Dave', content: 'Exam prep session tomorrow', time: 1731330000 }),
+      new Message({ sender: 'Eve', content: 'Let\'s do it!', time: 1731330060 }),
+      new Message({ sender: 'Usuário', content: 'I will join!', time: 1731330120 })
     ],
     participants: 66,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 10',
-    lastMessage: 'Community meeting on Saturday',
-    time: '10:30',
     imageUrl: 'https://randomuser.me/api/portraits/men/6.jpg',
     messages: [
-      { sender: 'Grace', content: 'Community meeting on Saturday', time: '10:30' },
-      { sender: 'Heidi', content: 'I\'ll be there!', time: '10:31' },
-      { sender: 'Usuário', content: 'Looking forward to it!', time: '10:32' }
+      new Message({ sender: 'Grace', content: 'Community meeting on Saturday', time: 1731321000 }),
+      new Message({ sender: 'Heidi', content: 'I\'ll be there!', time: 1731321060 }),
+      new Message({ sender: 'Usuário', content: 'Looking forward to it!', time: 1731321120 })
     ],
     participants: 15,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 11',
-    lastMessage: 'Practice session at 5 PM',
-    time: '15:45',
     imageUrl: 'https://randomuser.me/api/portraits/women/5.jpg',
     messages: [
-      { sender: 'Judy', content: 'Practice session at 5 PM', time: '15:45' },
-      { sender: 'Mallory', content: 'Got it!', time: '15:46' },
-      { sender: 'Usuário', content: 'I will be there!', time: '15:47' }
+      new Message({ sender: 'Judy', content: 'Practice session at 5 PM', time: 1731339900 }),
+      new Message({ sender: 'Mallory', content: 'Got it!', time: 1731339960 }),
+      new Message({ sender: 'Usuário', content: 'I will be there!', time: 1731340020 })
     ],
     participants: 32,
     priority: 4
-  },
-  {
+  }),
+  new Group({
     whats_id: '',
     name: 'Raijin Copilot 12',
-    lastMessage: 'Event planning at 3 PM',
-    time: '12:00',
     imageUrl: 'https://randomuser.me/api/portraits/men/7.jpg',
     messages: [
-      { sender: 'Olivia', content: 'Event planning at 3 PM', time: '12:00' },
-      { sender: 'Peggy', content: 'Sounds good!', time: '12:01' },
-      { sender: 'Usuário', content: 'I will join!', time: '12:02' }
+      new Message({ sender: 'Olivia', content: 'Event planning at 3 PM', time: 1731326400 }),
+      new Message({ sender: 'Peggy', content: 'Sounds good!', time: 1731326460 }),
+      new Message({ sender: 'Usuário', content: 'I will join!', time: 1731326520 })
     ],
     participants: 12,
     priority: 4
-  }
+  })
 ];

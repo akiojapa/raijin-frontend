@@ -213,6 +213,7 @@ input:-webkit-autofill {
   
   .chat-nav {
     overflow-y: auto;
+    overflow-x: hidden;
     flex-grow: 1;
     max-height: calc(100vh - 200px);
     
@@ -248,12 +249,6 @@ input:-webkit-autofill {
     &:hover {
       background-color: #1C1C1C;
     }
-  }
-
-  .chat-tag {
-    width: 6px;    
-    height: 120%;        
-    margin-right: 10px; 
   }
   
   .footer {
