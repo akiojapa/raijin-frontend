@@ -14,6 +14,7 @@ import { PAGES } from "../../helpers/pages";
 import { IGroup } from "../../interfaces/groups";
 import { IPages } from "../../interfaces/pages";
 import { Router } from '@angular/router';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-tickets',
@@ -69,7 +70,7 @@ export class TicketsComponent {
   addTicketForm: FormGroup;
   updateTicketDescriptionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private http: ConfigService) {
     this.addTicketForm = this.fb.group({
       ticketProject: ['', Validators.required],
       ticketTitle: ['', Validators.required],
