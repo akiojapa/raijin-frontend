@@ -62,11 +62,24 @@ export class TicketListComponent implements AfterViewInit {
       ticketDescription: ['', Validators.required],
       ticketType: ['', Validators.required],
       ticketSubtype: ['', Validators.required],
+      ticketFiles: [''],
+      ticketId: [''],
+      ticketDate: [''],
     });
 
     this.updateTicketDescriptionForm = this.fb.group({
       ticketDescription: ['', Validators.required],
     });
+  }
+
+  ngOnChanges() {
+    
+    this.dataSource = new MatTableDataSource(this.tickets);
+
+    this.dataSource.paginator = this.paginator;
+  
+    this.cdr.detectChanges();
+
   }
 
   async ngAfterViewInit() {
@@ -81,16 +94,18 @@ export class TicketListComponent implements AfterViewInit {
     }
     this.loadingService.loadingOff();
 
-    
-
     this.dataSource = new MatTableDataSource(this.tickets);
 
     this.dataSource.paginator = this.paginator;
+
     this.cdr.detectChanges();
   }
 
   hasMessages() {
-    return localStorage.getItem('selectedMessages');
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('selectedMessages');
+    }
+    return null;
   }
 
   formatMessagesForDescription(messages: IMessage[]) {
@@ -128,6 +143,10 @@ export class TicketListComponent implements AfterViewInit {
   }
 
   toggleAddTicketDiv() {
+    if(this.showAddTicketDiv) {
+      this.addTicketForm.reset();
+      localStorage.removeItem('selectedMessages');  
+    }
     this.showAddTicketDiv = !this.showAddTicketDiv;
     this.showFilterTicketDiv = !this.showFilterTicketDiv;
     this.showViewTicketDiv = false; 
@@ -184,6 +203,7 @@ export class TicketListComponent implements AfterViewInit {
       tipo: this.addTicketForm.value.ticketType,
       subtipo: this.addTicketForm.value.ticketSubtype,
       arquivos: 'Nenhum arquivo anexado',
+      sincronizado: false,
     };
   
     this.tickets.push(newTicket);

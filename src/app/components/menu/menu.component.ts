@@ -75,12 +75,10 @@ export class MenuComponent {
 
 
   isSelected(page: any): boolean {
-    console.log(this.router.url);
     return this.router.url.includes(page.path);
   }
 
   navigateTo(path: string) {
-    console.log(path);
     this.router.navigate(
       [
         'menu/' + path,

@@ -107,7 +107,7 @@ td {
   cursor: pointer;
   padding: 10px;
   text-align: left;
-  color: #ffcc00;
+  color: #FFA324;
   border-bottom: 1px solid #444;
   transition: all 0.3s ease;
 }
@@ -126,11 +126,11 @@ tr:nth-child(odd) td {
 .button {
   background-color: transparent;
   border: none;
-  color: #ffcc00;
+  color: #FFA324;
 }
 
 .button:hover {
-  color: #fff;
+  color: #ebe4e4;
 }
 
 .add-ticket-div {
@@ -169,13 +169,13 @@ fa-icon {
 }
 
 .custom-btn {
-  background-color: #ffcc00;
+  background-color: #FFA324;
   color: #111010;
   border: none;
 }
 
 .custom-btn:hover {
-  background-color: #bf9c13;
+  background-color: #ebe4e4;
 }
 
 .manager-icon {
