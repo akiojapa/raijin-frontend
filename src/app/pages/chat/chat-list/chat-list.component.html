@@ -13,6 +13,11 @@
         </div>
       </div>
 
+      <!-- Tags Section -->
+      <div class="group-tags">
+        <span *ngFor="let tag of choosenGroup.tags; let i = index" [ngStyle]="{'background-color': getTagColor(i)}" class="group-tag">{{ tag }}</span>
+      </div>
+
       <!-- Ícone de três pontos com dropdown -->
       <div class="d-flex justify-content-center align-items-center position-relative">
         <fa-icon [icon]="faEllipsisV" class="manager-icon" (click)="toggleDropdownMenu($event)"></fa-icon>
@@ -23,6 +28,23 @@
           <div class="dropdown-item-manager" (click)="muteGroup()">Silenciar Grupo</div>
           <div class="dropdown-item-manager" (click)="openCall()">Abrir Chamado</div>
           <div class="dropdown-item-manager" (click)="exitGroup()">Sair do Grupo</div>
+          <div class="dropdown-item-manager" (click)="toggleTagDropdown($event)">Adicionar Tags</div> <!-- Novo botão para tags -->
+        </div>
+        
+        <!-- Dropdown de tags -->
+        <div *ngIf="showTagDropdown" class="dropdown-tags-manager">
+          <p>Selecione as tags para adicionar ao grupo:</p>
+          <div *ngFor="let tag of availableTags" class="form-check">
+            <input 
+              type="checkbox" 
+              [id]="tag" 
+              [checked]="selectedGroupTags.includes(tag)"
+              (change)="toggleTag(tag)"
+              class="form-check-input"
+            >
+            <label [for]="tag" class="form-check-label">{{ tag }}</label>
+          </div>
+          <button class="save-tags-button" (click)="saveTagsToGroup()">Salvar Tags</button>
         </div>
       </div>
     </div>

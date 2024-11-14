@@ -13,4 +13,5 @@ export interface IGroup {
   messages: IMessage[];
   participants: number;
   priority: number| null;
+  tags?: string[]; // Nova propriedade tags
 }

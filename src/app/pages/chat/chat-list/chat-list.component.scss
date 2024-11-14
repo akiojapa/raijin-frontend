@@ -1,0 +1,61 @@
+.dropdown-menu-manager {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.dropdown-tag-options {
+  margin-top: 8px;
+  padding: 8px;
+  border-top: 1px solid #ccc;
+}
+
+.dropdown-tags-manager {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  z-index: 10;
+  width: 200px; // Largura fixa
+  min-width: 200px; // Mínimo de largura (ou ajuste para seu layout)
+}
+
+.save-tags-button {
+  background-color: #ff7f00; // Cor de fundo laranja
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  float: right; // Posiciona o botão à direita
+
+  &:hover {
+    background-color: #e06b00; // Laranja um pouco mais escuro ao passar o mouse
+  }
+}
+
+.group-tags {
+  display: inline-flex;
+  gap: 3px; /* Menor distância entre os tags */
+  margin-left: 6px; /* Diminui a margem à esquerda */
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+
+.group-tag {
+  padding: 1px 4px; /* Menor espaço interno */
+  border-radius: 6px; /* Menor borda arredondada */
+  color: #ffffff;
+  font-size: 8px; /* Fonte menor */
+  font-weight: bold;
+  height: 20px;
+}

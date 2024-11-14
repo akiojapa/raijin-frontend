@@ -13,7 +13,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'I will be there!', time: '18:32' }
     ],
     participants: 4,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 1', 'Tag 2', 'Tag 3']
   },
   {
     whats_id: '120363217209632703@g.us',

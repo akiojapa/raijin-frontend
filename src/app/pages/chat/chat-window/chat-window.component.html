@@ -12,24 +12,18 @@
         <div *ngIf="showDropdownTags" class="dropdown-tags-manager" #dropdownTags>
             <p>Filtre por tags</p>
             <div class="tags-options">
-              <div *ngFor="let tag of tags" class="form-check">
-                <input 
-                  type="checkbox" 
-                  [id]="tag" 
-                  [checked]="selectedTags.includes(tag)"
-                  (change)="toggleTagSelection(tag)"
-                  class="form-check-input"
-                >
-                <label 
-                  [for]="tag" 
-                  class="form-check-label"
-                  [ngStyle]="{ 'background-color': getTagColor(tag) }"
-                >
-                  {{ tag }}
-                </label>
-              </div>
+                <div *ngFor="let tag of tags" class="form-check">
+                    <input 
+                        type="checkbox" 
+                        [id]="tag" 
+                        [checked]="selectedTags.includes(tag)"
+                        (change)="toggleTagSelection(tag)"
+                        class="form-check-input"
+                    >
+                    <label [for]="tag" class="form-check-label">{{ tag }}</label>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
 </div>
 

@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
 import { type } from 'os';
+import { group } from 'console';
 
 @Component({
   selector: 'app-chat-list',
@@ -42,6 +43,10 @@ export class ChatListComponent implements OnInit {
   faPaperPlane = faPaperPlane
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
 
+  showTagDropdown = false;
+  availableTags: string[] = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
+  selectedGroupTags: string[] = []; // Tags do grupo selecionado
+
   constructor(
     private chatService: ChatService,
     @Inject(DOCUMENT) private document: Document
@@ -54,7 +59,6 @@ export class ChatListComponent implements OnInit {
       }
     });
   }
-
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -125,6 +129,21 @@ export class ChatListComponent implements OnInit {
     }
   }
 
+  getTagColor(level: number): string {
+    switch (level) {
+      case 1:
+        return '#FF5733';
+      case 2:
+        return '#F3FF33';
+      case 3:
+        return '#33FF57';
+      case 4:
+        return '#3357FF';
+      default:
+        return '#FF2FFF';
+    }
+  }
+
   toggleDropdownMenu(event: Event) {
     this.showDropdownMenu = !this.showDropdownMenu;
     this.showDropdown = false
@@ -134,9 +153,20 @@ export class ChatListComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   closeDropdown(event: Event) {
-    this.showDropdownMenu = false;
+    const target = event.target as HTMLElement;
+    if (!target.closest('.dropdown-menu-manager') && !target.closest('.dropdown-tags-manager')) {
+      this.showDropdownMenu = false;
+      this.showTagDropdown = false;
+    }
   }
 
+  onClickOutside(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.dropdown-menu-manager')) {
+      this.showDropdownMenu = false;
+      this.showTagDropdown = false;
+    }
+  }
 
   openGroupInfo() {
     console.log('Abrindo informações do grupo');
@@ -166,6 +196,30 @@ export class ChatListComponent implements OnInit {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
     } catch (err) {
       console.error('Erro ao tentar rolar para o fim:', err);
+    }
+  }
+
+  toggleTagDropdown(event: Event): void {
+    event.stopPropagation();
+    this.showTagDropdown = true; // Exibe o dropdown de tags
+    this.showDropdownMenu = false; // Oculta o menu de opções do grupo
+  }
+
+  toggleTag(tag: string): void {
+    const index = this.selectedGroupTags.indexOf(tag);
+    if (index > -1) {
+      this.selectedGroupTags.splice(index, 1); // Remove a tag se já estiver selecionada
+    } else {
+      this.selectedGroupTags.push(tag); // Adiciona a tag se ainda não estiver selecionada
+    }
+  }
+
+  // Método de exemplo para salvar as tags no grupo selecionado (chamado ao fechar o dropdown, por exemplo)
+  saveTagsToGroup(): void {
+    if (this.choosenGroup) {
+      this.choosenGroup.tags = [...this.selectedGroupTags];
+      console.log(`Tags salvas para o grupo ${this.choosenGroup.name}:`, this.selectedGroupTags);
+      this.showTagDropdown = false; // Fecha o dropdown de tags
     }
   }
 
