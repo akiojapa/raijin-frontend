@@ -1,0 +1,179 @@
+*{
+    color: #FFA324;
+  }
+  
+  .border-line{
+    border-bottom: 2px solid #747373;
+    padding-bottom: 1.0rem;
+  }
+  
+  .filter-nav{
+    padding-bottom: 80px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
+    max-height: calc(100vh - 200px);
+  
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+        background-color: #FFA324;
+        border-radius: 10px;
+    }
+  
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+  
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+  }
+  
+  .no-bg {
+    background-color: transparent;
+    border: none;
+  }
+  
+  input::placeholder {
+    font-size: 15px; 
+  }
+  
+  .header-tickets {
+    height: 59px;
+    width: 100%;
+    background-color:#121212;
+  }
+  
+  .ticket-btn:hover{
+    background-color: #50504d; 
+  }
+  
+  .divider-line {
+    border-bottom: 1px solid #8d8c8b; 
+    margin-bottom: 10px;
+    width: 100%; 
+  
+    h2{
+      font-size: 10px;
+    }
+  }
+  
+  .table {
+    width: 80%; 
+    margin: 0 auto;
+    border-collapse: collapse;
+    cursor: pointer;  
+  }
+  
+  .table thead th {
+    color: #f4f1ed; 
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .th, td {
+    padding: 10px;
+    text-align: left;
+    color: #ffcc00; 
+    border-bottom: 1px solid #444; 
+  }
+  
+  .table tbody tr:nth-child(odd) td {
+    background-color: #3b3b3b; 
+  }
+  
+  .table tbody tr:hover td {
+    background-color: #725703; 
+    color: #ebe4e4; 
+  }
+  
+  .page-number {
+    color: #ffcc00;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+  }
+  
+  .page-number:hover {  
+    background-color: #50504d; 
+  }
+  
+  .button {
+    background-color: transparent;
+    border: none;
+    color: #ffcc00;
+  }
+  
+  .button:hover {
+    color: #fff;
+  }
+  
+  .add-ticket-div {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  .add-tickets{
+    font-size: 22px;
+  }
+  
+  fa-icon{
+    cursor: pointer;
+  }
+  
+  .custom-textarea {
+    color:#7D7D7D;
+    font-size: 10px; 
+    border: 1px solid #7D7D7D;
+    background-color: transparent; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+    padding: 6px 12px
+  }
+  
+  .custom-textarea::placeholder {
+    color: #7D7D7D; 
+    font-size: 15px;
+  }
+  
+  .custom-textarea:focus {
+    border-color: #FFA324; 
+    box-shadow: 0 0 5px rgba(255, 163, 36, 0.5); 
+    background-color: transparent;
+    color:#7D7D7D
+  }
+  
+  .custom-btn {
+    background-color: #ffcc00; 
+    color: #111010; 
+    border: none; 
+  }
+  
+  .custom-btn:hover {
+    background-color: #bf9c13;
+  }
+  
+  .manager-icon {
+    color: #FFA324;
+    font-size: 25px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 20px;
+  }
+
+  .footer-salvar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: transparent;
+  }
+  
+  .footer-salvar .custom-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  

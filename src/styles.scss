@@ -1,417 +1,468 @@
 /* Estilos globais */
 html,
 body {
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
-    background-color: #1A1919;
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #1A1919;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .btn-principal {
-    background-color: #FFA324;
-    color: #1A1919;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease; /* Adiciona transição suave */
+  background-color: #FFA324;
+  color: #1A1919;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+  /* Adiciona transição suave */
 
-    &:hover {
-        background-color: #CC8400; /* Cor de fundo mais escura para hover */
-        color: #FFFFFF; /* Cor do texto para hover */
-    }
+  &:hover {
+    background-color: #CC8400;
+    /* Cor de fundo mais escura para hover */
+    color: #FFFFFF;
+    /* Cor do texto para hover */
+  }
 }
 
-.text-tertiary { 
-    color: #7D7D7D !important;
+.disabled-group {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.text-tertiary {
+  color: #7D7D7D !important;
 }
 
 input[type="checkbox"] {
-    border: 1px solid #7D7D7D; /* Borda cinza */
-    background-color: transparent; /* Fundo transparente */
-    appearance: none; /* Remove o estilo padrão do checkbox */
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* Adiciona transição */
+  border: 1px solid #7D7D7D;
+  /* Borda cinza */
+  background-color: transparent;
+  /* Fundo transparente */
+  appearance: none;
+  /* Remove o estilo padrão do checkbox */
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  /* Adiciona transição */
+}
+
+.custom-checkbox {
+  width: 12px;
+  height: 12px;
+  transform: scale(0.75);
+  margin-right: 5px;
+}
+
+.custom-checkbox:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 input[type="checkbox"]:checked {
-    background-color: #FFA324; /* Cor de fundo quando marcado */
-    border: 1px solid #7D7D7D; /* Borda cinza */
-    position: relative;
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* Adiciona transição */
+  background-color: #FFA324;
+  /* Cor de fundo quando marcado */
+  border: 1px solid #7D7D7D;
+  /* Borda cinza */
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  /* Adiciona transição */
 }
 
 input[type="checkbox"]:checked::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 5px;
-    width: 3px;
-    height: 8px;
-    opacity: 0;
-    animation: checkmark 0.3s forwards; /* Adiciona animação */
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 3px;
+  height: 8px;
+  opacity: 0;
+  animation: checkmark 0.3s forwards;
+  /* Adiciona animação */
 }
 
 @keyframes checkmark {
-    0% {
-        opacity: 0;
-        transform: scale(0) rotate(45deg);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(1.2) rotate(45deg);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(45deg);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(45deg);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2) rotate(45deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
 }
 
 /* Estilos para input[type="text"] e input[type="password"] */
-input[type="text"], input[type="password"] {
-    color:#7D7D7D;
-    font-size: 16px; /* Força o tamanho do texto digitado */
-    border: 1px solid #7D7D7D; /* Borda cinza */
-    background-color: transparent; /* Fundo transparente */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição */
-    padding: 6px 12px
+input[type="text"],
+input[type="password"] {
+  color: #7D7D7D;
+  font-size: 16px;
+  /* Força o tamanho do texto digitado */
+  border: 1px solid #7D7D7D;
+  /* Borda cinza */
+  background-color: transparent;
+  /* Fundo transparente */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  /* Adiciona transição */
+  padding: 6px 12px
 }
 
 /* Estilos para o placeholder */
-input[type="text"]::placeholder, input[type="password"]::placeholder {
-    color: #7D7D7D; /* Cor do placeholder */
-    font-size: 16px;
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+  color: #7D7D7D;
+  /* Cor do placeholder */
+  font-size: 16px;
 }
 
 /* Estilos quando o input está focado */
-input[type="text"]:focus, input[type="password"]:focus {
-    border-color: #FFA324; /* Cor da borda quando focado */
-    box-shadow: 0 0 5px rgba(255, 163, 36, 0.5); /* Adiciona sombra */
-    background-color: transparent;
-    color:#7D7D7D;
-    font-size: 16px;
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #FFA324;
+  /* Cor da borda quando focado */
+  box-shadow: 0 0 5px rgba(255, 163, 36, 0.5);
+  /* Adiciona sombra */
+  background-color: transparent;
+  color: #7D7D7D;
+  font-size: 16px;
 }
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px transparent inset; /* Fundo transparente */
-    box-shadow: 0 0 0 1000px transparent inset; /* Fundo transparente */
-    -webkit-text-fill-color: #7D7D7D; /* Cor do texto */
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+  /* Fundo transparente */
+  box-shadow: 0 0 0 1000px transparent inset;
+  /* Fundo transparente */
+  -webkit-text-fill-color: #7D7D7D;
+  /* Cor do texto */
 }
 
 input:-webkit-autofill::-webkit-input-placeholder {
-    -webkit-box-shadow: 0 0 0 1000px transparent inset; /* Fundo transparente */
-    box-shadow: 0 0 0 1000px transparent inset; /* Fundo transparente */
-    -webkit-text-fill-color: #7D7D7D; /* Cor do texto */
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+  /* Fundo transparente */
+  box-shadow: 0 0 0 1000px transparent inset;
+  /* Fundo transparente */
+  -webkit-text-fill-color: #7D7D7D;
+  /* Cor do texto */
 }
 
 
 /* Mantém a transição para evitar alterações bruscas */
 input:-webkit-autofill {
-    transition: background-color 5000s ease-in-out 0s, color 0.3s ease-in-out;
+  transition: background-color 5000s ease-in-out 0s, color 0.3s ease-in-out;
 }
 
 /* Mantém o estilo quando o input é autofillado */
 input:-webkit-autofill {
-    font-size: 10px; /* Estilo do placeholder */
+  font-size: 10px;
+  /* Estilo do placeholder */
 }
 
 .toast-top-center {
-    top: 20px; // Ajuste a distância do topo conforme necessário
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px; // Largura personalizada do toast
-    .toast {
-      font-size: 1.2rem; // Tamanho da fonte
-      padding: 20px; // Padding personalizado
-    }
+  top: 20px; // Ajuste a distância do topo conforme necessário
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px; // Largura personalizada do toast
+
+  .toast {
+    font-size: 1.2rem; // Tamanho da fonte
+    padding: 20px; // Padding personalizado
   }
+}
 
 
+/* MENU E CHAT */
+.search-icon {
+  color: #FFA324;
+  font-size: 25px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
-  /* MENU E CHAT */
-  .search-icon {
-    color: #FFA324;
-    font-size: 25px;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  
-  .manager-icon {
-    color: #FFA324;
-    font-size: 25px;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-right: 20px;
-  }
-  
-  .dropdown-menu-manager {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    transform: translateX(-20%);
-    background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    width: 200px;
-    z-index: 10;
-  }
-  
-  .dropdown-item-manager {
-    padding: 10px 15px;
-    cursor: pointer;
-  }
-  
-  .dropdown-item-manager:hover {
-    background-color: #f1f1f1;
-  }
-  
-  
-  .header {
-    height: 59px;
-    width: 100%;
-    background-color: #121212;
-  }
-  
-  .configurations {
-    font-size: 35px;
-  }
-  
-  
-  .user-details {
-    margin-left: 10px;
-  
-    h5 {
-      font-size: 1.25rem;
-      color: #FFA324;
-      margin-bottom: 0;
-    }
-  
-    p {
-      font-size: 0.875rem;
-      color: #C7B5B5;
-      margin-top: 0;
-    }
-  
-    small {
-      color: #C7B5B5;
-    }
-  
-  
-  }
-  
-  .user-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #FFA324;
-    margin-left: 10px;
-  }
-  
-  .chat-nav {
-    overflow-y: auto;
-    overflow-x: hidden;
-    flex-grow: 1;
-    max-height: calc(100vh - 200px);
-    
-  
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      background-color: #FFA324;
-      border-radius: 10px;
-    }
-  
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-  
-    &::-webkit-scrollbar-button {
-      display: none;
-    }
-  }
-  
-  .collapsed {
-    --bs-gutter-x: 0 !important;
-  }
-  
-  .chat-group {
-    border-radius: 10px;
-    cursor: pointer;
-    background-color: #141414;
-    transition: background-color 0.3s;
-  
-    &:hover {
-      background-color: #1C1C1C;
-    }
-  }
+.manager-icon {
+  color: #FFA324;
+  font-size: 25px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 20px;
+}
 
-  .footer {
-    display: flex;
-    align-items: center;
-    background-color: #131212;
-    color: #FFA324;
+.dropdown-menu-manager {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  transform: translateX(-20%);
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  width: 200px;
+  z-index: 10;
+}
+
+.dropdown-item-manager {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.dropdown-item-manager:hover {
+  background-color: #f1f1f1;
+}
+
+
+.header {
+  height: 59px;
+  width: 100%;
+  background-color: #121212;
+}
+
+.configurations {
+  font-size: 35px;
+}
+
+
+.user-details {
+  margin-left: 10px;
+
+  h5 {
     font-size: 1.25rem;
-    font-weight: 500;
-    border-radius: 10px;
-  }
-  
-  .footer-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 25px;
-    cursor: pointer;
-    margin: 0;
-  }
-  
-  .selected {
-    background-color: #FFA324;
-    color: #f1f1f1
-  }
-  
-  .footer-nav {
-    border-radius: 10px;
-  }
-  
-  .navbar-transform {
-    cursor: pointer;
-    transition: transform 0.3s, background-color 0.5s;
-  
-    fa-icon {
-      color: #FFA324;
-    }
-  
-    &:hover {
-      background-color: #FFA324;
-  
-      fa-icon {
-        color: #f1f1f1
-      }
-    }
-  }
-  
-  .messages-container {
-    flex-grow: 1;
-    max-height: calc(100vh - 150px);
-    overflow-y: scroll;
-    padding: 20px;
-  
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      background-color: #FFA324;
-      border-radius: 10px;
-    }
-  
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-  
-    &::-webkit-scrollbar-button {
-      display: none;
-    }
-  }
-  
-  .message {
-    max-width: 60%;
-    padding: 10px;
-    border-radius: 7.5px;
-    margin-bottom: 10px;
-    position: relative;
-    word-wrap: break-word;
-  }
-  
-  .message.sent {
-    background-color: #dcf8c6;
-    min-width: 20%;
-    border-bottom-right-radius: 0;
-  }
-  
-  .message.received {
-    background-color: #ffffff;
-    min-width: 20%;
-    border-bottom-left-radius: 0;
-  }
-  
-  .message strong {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .message small {
-    position: absolute;
-    bottom: 5px;
-    right: 10px;
-    font-size: 0.75rem;
-    color: #999;
-  }
-  
-  .message-input-container {
-    width: 100%;
-    background-color: #f1f1f1;
-    border-top: 1px solid #ddd;
-    padding: 10px;
-    font-size: 20px;
-  }
-  
-  .message-input-container .form-control {
-    flex-grow: 1;
-  }
-  
-  .message-input-container .btn {
-    background-color: #075e54;
-    color: #fff;
-  }
-  
-  .footer-icon {
-    margin-left: 10px;
-    cursor: pointer;
-  }
-  
-  .emoji-picker,
-  .dropdown-menu {
-    position: absolute;
-    bottom: 50px;
-    left: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    z-index: 1000;
-  }
-  
-  .emoji-picker .emoji,
-  .dropdown-menu .dropdown-item {
-    padding: 5px;
-    cursor: pointer;
-  }
-  
-  .emoji-picker .emoji:hover,
-  .dropdown-menu .dropdown-item:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .dropdown-menu {
-    display: flex;
-    flex-direction: column;
-    width: 150px;
-  }
-  
-  .dropdown-item {
-    display: flex;
-    align-items: center;
-  }
-  
-  .dropdown-item fa-icon {
-    margin-right: 10px;
+    color: #FFA324;
+    margin-bottom: 0;
   }
 
-  /* MENU E CHAT */
+  p {
+    font-size: 0.875rem;
+    color: #C7B5B5;
+    margin-top: 0;
+  }
+
+  small {
+    color: #C7B5B5;
+  }
+
+
+}
+
+.user-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FFA324;
+  margin-left: 10px;
+}
+
+.chat-nav {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-grow: 1;
+  max-height: calc(100vh - 200px);
+
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #FFA324;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+.collapsed {
+  --bs-gutter-x: 0 !important;
+}
+
+.chat-group {
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #141414;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #1C1C1C;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  background-color: #131212;
+  color: #FFA324;
+  font-size: 1.25rem;
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+.footer-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.footer-nav {
+  border-radius: 10px;
+}
+
+.navbar-transform {
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.5s;
+
+  fa-icon {
+    color: #FFA324;
+  }
+
+  &:hover {
+    background-color: #FFA324;
+
+    fa-icon {
+      color: #f1f1f1
+    }
+  }
+}
+
+.messages-container {
+  flex-grow: 1;
+  max-height: calc(100vh - 150px);
+  overflow-y: scroll;
+  padding: 20px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #FFA324;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+.message {
+  max-width: 60%;
+  padding: 10px;
+  border-radius: 7.5px;
+  margin-bottom: 10px;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.message.sent {
+  background-color: #dcf8c6;
+  min-width: 20%;
+  border-bottom-right-radius: 0;
+}
+
+.message.received {
+  background-color: #ffffff;
+  min-width: 20%;
+  border-bottom-left-radius: 0;
+}
+
+.message strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.message small {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.message-input-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.message-input-container .form-control {
+  flex-grow: 1;
+}
+
+.message-input-container .btn {
+  background-color: #075e54;
+  color: #fff;
+}
+
+.selected {
+  background-color: #FFA324;
+  color: #f1f1f1 !important;
+
+  small {
+    color: #f1f1f1 !important;
+  }
+}
+
+.footer-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.emoji-picker,
+.dropdown-menu {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.emoji-picker .emoji,
+.dropdown-menu .dropdown-item {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.emoji-picker .emoji:hover,
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item fa-icon {
+  margin-right: 10px;
+}
+
+/* MENU E CHAT */

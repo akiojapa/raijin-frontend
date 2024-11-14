@@ -5,6 +5,8 @@ import { TicketsComponent } from './pages/tickets/tickets.component';
 import { TestPageComponent } from './pages/test-page/test-page.component';
 import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
 import { ChatWindowComponent } from './pages/chat/chat-window/chat-window.component';
+import { TicketWindowComponent } from './pages/ticket/ticket-window/ticket-window.component';
+import { TicketListComponent } from './pages/ticket/ticket-list/ticket-list.component';
 
 export const routes: Routes = [
     {
@@ -17,13 +19,20 @@ export const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'menu',
+        path: 'menu/chat',
         component: MenuComponent,
         children: [
-            { path: 'chat', outlet: 'left', component: ChatWindowComponent }, 
-            { path: 'chat', outlet: 'right', component: ChatListComponent }, 
+            { path: '', component: ChatWindowComponent, outlet: 'left' },
+            { path: '', component: ChatListComponent, outlet: 'right' },
         ]
-        
+    },
+    {
+        path: 'menu/ticket',
+        component: MenuComponent,
+        children: [
+            { path: '', component: TicketWindowComponent, outlet: 'left' },
+            { path: '', component: TicketListComponent, outlet: 'right' },
+        ]
     },
     {
         path: 'chamados',

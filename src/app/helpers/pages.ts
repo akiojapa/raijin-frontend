@@ -10,7 +10,7 @@ export const PAGES: IPages[] = [
         },
         {
           title: 'menu.ticket',
-          path: 'menu/ticket',
+          path: 'ticket',
           icon: faTicket,
           role: 'none',
         }

@@ -83,10 +83,7 @@ export class MenuComponent {
     console.log(path);
     this.router.navigate(
       [
-        'menu',
-        {
-          outlets: { left: path, right: path }
-        }
+        'menu/' + path,
       ],
     );
   }

@@ -1,0 +1,202 @@
+h4,
+label,
+p,
+h5,
+h6,
+small,
+td,
+th {
+  color: #FFA324;
+}
+
+.custom-paginator div.mat-mdc-paginator-range-label,
+.custom-paginator button {
+  color: #FFA324 !important;
+}
+
+.custom-paginator button {
+  color: #FFA324 !important;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-paginator button:hover {
+  color: #ebe4e4 !important;
+}
+
+
+.custom-paginator .mat-mdc-button-disabled {
+  color: #FFA324 !important;
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.icon {
+  cursor: default;
+  color: #FFA324;
+}
+
+.border-line {
+  border-bottom: 2px solid #747373;
+  padding-bottom: 1.0rem;
+}
+
+
+.no-bg {
+  background-color: transparent;
+  border: none;
+}
+
+input::placeholder {
+  font-size: 15px;
+}
+
+
+.header-tickets {
+  height: 59px;
+  width: 100%;
+  background-color: #121212;
+}
+
+.ticket-btn:hover {
+  background-color: transparent;
+  color: #ebe4e4;
+}
+
+.divider-line {
+  border-bottom: 1px solid #8d8c8b;
+  margin-bottom: 10px;
+  width: 100%;
+
+  h2 {
+    font-size: 10px;
+  }
+}
+
+.table-responsive {
+  overflow-x: hidden;
+
+  max-height: calc(90vh - 170px);
+  border-radius: 8px !important;
+  border: 2px solid #333;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #FFA324;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+}
+
+th {
+  background-color: #131212 !important;
+}
+
+td {
+  cursor: pointer;
+  padding: 10px;
+  text-align: left;
+  color: #ffcc00;
+  border-bottom: 1px solid #444;
+  transition: all 0.3s ease;
+}
+
+tr:hover td {
+  color: #ebe4e4 !important;
+  transform: scale(1.01);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+tr:nth-child(odd) td {
+  background-color: #131212 !important;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: #ffcc00;
+}
+
+.button:hover {
+  color: #fff;
+}
+
+.add-ticket-div {
+  background-color: #333;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.add-tickets {
+  font-size: 22px;
+}
+
+fa-icon {
+  cursor: pointer;
+}
+
+.custom-textarea {
+  color: #7D7D7D;
+  font-size: 10px;
+  border: 1px solid #7D7D7D;
+  background-color: transparent;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 6px 12px
+}
+
+.custom-textarea::placeholder {
+  color: #7D7D7D;
+  font-size: 15px;
+}
+
+.custom-textarea:focus {
+  border-color: #FFA324;
+  box-shadow: 0 0 5px rgba(255, 163, 36, 0.5);
+  background-color: transparent;
+  color: #7D7D7D
+}
+
+.custom-btn {
+  background-color: #ffcc00;
+  color: #111010;
+  border: none;
+}
+
+.custom-btn:hover {
+  background-color: #bf9c13;
+}
+
+.manager-icon {
+  color: #FFA324;
+  font-size: 25px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.footer-salvar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  /* Certifique-se de que o botão esteja no topo */
+  background-color: transparent;
+  /* Ajuste conforme sua preferência */
+}
+
+.footer-salvar .custom-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+}

@@ -1,11 +1,12 @@
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
-import { faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircle, faClipboardList, faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-list',
@@ -37,19 +38,28 @@ export class ChatListComponent implements OnInit {
   faComment = faComment;
   faUser = faUser;
   faCog = faCog;
+  faCheckCircle = faCheckCircle;
+  faCircle = faCircle;
   faSmile = faSmile;
   faPaperPlane = faPaperPlane
+  faTicketManager = faClipboardList
+
+  selectTicketMode: boolean = false;
+  selectedMessages: IMessage[] = [];
+
+
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
 
   constructor(
     private chatService: ChatService,
+    private route: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit(): void {
     this.chatService.selectedGroupChat$.subscribe((group) => {
       if (group !== null) {
-        this.choosenGroup = group; // Função para carregar dados do grupo
+        this.choosenGroup = group;
       }
     });
   }
@@ -87,6 +97,14 @@ export class ChatListComponent implements OnInit {
         this.uploadFile(file);
       }
     }
+  }
+
+  sendMessagesForTicket() {
+  const messagesJson = JSON.stringify(this.selectedMessages);
+
+  localStorage.setItem('selectedMessages', messagesJson);
+
+  this.route.navigate(['/menu/ticket']);
   }
 
   uploadImage(file: File) {
@@ -145,9 +163,37 @@ export class ChatListComponent implements OnInit {
     console.log('Silenciando grupo');
   }
 
-  openCall() {
-    console.log('Abrindo chamado');
+  toggleSelectMode() {
+    this.selectTicketMode = !this.selectTicketMode;
+    localStorage.removeItem('selectedMessages');
+    this.selectedMessages = [];
   }
+
+  toggleMessageSelection(message: IMessage) {
+    const pos = this.selectedMessages.indexOf(message);
+
+    if (pos > -1) {
+      this.selectedMessages.splice(pos, 1);
+    } else {
+      this.selectedMessages.push(message);
+    }
+
+    if (this.selectedMessages.length > 0) {
+      this.chatService.openTicketMessage(true);
+    } else {
+      this.chatService.openTicketMessage(false);
+    }
+  }
+
+  cancelSelection() {
+    this.selectTicketMode = false;
+    this.selectedMessages = [];
+  }
+
+  confirmSelection() {
+    this.cancelSelection();
+  }
+    
 
   exitGroup() {
     console.log('Saindo do grupo');

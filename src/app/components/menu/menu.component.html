@@ -5,7 +5,7 @@
     [ngClass]="{'position-absolute': !isCollapsed}">
     <div class="d-flex align-items-center justify-content-between flex-column w-100">
       <div *ngFor="let page of pages; let i = index" [ngClass]="{'selected': isSelected(page)}"
-        (click)="navigateTo(page.path)" class="w-100 d-flex justify-content-center align-items-center py-3">
+        (click)="navigateTo(page.path)" class="w-100 d-flex justify-content-center align-items-center py-3 page">
         <fa-icon [icon]="page.icon" class="footer-icon"></fa-icon>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <div class="footer mt-auto w-100 bottom-0" [@toggleFooter]="isFooterCollapsed ? 'collapsed' : 'expanded'">
         <div class="col-lg-10 d-flex align-items-center justify-content-start">
           <div *ngFor="let page of pages; let i = index" [ngClass]="{'selected': isSelected(page)}"
-            (click)="navigateTo(page.path)" class="h-100 p-4">
+            (click)="navigateTo(page.path)" class="h-100 p-4 page">
             <fa-icon [icon]="page.icon" class="footer-icon me-2"></fa-icon>
           </div>
         </div>

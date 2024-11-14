@@ -14,6 +14,9 @@ export class ChatService {
     private websocketService: WebSocketService,
   ) { }
 
+  private isTicketMessageOpen = new BehaviorSubject<boolean>(false);
+  isTicketMessageOpen$ = this.isTicketMessageOpen.asObservable();
+
   private selectedGroupChat = new BehaviorSubject<IGroup | null>(null);
   selectedGroupChat$ = this.selectedGroupChat.asObservable();
 
@@ -25,6 +28,10 @@ export class ChatService {
 
   selectChat(chatGroup: IGroup) {
     this.selectedGroupChat.next(chatGroup);
+  }
+
+  openTicketMessage(isTicket: boolean) {
+    this.isTicketMessageOpen.next(isTicket);
   }
 
   connectWebSocket(){
@@ -47,5 +54,13 @@ export class ChatService {
       'company': companyName,
       'timestamp': new Date().getTime()
     });
+  }
+
+  openChat() {
+    this.isTicketMessageOpen.next(true);
+  }
+  
+  closeChat() {
+    this.isTicketMessageOpen.next(false);
   }
 }

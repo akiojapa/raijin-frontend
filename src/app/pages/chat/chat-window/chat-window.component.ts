@@ -23,6 +23,8 @@ export class ChatWindowComponent {
   searchQuery: string = '';
   faSquarePlus: IconDefinition = faSquarePlus;
 
+  openTicket: boolean = false;
+
   selectedChat: IGroup | null = null;
   websocketSubscription!: Subscription
 
@@ -44,6 +46,11 @@ export class ChatWindowComponent {
 
   ngOnInit() {
     this.startGroups()
+
+    this.chatService.isTicketMessageOpen$.subscribe(isOpen => {
+      this.openTicket = isOpen;
+    });
+
     this.chatService.selectedGroupChat$.subscribe(group => {
       this.selectedChat = group;
     });

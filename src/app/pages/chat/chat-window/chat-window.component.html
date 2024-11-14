@@ -7,8 +7,9 @@
 </div>
 
 <div class="row chat-nav p-2">
-    <div *ngFor="let group of filteredGroups" class="chat-group p-2 mb-3 mx-1" [ngStyle]="{'border-left': 'solid 7px ' + getTagColor(group.priority)}">
-        <div class="d-flex justify-content-between" (click)="onSelectChat(group)">
+    <div *ngFor="let group of filteredGroups" class="chat-group p-2 mb-3 mx-1" [ngStyle]="{'border-left': 'solid 7px ' + getTagColor(group.priority)}"
+    [ngClass]="{'disabled-group': openTicket}">
+    <div class="d-flex justify-content-between" (click)="onSelectChat(group)">
             <div class="d-flex">
                 <div class="d-flex align-items-center">
                     <img [src]="group.imageUrl ?? 'liveseo-normal.png'" alt="Logo" class="user user-image">
