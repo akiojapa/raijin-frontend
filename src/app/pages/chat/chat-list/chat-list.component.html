@@ -33,18 +33,17 @@
         
         <!-- Dropdown de tags -->
         <div *ngIf="showTagDropdown" class="dropdown-tags-manager">
-          <p>Selecione as tags para adicionar ao grupo:</p>
-          <div *ngFor="let tag of availableTags" class="form-check">
+          <div *ngFor="let tag of availableTags" class="tag-option">
             <input 
-              type="checkbox" 
-              [id]="tag" 
-              [checked]="selectedGroupTags.includes(tag)"
-              (change)="toggleTag(tag)"
-              class="form-check-input"
-            >
-            <label [for]="tag" class="form-check-label">{{ tag }}</label>
+            type="checkbox"
+            [checked]="selectedGroupTags.includes(tag.name)"
+            (change)="toggleTag(tag.name)"
+            [style.backgroundColor]="selectedGroupTags.includes(tag.name) ? tag.color : 'transparent'"
+            class="tag-checkbox"
+          >
+            <label>{{ tag }}</label>
           </div>
-          <button class="save-tags-button" (click)="saveTagsToGroup()">Salvar Tags</button>
+          <button class="save-tags-btn" (click)="saveTagsToGroup()">Salvar Tags</button>
         </div>
       </div>
     </div>

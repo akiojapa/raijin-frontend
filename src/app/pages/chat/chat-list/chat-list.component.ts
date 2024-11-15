@@ -132,9 +132,9 @@ export class ChatListComponent implements OnInit {
   getTagColor(level: number): string {
     switch (level) {
       case 1:
-        return '#FF5733';
+        return '#FF0000';
       case 2:
-        return '#F3FF33';
+        return '#CCF3';
       case 3:
         return '#33FF57';
       case 4:
@@ -201,8 +201,13 @@ export class ChatListComponent implements OnInit {
 
   toggleTagDropdown(event: Event): void {
     event.stopPropagation();
-    this.showTagDropdown = true; // Exibe o dropdown de tags
     this.showDropdownMenu = false; // Oculta o menu de opções do grupo
+    this.showTagDropdown = !this.showTagDropdown;
+
+    // Initialize selectedGroupTags based on the current group's tags
+    if (this.showTagDropdown && this.choosenGroup.tags) {
+      this.selectedGroupTags = [...this.choosenGroup.tags];
+    }
   }
 
   toggleTag(tag: string): void {
@@ -216,11 +221,11 @@ export class ChatListComponent implements OnInit {
 
   // Método de exemplo para salvar as tags no grupo selecionado (chamado ao fechar o dropdown, por exemplo)
   saveTagsToGroup(): void {
+    // Save selected tags to the chosen group
     if (this.choosenGroup) {
       this.choosenGroup.tags = [...this.selectedGroupTags];
-      console.log(`Tags salvas para o grupo ${this.choosenGroup.name}:`, this.selectedGroupTags);
-      this.showTagDropdown = false; // Fecha o dropdown de tags
     }
-  }
+    this.showTagDropdown = false; // Close dropdown after saving
+  } 
 
 }

@@ -28,7 +28,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'Count me in!', time: '17:47' }
     ],
     participants: 4,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 2', 'Tag 5']
   },
   {
     whats_id: '120363321720242985@g.us',
@@ -42,7 +43,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'I will join!', time: '09:02' }
     ],
     participants: 5,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 3', 'Tag 4', 'Tag 5']
   },
   {
     whats_id: '',
@@ -56,7 +58,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'I will be there!', time: '20:17' }
     ],
     participants: 10,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 5']
   },
   {
     whats_id: '',
@@ -70,7 +73,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'I will be there!', time: '14:32' }
     ],
     participants: 100,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 2', 'Tag 4']
   },
   {
     whats_id: '',
@@ -84,7 +88,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'Excited!', time: '11:02' }
     ],
     participants: 34,
-    priority: 4
+    priority: 4,
+    tags: []
   },
   {
     whats_id: '',
@@ -98,7 +103,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'Count me in!', time: '19:47' }
     ],
     participants: 22,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 4']
   },
   {
     whats_id: '',
@@ -112,7 +118,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'Can\'t wait to try it!', time: '16:22' }
     ],
     participants: 11,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5']
   },
   {
     whats_id: '',
@@ -140,7 +147,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'Looking forward to it!', time: '10:32' }
     ],
     participants: 15,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 1', 'Tag 2', 'Tag 3']
   },
   {
     whats_id: '',
@@ -154,7 +162,8 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'I will be there!', time: '15:47' }
     ],
     participants: 32,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 1', 'Tag 2', 'Tag 3']
   },
   {
     whats_id: '',
@@ -168,6 +177,7 @@ export const GROUPS: IGroup[] = [
       { sender: 'Usuário', content: 'I will join!', time: '12:02' }
     ],
     participants: 12,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 2', 'Tag 3']
   }
 ];
