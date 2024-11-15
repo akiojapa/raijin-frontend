@@ -14,9 +14,11 @@
       </div>
 
       <!-- Ícone de três pontos com dropdown -->
-      <div class="d-flex justify-content-center align-items-center position-relative">
-        <fa-icon *ngIf="selectTicketMode"[icon]="faTicketManager" 
-          class="manager-icon" (click)="sendMessagesForTicket()"  [ngClass]="{'disabled-group': selectedMessages.length === 0}"></fa-icon> 
+      <div  class="d-flex justify-content-center align-items-center position-relative">
+        <fa-icon *ngIf="selectTicketMode"[icon]="faX" 
+        class="close-icon" [matTooltip]="'Fechar abertura de chamado'" (click)="toggleSelectMode()"></fa-icon> 
+        <fa-icon *ngIf="selectTicketMode"[icon]="faTicketManager" matTooltip="Abrir chamado" 
+          class="manager-icon" (click)="sendMessagesForTicket()" [ngClass]="{'disabled-group': selectedMessages.length === 0}"></fa-icon> 
         <fa-icon [icon]="faEllipsisV" class="manager-icon" (click)="toggleDropdownMenu($event)"></fa-icon>
 
         <!-- Dropdown de opções -->

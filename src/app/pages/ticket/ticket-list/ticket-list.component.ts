@@ -21,10 +21,15 @@ import { LoadingService } from '../../../services/loading.service';
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./ticket-list.component.scss']
 })
-export class TicketListComponent implements AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+export class TicketListComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   @ViewChild('imageInput') imageInput!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef;
+
+  paginator!: MatPaginator;
 
   faChevronDown = faChevronDown;
   faTicket = faTicket;
@@ -72,14 +77,9 @@ export class TicketListComponent implements AfterViewInit {
     });
   }
 
-  ngOnChanges() {
-    
+  ngOnInit() {
     this.dataSource = new MatTableDataSource(this.tickets);
-
     this.dataSource.paginator = this.paginator;
-  
-    this.cdr.detectChanges();
-
   }
 
   async ngAfterViewInit() {
@@ -207,6 +207,7 @@ export class TicketListComponent implements AfterViewInit {
     };
   
     this.tickets.push(newTicket);
+    this.dataSource.data = this.tickets;
     this.manageDisplay('filter');
     this.addTicketForm.reset();
   }
@@ -267,5 +268,9 @@ export class TicketListComponent implements AfterViewInit {
     formData.append('file', file);
     
     console.log('Uploading file:', file.name);
+  }
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
   }
 }

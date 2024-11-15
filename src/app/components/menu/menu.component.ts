@@ -2,12 +2,8 @@ import { AfterViewChecked, Component, ElementRef, HostListener, ViewChild } from
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-  faSquarePlus, faComment, faUser, faCog, faAnglesLeft,
-  faSignInAlt, faSmile, faPaperPlane,
-  faImage,
-  faFile,
-  faVideo,
-  faEllipsisV,
+faAnglesLeft,
+  faSignInAlt,
   faAnglesRight
 } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component';

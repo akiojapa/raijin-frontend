@@ -1,0 +1,37 @@
+<div class="row mt-3">
+    <div class="header">
+        <h5>{{ title }}</h5>
+    </div>
+    <div class="col-md-5 w-100">
+        <div class="table-container-facelift">
+            <table mat-table [dataSource]="tableDataSrc" matSort class="table-sort">
+                
+                <!-- Colunas Dinâmicas -->
+                <ng-container *ngFor="let col of tableCols" [matColumnDef]="col">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+                        {{ col }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <ng-template #showValue>
+                            {{element[col]}}
+                        </ng-template>
+                    </td>
+                </ng-container>
+                <p *ngIf="tableData?.length === 0" class="text-center my-4 text-secondary text-14">
+                    {{ "Sem dados" }}
+                  </p>            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <p *ngIf="tableData?.length === 0" class="text-center my-4 text-secondary text-14">
+                {{ "Nenhum dado foi encontrado" }}
+              </p>
+        </div>
+        <mat-paginator
+        #paginator
+        [length]="length"
+        [pageSize]="pageSize"
+        *ngIf="hasPaginator"
+        showFirstLastButtons></mat-paginator>
+    </div>
+</div>

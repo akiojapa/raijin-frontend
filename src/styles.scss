@@ -48,6 +48,7 @@ input[type="checkbox"] {
   /* Adiciona transição */
 }
 
+
 .custom-checkbox {
   width: 12px;
   height: 12px;
@@ -104,14 +105,19 @@ input[type="text"],
 input[type="password"] {
   color: #7D7D7D;
   font-size: 16px;
-  /* Força o tamanho do texto digitado */
   border: 1px solid #7D7D7D;
-  /* Borda cinza */
   background-color: transparent;
-  /* Fundo transparente */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  /* Adiciona transição */
   padding: 6px 12px
+}
+
+input[type="text"]:disabled,
+input[type="password"]:disabled {
+  color: #4A4A4A;
+  background-color: #2C2C2C;
+  border-color: #3D3D3D;
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
 /* Estilos para o placeholder */
@@ -165,15 +171,22 @@ input:-webkit-autofill {
 }
 
 .toast-top-center {
-  top: 20px; // Ajuste a distância do topo conforme necessário
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 300px; // Largura personalizada do toast
+  width: 300px;
 
   .toast {
-    font-size: 1.2rem; // Tamanho da fonte
-    padding: 20px; // Padding personalizado
+    font-size: 1.2rem;
+    padding: 20px;
   }
+}
+
+.mat-tooltip {
+  padding: 8px 10px;
+  color: white;
+  font-size: 12px;
+  background-color: #4c4c4c;
 }
 
 
@@ -188,6 +201,14 @@ input:-webkit-autofill {
 
 .manager-icon {
   color: #FFA324;
+  font-size: 25px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.close-icon {
+  color: #ff0000;
   font-size: 25px;
   cursor: pointer;
   margin-left: 10px;

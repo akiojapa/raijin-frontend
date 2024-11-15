@@ -24,7 +24,7 @@ export const routes: Routes = [
         children: [
             { path: '', component: ChatWindowComponent, outlet: 'left' },
             { path: '', component: ChatListComponent, outlet: 'right' },
-        ]
+        ],
     },
     {
         path: 'menu/ticket',
@@ -34,9 +34,5 @@ export const routes: Routes = [
             { path: '', component: TicketListComponent, outlet: 'right' },
         ]
     },
-    {
-        path: 'chamados',
-        component: TicketsComponent
-    }
 
 ];

@@ -53,7 +53,12 @@
       </table>
     </div>
   
-    <mat-paginator class="custom-paginator" [pageSize]="10" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
+    <mat-paginator class="custom-paginator" 
+    #paginator
+    [length]="tickets.length" 
+    [pageSize]="10" 
+    [hidePageSize]="true" 
+    showFirstLastButtons></mat-paginator>
   </div>
 
 <div *ngIf="showAddTicketDiv">
@@ -149,31 +154,31 @@
             <div class="col-md-6 mb-3">
                 <label for="viewTicketId" class="form-label">ID do Chamado</label>
                 <div class="input-group">
-                    <input type="text" class="form-control fs-5" id="viewTicketId" [value]="selectedTicket?.id" readonly>
+                    <input type="text" disabled class="form-control fs-5" id="viewTicketId" [value]="selectedTicket?.id" readonly>
                 </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="viewTicketProject" class="form-label">Projeto</label>
                 <div class="input-group">
-                    <input type="text" class="form-control fs-5" id="viewTicketProject" [value]="selectedTicket?.projeto" readonly>
+                    <input type="text" disabled class="form-control fs-5" id="viewTicketProject" [value]="selectedTicket?.projeto" readonly>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="viewTicketTitle" class="form-label">Título</label>
                 <div class="input-group">
-                    <input type="text" class="form-control fs-5" id="viewTicketTitle" [value]="selectedTicket?.titulo" readonly>
+                    <input type="text" disabled disabled class="form-control fs-5" id="viewTicketTitle" [value]="selectedTicket?.titulo" readonly>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="viewTicketDate" class="form-label">Data</label>
                 <div class="input-group">
-                    <input type="text" class="form-control fs-5" id="viewTicketDate" [value]="selectedTicket?.data" readonly>
+                    <input type="text" disabled disabled class="form-control fs-5" id="viewTicketDate" [value]="selectedTicket?.data" readonly>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="viewTicketAttendant" class="form-label">Atendente</label>
                 <div class="input-group">
-                    <input type="text" class="form-control fs-5" id="viewTicketAttendant" [value]="selectedTicket?.atendente" readonly>
+                    <input type="text" disabled class="form-control fs-5" id="viewTicketAttendant" [value]="selectedTicket?.atendente" readonly>
                 </div>
             </div>
             <div class="col-md-12 mb-3">
@@ -185,20 +190,20 @@
             <div class="col-md-4 mb-3">
                 <label for="viewTicketType" class="form-label">Tipos</label>
                 <div class="input-group">
-                    <input type="text" class="form-control fs-5" id="viewTicketType" [value]="selectedTicket?.tipo" readonly>
+                    <input disabled type="text" disabled class="form-control fs-5" id="viewTicketType" [value]="selectedTicket?.tipo" readonly>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
 
                 <label for="viewTicketSubtype" class="form-label">Subtipos</label>
                 <div class="input-group">
-                    <input type="text" class="form-control fs-5" id="viewTicketSubtype" [value]="selectedTicket?.subtipo" readonly>
+                    <input disabled type="text" class="form-control fs-5" id="viewTicketSubtype" [value]="selectedTicket?.subtipo" readonly>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="viewTicketFiles" class="form-label">Arquivos</label>
                 <div class="input-group">
-                    <input type="text" class="form-control fs-5" id="viewTicketFiles" [value]="selectedTicket?.arquivos" readonly>
+                    <input disabled type="text" class="form-control fs-5" id="viewTicketFiles" [value]="selectedTicket?.arquivos" readonly>
                 </div>
             </div>
         </div>

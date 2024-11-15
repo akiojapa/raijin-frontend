@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
-import { faCheckCircle, faCircle, faClipboardList, faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircle, faClipboardList, faCog, faComment, faEllipsisV, faEllipsisVertical, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo, faX } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -7,11 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
 import { Router } from '@angular/router';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-chat-list',
   standalone: true,
-  imports: [FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule, MatTooltipModule, MatTooltip],
   templateUrl: './chat-list.component.html',
   styleUrl: './chat-list.component.scss'
 })
@@ -41,8 +42,9 @@ export class ChatListComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faCircle = faCircle;
   faSmile = faSmile;
-  faPaperPlane = faPaperPlane
-  faTicketManager = faClipboardList
+  faPaperPlane = faPaperPlane;
+  faTicketManager = faClipboardList;
+  faX = faX;
 
   selectTicketMode: boolean = false;
   selectedMessages: IMessage[] = [];
@@ -166,6 +168,7 @@ export class ChatListComponent implements OnInit {
   toggleSelectMode() {
     this.selectTicketMode = !this.selectTicketMode;
     localStorage.removeItem('selectedMessages');
+    this.chatService.openTicketMessage(false);
     this.selectedMessages = [];
   }
 
