@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between w-100">
       <div class="d-flex justify-content-between align-items-center">
         <!-- Imagem e nome do grupo -->
-        <img [src]="choosenGroup?.imageUrl ?? 'liveseo-normal.png'" alt="Logo" class="user user-image">
+        <img [src]="choosenGroup.imageUrl" alt="Logo" class="user user-image">
         <div class="user-details d-flex flex-column mt-3">
           <h5 class="d-flex align-items-center">{{ choosenGroup.name }}</h5>
           <p class="small">{{ choosenGroup.participants }} participantes</p>
@@ -40,7 +40,7 @@
          [ngStyle]="{'justify-content': message.sender === 'Usuário' ? 'end' : 'start'}">
       
       <!-- Checkbox para seleção -->
-      <div *ngIf="selectTicketMode" class="me-2">
+      <div *ngIf="selectTicketMode && message.sender !== 'Usuário'" class="me-2">
         <input type="checkbox"  
               class="form-check form-check-input custom-checkbox"
                [checked]="selectedMessages.includes(message)" 
@@ -60,6 +60,14 @@
         </div>
         <p>{{ message.content }}</p>
       </div>
+
+      <div *ngIf="selectTicketMode && message.sender === 'Usuário'" class="ms-2">
+        <input type="checkbox"  
+              class="form-check form-check-input custom-checkbox"
+               [checked]="selectedMessages.includes(message)" 
+               (change)="toggleMessageSelection(message)" />
+      </div>
+
     </div>
   </div>
   

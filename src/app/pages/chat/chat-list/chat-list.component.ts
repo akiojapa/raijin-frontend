@@ -59,6 +59,12 @@ export class ChatListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (localStorage) {
+      localStorage.removeItem('selectedMessages');
+    }
+    this.chatService.openTicketMessage(false);
+    this.selectedMessages = [];
+
     this.chatService.selectedGroupChat$.subscribe((group) => {
       if (group !== null) {
         this.choosenGroup = group;

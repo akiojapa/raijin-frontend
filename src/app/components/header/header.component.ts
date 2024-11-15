@@ -21,12 +21,10 @@ export class HeaderComponent {
   }
 
   viewProfile() {
-    // Adicione a lógica para visualizar o perfil
     console.log('Visualizar Perfil');
   }
 
   logout() {
-    // Adicione a lógica para fazer logout
     console.log('Logout');
   }
 

@@ -70,7 +70,7 @@
         <h4 class="ms-2">Abertura de chamado</h4>
     </div>
     <form [formGroup]="addTicketForm">
-        <div class="row add-tickets">
+        <div class="row add-tickets m-3">
           <!-- ID do Chamado -->
           <div class="col-md-6 mb-3">
             <label for="ticketId" class="form-label">ID do Chamado</label>
@@ -83,14 +83,6 @@
             <label for="ticketProject" class="form-label">Projeto</label>
             <div class="input-group">
               <input type="text" class="form-control fs-5" formControlName="ticketProject" id="ticketProject" placeholder="Insira o Projeto">
-              <div class="input-group-text no-bg input-icon" (click)="toggleDropdownMenu($event)">
-                <fa-icon [icon]="faChevronDown"></fa-icon>
-                <div *ngIf="showDropdownMenu" class="dropdown-menu-manager">
-                  <div class="dropdown-item-manager">Projeto 1</div>
-                  <div class="dropdown-item-manager">Projeto 2</div>
-                  <div class="dropdown-item-manager">Projeto 3</div>
-                </div>
-              </div>
             </div>
           </div>
           <!-- Título -->
@@ -127,9 +119,9 @@
           <div class="col-md-4 mb-3">
             <label for="ticketFiles" class="form-label">Arquivos</label>
             <div class="input-group"> <!-- Adicione esta div para criar um grupo de entrada -->
-              <input type="text" class="form-control fs-5" formControlName="ticketFiles" id="ticketFiles" placeholder="Anexar Arquivos">
+              <input readonly type="text" class="form-control fs-5" formControlName="ticketFiles" id="ticketFiles" placeholder="Anexar Arquivos">
               <span class="input-group-text no-bg input-icon">
-                <fa-icon [icon]="faPaperclip"></fa-icon>
+                <fa-icon class="manager-icon" [icon]="faPaperclip"></fa-icon>
               </span>
             </div>
           </div>
@@ -149,7 +141,7 @@
         <h4 class="ms-2">Visualização de Chamado</h4>
     </div>
     <form [formGroup]="updateTicketDescriptionForm" (ngSubmit)="updateTicket()">
-        <div class="row view-tickets">
+        <div class="row view-tickets m-3">
             <!-- Campos para Visualização de Chamado -->
             <div class="col-md-6 mb-3">
                 <label for="viewTicketId" class="form-label">ID do Chamado</label>
