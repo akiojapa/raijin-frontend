@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TICKETS } from '../../../helpers/tickets';
 import { IMessage } from '../../../interfaces/groups';
 import { LoadingService } from '../../../services/loading.service';
+import { ConfigService } from '../../../services/config.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -51,7 +52,7 @@ export class TicketListComponent implements OnInit, AfterViewInit {
   faCheckCircle: any = faCheckCircle;
   faTimesCircle: any = faTimesCircle;
 
-  tickets: any = TICKETS;
+  tickets: any[] = [];
   ticketMessages?: string;
   dataSource?: any;
   displayedColumns: string[] = ['id', 'titulo', 'atendente', 'projeto', 'sincronizado'];
@@ -59,7 +60,7 @@ export class TicketListComponent implements OnInit, AfterViewInit {
   addTicketForm: FormGroup;
   updateTicketDescriptionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastService: ToastrService, private cdr: ChangeDetectorRef, private loadingService: LoadingService) {
+  constructor(private fb: FormBuilder, private toastService: ToastrService, private cdr: ChangeDetectorRef, private loadingService: LoadingService, private http: ConfigService) {
     this.addTicketForm = this.fb.group({
       ticketProject: ['', Validators.required],
       ticketTitle: ['', Validators.required],
@@ -76,10 +77,36 @@ export class TicketListComponent implements OnInit, AfterViewInit {
       ticketDescription: ['', Validators.required],
     });
   }
-
+  
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.tickets);
-    this.dataSource.paginator = this.paginator;
+    // this.loadingService.loadingOn();
+    // this.http.get('tickets').subscribe({
+    //   next: (response) => {
+    //     const data = response.body; 
+    //     this.tickets = data.map((ticket: { id: string; title: string; assigned_to: string; description: string; liveSeo_sync: boolean; }) => ({
+    //       id: ticket.id,              
+    //       titulo: ticket.title,         
+    //       atendente: ticket.assigned_to, 
+    //       projeto: 'LiveSeo',          
+    //       data: '23/10/2024',         
+    //       descricao: ticket.description, 
+    //       tipo: 'Tipo teste',         
+    //       subtipo: 'Subtipo teste',    
+    //       arquivos: 'Arquivos teste',   
+    //       sincronizado: ticket.liveSeo_sync 
+    //     }));
+    //     this.dataSource = new MatTableDataSource(this.tickets); 
+    //     this.dataSource.paginator = this.paginator;
+    //     console.log('Dados carregados com sucesso:', this.tickets);
+    //   },
+    //   error: (error) => {
+    //     console.error('Erro ao buscar os dados da API:', error);
+    //   },
+    //   complete: () => {
+    //     this.loadingService.loadingOff(); 
+    //     this.cdr.detectChanges(); 
+    //   }
+    // });
   }
 
   async ngAfterViewInit() {
@@ -92,13 +119,33 @@ export class TicketListComponent implements OnInit, AfterViewInit {
       this.loadingService.loadingOff();
       this.toggleAddTicketDiv();
     }
-    this.loadingService.loadingOff();
-
-    this.dataSource = new MatTableDataSource(this.tickets);
-
-    this.dataSource.paginator = this.paginator;
-
-    this.cdr.detectChanges();
+    this.http.get('tickets').subscribe({
+      next: (response) => {
+        const data = response.body; 
+        this.tickets = data.map((ticket: { id: string; title: string; assigned_to: string; description: string; liveSeo_sync: boolean; }) => ({
+          id: ticket.id,              
+          titulo: ticket.title,         
+          atendente: ticket.assigned_to, 
+          projeto: 'LiveSeo',          
+          data: '23/10/2024',         
+          descricao: ticket.description, 
+          tipo: 'Tipo teste',         
+          subtipo: 'Subtipo teste',    
+          arquivos: 'Arquivos teste',   
+          sincronizado: ticket.liveSeo_sync 
+        }));
+        this.dataSource = new MatTableDataSource(this.tickets); 
+        this.dataSource.paginator = this.paginator;
+        console.log('Dados carregados com sucesso:', this.tickets);
+      },
+      error: (error) => {
+        console.error('Erro ao buscar os dados da API:', error);
+      },
+      complete: () => {
+        this.loadingService.loadingOff(); 
+        this.cdr.detectChanges(); 
+      }
+    });
   }
 
   hasMessages() {
@@ -165,8 +212,8 @@ export class TicketListComponent implements OnInit, AfterViewInit {
   }
 
   addTicket() {
-    const invalidFields = [];
-  
+    const invalidFields = []; 
+
     if (!this.addTicketForm.get('ticketProject')?.valid) {
       invalidFields.push('Projeto');
     }
@@ -187,46 +234,125 @@ export class TicketListComponent implements OnInit, AfterViewInit {
     }
   
     if (invalidFields.length > 0) {
-      this.toastService.warning(`Os seguintes campos são obrigatórios e devem ser preenchidos: ${invalidFields.join(', ')}`);
-      this.manageDisplay('filter');
-      this.addTicketForm.reset();
-      return
+      alert(`Os seguintes campos são obrigatórios e devem ser preenchidos: ${invalidFields.join(', ')}`);
+      return; 
     }
   
     const newTicket = {
-      id: `#${Math.floor(1000 + Math.random() * 9000)}`,
-      projeto: this.addTicketForm.value.ticketProject,
-      titulo: this.addTicketForm.value.ticketTitle,
-      atendente: this.addTicketForm.value.ticketAttendant,
-      data: new Date().toLocaleDateString(),
-      descricao: this.ticketMessages ?? this.addTicketForm.value.ticketDescription,
-      tipo: this.addTicketForm.value.ticketType,
-      subtipo: this.addTicketForm.value.ticketSubtype,
-      arquivos: 'Nenhum arquivo anexado',
-      sincronizado: false,
+      title: this.addTicketForm.value.ticketTitle,
+      created_by: this.addTicketForm.value.ticketAttendant,
+      assigned_to: this.addTicketForm.value.ticketAttendant,
+      description: this.addTicketForm.value.ticketDescription,
     };
-  
-    this.tickets.push(newTicket);
-    this.dataSource.data = this.tickets;
-    this.manageDisplay('filter');
-    this.addTicketForm.reset();
+
+    this.http.post('tickets', newTicket).subscribe({
+      next: (response) => {
+        console.log('Chamado criado com sucesso:', response);
+        alert('Chamado criado com sucesso!');
+        this.manageDisplay('filter');
+        this.addTicketForm.reset();
+      },
+      error: (error) => {
+        console.error('Erro ao criar chamado:', error);
+        alert('Erro ao criar chamado. Verifique os detalhes no console.');
+      },
+      complete: () => {
+        this.loadingService.loadingOn();
+        this.http.get('tickets').subscribe({
+          next: (response) => {
+            const data = response.body; 
+            this.tickets = data.map((ticket: { id: string; title: string; assigned_to: string; description: string; liveSeo_sync: boolean; }) => ({
+              id: ticket.id,              
+              titulo: ticket.title,         
+              atendente: ticket.assigned_to, 
+              projeto: 'LiveSeo',          
+              data: '23/10/2024',         
+              descricao: ticket.description, 
+              tipo: 'Tipo teste',         
+              subtipo: 'Subtipo teste',    
+              arquivos: 'Arquivos teste',   
+              sincronizado: ticket.liveSeo_sync 
+            }));
+            this.dataSource = new MatTableDataSource(this.tickets); 
+            this.dataSource.paginator = this.paginator;
+            console.log('Dados carregados com sucesso:', this.tickets);
+          },
+          error: (error) => {
+            console.error('Erro ao buscar os dados da API:', error);
+          },
+          complete: () => {
+            this.loadingService.loadingOff(); 
+            this.cdr.detectChanges(); 
+          }
+        });
+        console.log('Requisição concluída.');
+      }
+    });
+    
   }
 
   updateTicket() {
     if (this.updateTicketDescriptionForm.valid) {
       const updatedDescription = this.updateTicketDescriptionForm.value.ticketDescription;
+  
       const ticketIndex = this.tickets.findIndex((ticket: { id: any; }) => ticket.id === this.selectedTicket.id);
-
+  
       if (ticketIndex !== -1) {
-        this.tickets[ticketIndex].descricao = updatedDescription;
-        this.toastService.success('Descrição do chamado atualizada com sucesso!');
-        this.manageDisplay('filter');
-        this.updateTicketDescriptionForm.reset();
+        const updatedTicket = {
+          "description": updatedDescription, 
+        };
+
+        this.http.patch(`tickets/${this.selectedTicket.id}`, updatedTicket).subscribe({
+          next: (response) => {
+            this.tickets[ticketIndex].descricao = updatedTicket;
+
+            this.toastService.success('Descrição do chamado atualizada com sucesso!');
+            this.manageDisplay('filter');
+            this.updateTicketDescriptionForm.reset();
+          },
+          error: (error) => {
+            console.error('Erro ao atualizar o ticket:', error);
+            this.toastService.error('Erro ao atualizar a descrição do chamado.');
+          },
+          complete: () => {
+            this.loadingService.loadingOn();
+            this.http.get('tickets').subscribe({
+              next: (response) => {
+                const data = response.body; 
+                this.tickets = data.map((ticket: { id: string; title: string; assigned_to: string; description: string; liveSeo_sync: boolean; }) => ({
+                  id: ticket.id,              
+                  titulo: ticket.title,         
+                  atendente: ticket.assigned_to, 
+                  projeto: 'LiveSeo',          
+                  data: '23/10/2024',         
+                  descricao: ticket.description, 
+                  tipo: 'Tipo teste',         
+                  subtipo: 'Subtipo teste',    
+                  arquivos: 'Arquivos teste',   
+                  sincronizado: ticket.liveSeo_sync 
+                }));
+                this.dataSource = new MatTableDataSource(this.tickets); 
+                this.dataSource.paginator = this.paginator;
+                console.log('Dados carregados com sucesso:', this.tickets);
+              },
+              error: (error) => {
+                console.error('Erro ao buscar os dados da API:', error);
+              },
+              complete: () => {
+                this.loadingService.loadingOff(); 
+                this.cdr.detectChanges(); 
+              }
+            });
+          }
+        });
+      } else {
+        this.toastService.error('Ticket não encontrado.');
       }
     } else {
       this.toastService.warning('O campo descrição é obrigatório e deve ser preenchido.');
     }
   }
+  
 
   @HostListener('document:click', ['$event'])
   closeDropdown(event: Event) {
