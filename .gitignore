@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 #.env
-assets/config.json
+src/assets/config.json
