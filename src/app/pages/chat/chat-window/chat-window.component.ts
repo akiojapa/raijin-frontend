@@ -8,7 +8,7 @@ import { ChatService } from '../../../services/chat.service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { LoadingService } from '../../../services/loading.service';
-import { finalize } from 'rxjs/internal/operators/finalize';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-chat-window',
@@ -23,6 +23,8 @@ export class ChatWindowComponent {
   filteredGroups: any[] = [];
   searchQuery: string = '';
   faSquarePlus: IconDefinition = faSquarePlus;
+
+  openTicket: boolean = false;
 
   selectedChat: Group | null = null;
   websocketSubscription!: Subscription
@@ -44,6 +46,11 @@ export class ChatWindowComponent {
 
   ngOnInit() {
     this.startGroups()
+
+    this.chatService.isTicketMessageOpen$.subscribe(isOpen => {
+      this.openTicket = isOpen;
+    });
+
     this.chatService.selectedGroupChat$.subscribe(group => {
       this.selectedChat = group;
     });

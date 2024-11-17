@@ -11,7 +11,7 @@ export class ConfigService {
   constructor(private httpClient: HttpClient) { }
 
   setUrl(route: string): string {
-    return `${this.baseUrl}/api/v1/${route}`
+    return `http://liveseo.localhost:8000/api/v1/${route}` //Alterar URL padrão 
   }
 
   createAuthorizationHeader(headers: HttpHeaders): HttpHeaders {
@@ -44,6 +44,14 @@ export class ConfigService {
     let headers = new HttpHeaders();
     headers = this.createAuthorizationHeader(headers);
     return this.httpClient.put(this.setUrl(route), model, {
+      headers,
+    });
+  }
+
+  patch(route: string, model: any): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = this.createAuthorizationHeader(headers);
+    return this.httpClient.patch(this.setUrl(route), model, {
       headers,
     });
   }
