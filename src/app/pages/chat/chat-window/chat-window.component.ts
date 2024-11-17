@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { FaIconComponent, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faSquarePlus, IconDefinition, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus, IconDefinition, faFilter, faTag } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { ChatService } from '../../../services/chat.service';
@@ -24,6 +24,7 @@ export class ChatWindowComponent {
   searchQuery: string = '';
   faSquarePlus: IconDefinition = faSquarePlus;
   faFilter = faFilter;
+  faTag = faTag;
   showDropdownTags: boolean = false;
   tags: string[] = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
   selectedTags: string[] = [];
@@ -100,10 +101,19 @@ export class ChatWindowComponent {
 
   filterGroups() {
     const query = this.searchQuery.toLowerCase();
-    this.filteredGroups = this.groups.filter(group =>
-      group.name.toLowerCase().includes(query) ||
-      group.lastMessage.toLowerCase().includes(query)
-    );
+
+    // Filtrar grupos com base no nome ou na última mensagem (searchQuery)
+    this.filteredGroups = this.groups.filter(group => {
+      const matchesQuery = group.name.toLowerCase().includes(query) || 
+                          (group.lastMessage?.toLowerCase() || '').includes(query);
+
+      // Verifica se o grupo contém alguma das tags selecionadas
+      const matchesTags = this.selectedTags.length === 0 || 
+                          this.selectedTags.every(tag => group.tags?.includes(tag));
+
+      // Retorna os grupos que correspondem à pesquisa e às tags selecionadas
+      return matchesQuery && matchesTags;
+    });
   }
 
   getTagColor(level: number): string {
@@ -131,11 +141,14 @@ export class ChatWindowComponent {
 
   toggleTagSelection(tag: string): void {
     const index = this.selectedTags.indexOf(tag);
-    if (index > -1) {
-        this.selectedTags.splice(index, 1); // Remove tag se já estiver selecionada
-    } else {
-        this.selectedTags.push(tag); // Adiciona tag se ainda não estiver selecionada
-    }
+  if (index > -1) {
+    this.selectedTags.splice(index, 1); // Remove tag se já estiver selecionada
+  } else {
+    this.selectedTags.push(tag); // Adiciona tag se ainda não estiver selecionada
+  }
+
+  // Atualiza a lista de grupos filtrados
+  this.filterGroups();
   }
 
   // Fecha a div se clicar fora dela

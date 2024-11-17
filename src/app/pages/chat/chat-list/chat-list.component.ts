@@ -44,8 +44,17 @@ export class ChatListComponent implements OnInit {
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
 
   showTagDropdown = false;
-  availableTags: string[] = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
+  availableTags: { name: string; color: string }[] = [
+    { name: 'Tag 1', color: '#FF0000' },
+    { name: 'Tag 2', color: '#DD4F' },
+    { name: 'Tag 3', color: '#93DD' },
+    { name: 'Tag 4', color: '#F3CC' },
+    { name: 'Tag 5', color: '#CFC3' }
+  ];
   selectedGroupTags: string[] = []; // Tags do grupo selecionado
+  creatingNewTag = false; // Define se está no modo de criação de nova tag
+  newTagName: string = ''; // Nome da nova tag
+  newTagColor: string = '#44FFFF'; // Cor da nova tag (hexadecimal)
 
   constructor(
     private chatService: ChatService,
@@ -129,20 +138,11 @@ export class ChatListComponent implements OnInit {
     }
   }
 
-  getTagColor(level: number): string {
-    switch (level) {
-      case 1:
-        return '#FF0000';
-      case 2:
-        return '#CCF3';
-      case 3:
-        return '#33FF57';
-      case 4:
-        return '#3357FF';
-      default:
-        return '#FF2FFF';
-    }
+  getTagColor(tagName: string): string {
+    const tag = this.availableTags.find((t) => t.name === tagName);
+    return tag ? tag.color : '#FFFFFF'; // Retorna branco como padrão caso não encontre
   }
+  
 
   toggleDropdownMenu(event: Event) {
     this.showDropdownMenu = !this.showDropdownMenu;
@@ -210,22 +210,45 @@ export class ChatListComponent implements OnInit {
     }
   }
 
-  toggleTag(tag: string): void {
-    const index = this.selectedGroupTags.indexOf(tag);
+  toggleTag(tagName: string): void {
+    const index = this.selectedGroupTags.indexOf(tagName);
     if (index > -1) {
-      this.selectedGroupTags.splice(index, 1); // Remove a tag se já estiver selecionada
+      this.selectedGroupTags.splice(index, 1); // Remove a tag se estiver selecionada
     } else {
-      this.selectedGroupTags.push(tag); // Adiciona a tag se ainda não estiver selecionada
+      this.selectedGroupTags.push(tagName); // Adiciona a tag se não estiver selecionada
     }
   }
 
   // Método de exemplo para salvar as tags no grupo selecionado (chamado ao fechar o dropdown, por exemplo)
   saveTagsToGroup(): void {
-    // Save selected tags to the chosen group
     if (this.choosenGroup) {
       this.choosenGroup.tags = [...this.selectedGroupTags];
     }
-    this.showTagDropdown = false; // Close dropdown after saving
-  } 
+    this.showTagDropdown = false; // Fecha o dropdown após salvar
+  }
+
+  // Função para abrir o modo de criação de tag
+  openTagCreation(): void {
+    this.creatingNewTag = true;
+  }
+
+  // Função para cancelar a criação de uma nova tag
+  cancelTagCreation(): void {
+    this.creatingNewTag = false;
+    this.newTagName = '';
+    this.newTagColor = '#000000';
+  }
+  
+  addNewTag(): void {
+    if (this.newTagName && this.newTagColor) {
+      // Adiciona a nova tag ao array de tags disponíveis
+      this.availableTags.push({ name: this.newTagName, color: this.newTagColor });
+
+      // Reseta os campos
+      this.newTagName = '';
+      this.newTagColor = '#000000';
+      this.creatingNewTag = false;
+    }
+  }
 
 }

@@ -6,11 +6,11 @@
     <fa-icon [icon]="faSquarePlus" class="search-icon"></fa-icon>
     
     <div class="d-flex justify-content-center align-items-center position-relative">
-        <fa-icon [icon]="faFilter" class="filter-icon" (click)="toggleDropdownTags($event)"></fa-icon>
+        <fa-icon [icon]="faTag" class="tags-icon" (click)="toggleDropdownTags($event)"></fa-icon>
 
         <!-- Dropdown de opções -->
         <div *ngIf="showDropdownTags" class="dropdown-tags-manager" #dropdownTags>
-            <p>Filtre por tags</p>
+            <p>Tags</p>
             <div class="tags-options">
                 <div *ngFor="let tag of tags" class="form-check">
                     <input 

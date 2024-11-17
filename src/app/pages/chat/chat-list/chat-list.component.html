@@ -15,7 +15,13 @@
 
       <!-- Tags Section -->
       <div class="group-tags">
-        <span *ngFor="let tag of choosenGroup.tags; let i = index" [ngStyle]="{'background-color': getTagColor(i)}" class="group-tag">{{ tag }}</span>
+        <span 
+          *ngFor="let tag of choosenGroup.tags; let i = index" 
+          [ngStyle]="{'background-color': getTagColor(tag)}" 
+          class="group-tag"
+        >
+          {{ tag }}
+        </span>
       </div>
 
       <!-- Ícone de três pontos com dropdown -->
@@ -27,23 +33,49 @@
           <div class="dropdown-item-manager" (click)="openGroupInfo()">Informações do Grupo</div>
           <div class="dropdown-item-manager" (click)="muteGroup()">Silenciar Grupo</div>
           <div class="dropdown-item-manager" (click)="openCall()">Abrir Chamado</div>
-          <div class="dropdown-item-manager" (click)="exitGroup()">Sair do Grupo</div>
           <div class="dropdown-item-manager" (click)="toggleTagDropdown($event)">Adicionar Tags</div> <!-- Novo botão para tags -->
+          <div class="dropdown-item-manager" (click)="exitGroup()">Sair do Grupo</div>
         </div>
         
         <!-- Dropdown de tags -->
         <div *ngIf="showTagDropdown" class="dropdown-tags-manager">
-          <div *ngFor="let tag of availableTags" class="tag-option">
+          <!-- Botão para criar nova tag -->
+          <button class="create-new-tag-btn" (click)="openTagCreation()">Criar Tag</button>
+        
+          <!-- Div para criar uma nova tag -->
+          <div *ngIf="creatingNewTag" class="create-tag-section">
             <input 
-            type="checkbox"
-            [checked]="selectedGroupTags.includes(tag.name)"
-            (change)="toggleTag(tag.name)"
-            [style.backgroundColor]="selectedGroupTags.includes(tag.name) ? tag.color : 'transparent'"
-            class="tag-checkbox"
-          >
-            <label>{{ tag }}</label>
+              type="text" 
+              [(ngModel)]="newTagName" 
+              placeholder="Nome da Tag" 
+              class="tag-input">
+            <div class="color-picker-wrapper">
+              <label for="tagColor">Cor:</label>
+              <input 
+                type="text" 
+                id="tagColor" 
+                [(ngModel)]="newTagColor" 
+                placeholder="#000000"
+                maxlength="7"
+                class="color-input">
+            </div>
+            <div class="tag-buttons">
+              <button (click)="addNewTag()" [disabled]="!newTagName || !newTagColor" class="save-tag-btn">Salvar</button>
+              <button (click)="cancelTagCreation()" class="cancel-tag-btn">Cancelar</button>
+            </div>
           </div>
-          <button class="save-tags-btn" (click)="saveTagsToGroup()">Salvar Tags</button>
+        
+          <!-- Lista de tags disponíveis -->
+          <div *ngIf="!creatingNewTag">
+            <div *ngFor="let tag of availableTags" class="tag-option">
+              <input 
+                type="checkbox" 
+                [checked]="selectedGroupTags.includes(tag.name)" 
+                (change)="toggleTag(tag.name)">
+              <label>{{ tag.name }}</label>
+            </div>
+            <button class="save-tags-btn" (click)="saveTagsToGroup()">Salvar Tags</button>
+          </div>
         </div>
       </div>
     </div>

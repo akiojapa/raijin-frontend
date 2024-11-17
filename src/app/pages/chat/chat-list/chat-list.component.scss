@@ -2,7 +2,7 @@
   position: absolute;
   top: 30px;
   right: 0;
-  background-color: #fff;
+  background-color: #f1f1f1;
   border: 1px solid #ccc;
   padding: 8px;
   border-radius: 4px;
@@ -19,7 +19,7 @@
   position: absolute;
   top: 30px;
   right: 0;
-  background-color: #fff;
+  background-color: #ebe4e4;
   border: 1px solid #ccc;
   padding: 8px;
   border-radius: 4px;
@@ -28,7 +28,7 @@
   min-width: 200px; // Mínimo de largura (ou ajuste para seu layout)
 }
 
-.save-tags-button {
+.save-tags-btn {
   background-color: #ff7f00; // Cor de fundo laranja
   color: #fff;
   border: none;
@@ -66,13 +66,62 @@
   gap: 8px;
 }
 
-.save-tags-btn {
-  margin-top: 8px;
-  background-color: orange;
+.create-new-tag-btn {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #4CAF50;
   color: white;
-  padding: 4px 12px;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.create-tag-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%; /* Garante que o conteúdo fique dentro da div principal */
+  box-sizing: border-box; /* Inclui bordas e paddings no cálculo do tamanho */
+}
+
+.color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ajusta o espaçamento entre o rótulo e o campo */
+  gap: 8px;
+  width: 100%; /* Faz o wrapper respeitar a largura da div */
+  box-sizing: border-box; /* Evita overflow causado por bordas ou padding */
+}
+
+.color-input {
+  flex: 1; /* Faz o input de cor ocupar o espaço restante */
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-width: 120px; /* Define um tamanho máximo para o input */
+}
+
+.tag-input {
+  width: 100%; /* Faz o input de nome preencher a largura da div */
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.save-tag-btn, .cancel-tag-btn {
+  padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  align-self: flex-end;
+}
+
+.save-tag-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cancel-tag-btn {
+  background-color: #f44336;
+  color: white;
 }
