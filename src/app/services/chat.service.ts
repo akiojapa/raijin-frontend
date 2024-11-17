@@ -30,7 +30,11 @@ export class ChatService {
     this.selectedGroupChat.next(chatGroup);
   }
 
-  connectWebSocket(){
+  openTicketMessage(isTicket: boolean) {
+    this.isTicketMessageOpen.next(isTicket);
+  }
+
+  connectWebSocket() {
     const websocketUrl = `ws://127.0.0.1:8000/ws/chat`;
 
     this.websocketService?.connect(websocketUrl);
