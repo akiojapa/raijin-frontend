@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { faCheckCircle, faCircle, faClipboardList, faCog, faComment, faEllipsisV, faEllipsisVertical, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo, faX } from '@fortawesome/free-solid-svg-icons';
-import { IGroup, IMessage } from '../../../interfaces/groups';
+import { Group, IMessage, Message } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,13 +24,13 @@ export class ChatListComponent implements OnInit {
   imageInput!: ElementRef;
   @ViewChild('fileInput')
   fileInput!: ElementRef;
-  groups: IGroup[] = GROUPS;
+  groups: Group[] = GROUPS;
   faImage = faImage;
   faFile = faFile;
   faVideo = faVideo;
   faPlus = faSquarePlus;
   faEllipsisV = faEllipsisV;
-  choosenGroup: IGroup = this.groups[0];
+  choosenGroup: Group = this.groups[0];
   newMessageContent: string = '';
   showDropdownMenu: boolean = false;
   showEmojiPicker: boolean = false;
@@ -129,11 +129,15 @@ export class ChatListComponent implements OnInit {
 
   sendMessage(): void {
     if (this.newMessageContent.trim()) {
-      const newMessage: IMessage = {
-        sender: 'Usuário',
-        content: this.newMessageContent,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
+      const date = new Date()
+
+      const newMessage = new Message(
+        {
+          sender: 'Usuário',
+          content: this.newMessageContent,
+          time: date.getTime() / 1000
+        }
+      )
 
       const url = this.document.location.hostname
       const domains = url.split('.')
@@ -142,9 +146,10 @@ export class ChatListComponent implements OnInit {
       this.chatService.sendMessage(
         this.choosenGroup.whats_id,
         newMessage.content,
-        companyName
+        companyName,
+        newMessage.time,
       )
-
+      this.choosenGroup.priority = 0
       this.choosenGroup.messages.push(newMessage);
       this.newMessageContent = '';
     }
@@ -207,7 +212,7 @@ export class ChatListComponent implements OnInit {
   exitGroup() {
     console.log('Saindo do grupo');
   }
-  chooseGroup(group: IGroup): void {
+  chooseGroup(group: Group): void {
     this.choosenGroup = group;
   }
 

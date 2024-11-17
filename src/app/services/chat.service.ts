@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IGroup } from '../interfaces/groups';
+import { Group } from '../interfaces/groups';
 import { ConfigService } from './config.service';
 import { WebSocketService } from './webhook.service';
 
@@ -17,7 +17,7 @@ export class ChatService {
   private isTicketMessageOpen = new BehaviorSubject<boolean>(false);
   isTicketMessageOpen$ = this.isTicketMessageOpen.asObservable();
 
-  private selectedGroupChat = new BehaviorSubject<IGroup | null>(null);
+  private selectedGroupChat = new BehaviorSubject<Group | null>(null);
   selectedGroupChat$ = this.selectedGroupChat.asObservable();
 
   getGroups(number: number) {
@@ -26,12 +26,8 @@ export class ChatService {
     })
   }
 
-  selectChat(chatGroup: IGroup) {
+  selectChat(chatGroup: Group) {
     this.selectedGroupChat.next(chatGroup);
-  }
-
-  openTicketMessage(isTicket: boolean) {
-    this.isTicketMessageOpen.next(isTicket);
   }
 
   connectWebSocket(){
@@ -40,19 +36,19 @@ export class ChatService {
     this.websocketService?.connect(websocketUrl);
   }
 
-  receiveMessage(){
+  receiveMessage() {
     return this.websocketService.onMessage()
   }
 
-  sendMessage(chat_id: string, message: string, companyName: string ){
+  sendMessage(chat_id: string, message: string, companyName: string, timestamp: number) {
     this.websocketService.sendMessage({
       'chat_id': chat_id,
-      'from_number': '997732694',
+      'from_number': '554497732694',
       'content': message,
       'type': 'Text',
       'received': false,
       'company': companyName,
-      'timestamp': new Date().getTime()
+      'timestamp': timestamp
     });
   }
 
