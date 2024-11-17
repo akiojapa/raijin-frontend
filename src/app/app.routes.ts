@@ -7,6 +7,7 @@ import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
 import { ChatWindowComponent } from './pages/chat/chat-window/chat-window.component';
 import { TicketWindowComponent } from './pages/ticket/ticket-window/ticket-window.component';
 import { TicketListComponent } from './pages/ticket/ticket-list/ticket-list.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -25,6 +26,7 @@ export const routes: Routes = [
             { path: '', component: ChatWindowComponent, outlet: 'left' },
             { path: '', component: ChatListComponent, outlet: 'right' },
         ],
+        canActivate: [AuthGuard]
     },
     {
         path: 'menu/ticket',
@@ -32,7 +34,8 @@ export const routes: Routes = [
         children: [
             { path: '', component: TicketWindowComponent, outlet: 'left' },
             { path: '', component: TicketListComponent, outlet: 'right' },
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
 
 ];

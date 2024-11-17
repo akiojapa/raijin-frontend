@@ -8,6 +8,7 @@ import { ChatService } from '../../../services/chat.service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { LoadingService } from '../../../services/loading.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-chat-window',
@@ -54,7 +55,7 @@ export class ChatWindowComponent {
     this.chatService.selectedGroupChat$.subscribe(group => {
       this.selectedChat = group;
     });
-    // this.connectWebSocket()
+    this.connectWebSocket()
   }
 
   ngOnDestroy(): void {
@@ -64,24 +65,22 @@ export class ChatWindowComponent {
   }
   
   startGroups(){
-    // if (isPlatformBrowser(this.elementRef.nativeElement)) {
-    //   return
-    // }
+    if (isPlatformBrowser(this.elementRef.nativeElement)) {
+      return
+    }
     
-    // this.loadingService.loadingOn()
-    this.groups = GROUPS
-    this.filteredGroups = this.groups;
-    this.onSelectChat(this.selectedChat ? this.selectedChat : this.groups[0]);
-    // this.chatService.getGroups(997732694).pipe(
-    //   finalize(() => this.loadingService.loadingOff())
-    // ).subscribe({
-    //   next: (response) => {
-    //     // this.groups = response.body
-    //     // this.groups[0].messages = [this.groups[0].messages[0]] 
-    //     // this.filteredGroups = this.groups;
-    //     this.onSelectChat(this.selectedChat ? this.selectedChat : this.groups[0]);
-    //   }
-    // })
+    this.loadingService.loadingOn()
+
+    this.chatService.getGroups(997732694).pipe(
+      finalize(() => this.loadingService.loadingOff())
+    ).subscribe({
+      next: (response) => {
+        this.groups = response.body
+        this.groups[0].messages = [this.groups[0].messages[0]] 
+        this.filteredGroups = this.groups;
+        this.onSelectChat(this.selectedChat ? this.selectedChat : this.groups[0]);
+      }
+    })
   }
 
   connectWebSocket(){
