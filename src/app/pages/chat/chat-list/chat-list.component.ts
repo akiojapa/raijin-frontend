@@ -1,17 +1,19 @@
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
-import { faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo } from '@fortawesome/free-solid-svg-icons';
-import { Group, Message } from '../../../interfaces/groups';
+import { faCheckCircle, faCircle, faClipboardList, faCog, faComment, faEllipsisV, faEllipsisVertical, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo, faX } from '@fortawesome/free-solid-svg-icons';
+import { Group, IMessage, Message } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
+import { Router } from '@angular/router';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-chat-list',
   standalone: true,
-  imports: [FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule, MatTooltipModule, MatTooltip],
   templateUrl: './chat-list.component.html',
   styleUrl: './chat-list.component.scss'
 })
@@ -38,22 +40,38 @@ export class ChatListComponent implements OnInit {
   faComment = faComment;
   faUser = faUser;
   faCog = faCog;
+  faCheckCircle = faCheckCircle;
+  faCircle = faCircle;
   faSmile = faSmile;
-  faPaperPlane = faPaperPlane
+  faPaperPlane = faPaperPlane;
+  faTicketManager = faClipboardList;
+  faX = faX;
+
+  selectTicketMode: boolean = false;
+  selectedMessages: IMessage[] = [];
+
+
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
   userName!: string;
 
   constructor(
     private chatService: ChatService,
+    private route: Router,
     private authService: AuthService,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit(): void {
+    if (localStorage) {
+      localStorage.removeItem('selectedMessages');
+    }
+    this.chatService.openTicketMessage(false);
+    this.selectedMessages = [];
+
     this.userName = this.authService.getName()
     this.chatService.selectedGroupChat$.subscribe((group) => {
       if (group !== null) {
-        this.choosenGroup = group; // Função para carregar dados do grupo
+        this.choosenGroup = group;
       }
     });
   }
@@ -91,6 +109,14 @@ export class ChatListComponent implements OnInit {
         this.uploadFile(file);
       }
     }
+  }
+
+  sendMessagesForTicket() {
+    const messagesJson = JSON.stringify(this.selectedMessages);
+
+    localStorage.setItem('selectedMessages', messagesJson);
+
+    this.route.navigate(['/menu/ticket']);
   }
 
   uploadImage(file: File) {
@@ -154,9 +180,38 @@ export class ChatListComponent implements OnInit {
     console.log('Silenciando grupo');
   }
 
-  openCall() {
-    console.log('Abrindo chamado');
+  toggleSelectMode() {
+    this.selectTicketMode = !this.selectTicketMode;
+    localStorage.removeItem('selectedMessages');
+    this.chatService.openTicketMessage(false);
+    this.selectedMessages = [];
   }
+
+  toggleMessageSelection(message: IMessage) {
+    const pos = this.selectedMessages.indexOf(message);
+
+    if (pos > -1) {
+      this.selectedMessages.splice(pos, 1);
+    } else {
+      this.selectedMessages.push(message);
+    }
+
+    if (this.selectedMessages.length > 0) {
+      this.chatService.openTicketMessage(true);
+    } else {
+      this.chatService.openTicketMessage(false);
+    }
+  }
+
+  cancelSelection() {
+    this.selectTicketMode = false;
+    this.selectedMessages = [];
+  }
+
+  confirmSelection() {
+    this.cancelSelection();
+  }
+
 
   exitGroup() {
     console.log('Saindo do grupo');
