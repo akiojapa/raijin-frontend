@@ -16,13 +16,15 @@ export class HeaderComponent {
   faCog = faCog;
   showConfigDropdown = false;
   userName!: string;
+  userRole!: string;
 
   constructor(
     private authService: AuthService
   ){}
 
   ngOnInit(): void {
-    this.userName = this.authService.getName()
+    this.userName = this.authService.getName();
+    this.userRole = this.authService.getRole();
   }
 
   toggleConfigDropdown(event: Event) {
