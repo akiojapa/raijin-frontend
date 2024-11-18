@@ -9,6 +9,7 @@ import { LoggingInterceptor } from './app.interceptors';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { enviroment } from '../enviroments/enviroments'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,15 +34,21 @@ export const appConfig: ApplicationConfig = {
 
 function resolveEnviroment() {
   const httpService: ConfigService = inject(ConfigService);
-  const document = inject(DOCUMENT);
 
   return () => new Promise((resolve) => {
-    const url = document.location.hostname
-    const domains = url.split('.')
-    const path = domains.length > 1 ? `${domains[0]}.` : ''
-    const environment = require('../assets/config.json');
+    if (enviroment.ambience === "STAGE"){
+      httpService.baseUrl = `http://${enviroment.baseUrl}`;
+    }
 
-    httpService.baseUrl = `http://${path}${environment.baseUrl}`;
+    if (enviroment.ambience === "DEV"){
+      const document = inject(DOCUMENT);
+      const url = document.location.hostname
+      const domains = url.split('.')
+      const path = domains.length > 1 ? `${domains[0]}.` : ''
+      const environment = require('../assets/config.json');
+  
+      httpService.baseUrl = `http://${path}${environment.baseUrl}`;
+    }
 
     resolve(true)
   });
