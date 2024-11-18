@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -40,13 +41,16 @@ export class ChatListComponent implements OnInit {
   faSmile = faSmile;
   faPaperPlane = faPaperPlane
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
+  userName!: string;
 
   constructor(
     private chatService: ChatService,
+    private authService: AuthService,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit(): void {
+    this.userName = this.authService.getName()
     this.chatService.selectedGroupChat$.subscribe((group) => {
       if (group !== null) {
         this.choosenGroup = group; // Função para carregar dados do grupo
@@ -107,7 +111,7 @@ export class ChatListComponent implements OnInit {
 
       const newMessage = new Message(
         {
-          sender: 'Usuário',
+          sender: this.userName,
           content: this.newMessageContent,
           time: date.getTime() / 1000
         }
@@ -118,10 +122,10 @@ export class ChatListComponent implements OnInit {
       const companyName = domains.length > 1 ? `${domains[0]}` : ''
 
       this.chatService.sendMessage(
+        newMessage,
+        this.authService.getPhoneNumber(),
         this.choosenGroup.whats_id,
-        newMessage.content,
         companyName,
-        newMessage.time,
       )
       this.choosenGroup.priority = 0
       this.choosenGroup.messages.push(newMessage);

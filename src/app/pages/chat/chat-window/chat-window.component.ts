@@ -96,6 +96,10 @@ export class ChatWindowComponent {
           }
 
           return priorityB - priorityA
+        }).map(group => {
+          group.messages.sort((messageA, messageB) => {
+            return messageA.time - messageB.time
+          })
         });
 
         this.filteredGroups = this.groups
