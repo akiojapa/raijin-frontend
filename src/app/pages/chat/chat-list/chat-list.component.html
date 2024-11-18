@@ -14,11 +14,11 @@
       </div>
 
       <!-- Ícone de três pontos com dropdown -->
-      <div  class="d-flex justify-content-center align-items-center position-relative">
-        <fa-icon *ngIf="selectTicketMode"[icon]="faX" 
-        class="close-icon" [matTooltip]="'Fechar abertura de chamado'" (click)="toggleSelectMode()"></fa-icon> 
-        <fa-icon *ngIf="selectTicketMode"[icon]="faTicketManager" matTooltip="Abrir chamado" 
-          class="manager-icon" (click)="sendMessagesForTicket()" [ngClass]="{'disabled-group': selectedMessages.length === 0}"></fa-icon> 
+      <div class="d-flex justify-content-center align-items-center position-relative">
+        <fa-icon *ngIf="selectTicketMode" [icon]="faX" class="close-icon" [matTooltip]="'Fechar abertura de chamado'"
+          (click)="toggleSelectMode()"></fa-icon>
+        <fa-icon *ngIf="selectTicketMode" [icon]="faTicketManager" matTooltip="Abrir chamado" class="manager-icon"
+          (click)="sendMessagesForTicket()" [ngClass]="{'disabled-group': selectedMessages.length === 0}"></fa-icon>
         <fa-icon [icon]="faEllipsisV" class="manager-icon" (click)="toggleDropdownMenu($event)"></fa-icon>
 
         <!-- Dropdown de opções -->
@@ -35,23 +35,19 @@
 
   <!-- Componente de Chat(Body) -->
   <div class="messages-container p-3 flex-grow-1" #messagesContainer>
-    <div *ngFor="let message of choosenGroup?.messages; let i = index"
-         class="d-flex mb-2 w-100 align-items-center"
-         [ngStyle]="{'justify-content': message.sender === 'Usuário' ? 'end' : 'start'}">
-      
+    <div *ngFor="let message of choosenGroup?.messages; let i = index" class="d-flex mb-2 w-100 align-items-center"
+      [ngStyle]="{'justify-content': message.sender === userName ? 'end' : 'start'}">
+
       <!-- Checkbox para seleção -->
-      <div *ngIf="selectTicketMode && message.sender !== 'Usuário'" class="me-2">
-        <input type="checkbox"  
-              class="form-check form-check-input custom-checkbox"
-               [checked]="selectedMessages.includes(message)" 
-               (change)="toggleMessageSelection(message)" />
+      <div *ngIf="selectTicketMode && message.sender !== userName" class="me-2">
+        <input type="checkbox" class="form-check form-check-input custom-checkbox"
+          [checked]="selectedMessages.includes(message)" (change)="toggleMessageSelection(message)" />
       </div>
-  
+
       <!-- Mensagem -->
-      <div class="message" 
-           [ngClass]="{
-             'sent': message.sender === 'Usuário',
-             'received': message.sender !== 'Usuário',
+      <div class="message" [ngClass]="{
+             'sent': message.sender === userName,
+             'received': message.sender !== userName,
              'selected': selectedMessages.includes(message) && selectTicketMode
            }">
         <div class="d-flex justify-content-between">
@@ -61,16 +57,14 @@
         <p>{{ message.content }}</p>
       </div>
 
-      <div *ngIf="selectTicketMode && message.sender === 'Usuário'" class="ms-2">
-        <input type="checkbox"  
-              class="form-check form-check-input custom-checkbox"
-               [checked]="selectedMessages.includes(message)" 
-               (change)="toggleMessageSelection(message)" />
+      <div *ngIf="selectTicketMode && message.sender === userName" class="ms-2">
+        <input type="checkbox" class="form-check form-check-input custom-checkbox"
+          [checked]="selectedMessages.includes(message)" (change)="toggleMessageSelection(message)" />
       </div>
 
     </div>
   </div>
-  
+
 
 
   <div class="footer mt-auto w-100 p-3 bottom-0">

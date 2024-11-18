@@ -8,6 +8,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
 import { Router } from '@angular/router';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -51,10 +52,12 @@ export class ChatListComponent implements OnInit {
 
 
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
+  userName!: string;
 
   constructor(
     private chatService: ChatService,
     private route: Router,
+    private authService: AuthService,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -65,6 +68,7 @@ export class ChatListComponent implements OnInit {
     this.chatService.openTicketMessage(false);
     this.selectedMessages = [];
 
+    this.userName = this.authService.getName()
     this.chatService.selectedGroupChat$.subscribe((group) => {
       if (group !== null) {
         this.choosenGroup = group;
@@ -108,11 +112,11 @@ export class ChatListComponent implements OnInit {
   }
 
   sendMessagesForTicket() {
-  const messagesJson = JSON.stringify(this.selectedMessages);
+    const messagesJson = JSON.stringify(this.selectedMessages);
 
-  localStorage.setItem('selectedMessages', messagesJson);
+    localStorage.setItem('selectedMessages', messagesJson);
 
-  this.route.navigate(['/menu/ticket']);
+    this.route.navigate(['/menu/ticket']);
   }
 
   uploadImage(file: File) {
@@ -133,7 +137,7 @@ export class ChatListComponent implements OnInit {
 
       const newMessage = new Message(
         {
-          sender: 'Usuário',
+          sender: this.userName,
           content: this.newMessageContent,
           time: date.getTime() / 1000
         }
@@ -144,10 +148,10 @@ export class ChatListComponent implements OnInit {
       const companyName = domains.length > 1 ? `${domains[0]}` : ''
 
       this.chatService.sendMessage(
+        newMessage,
+        this.authService.getPhoneNumber(),
         this.choosenGroup.whats_id,
-        newMessage.content,
         companyName,
-        newMessage.time,
       )
       this.choosenGroup.priority = 0
       this.choosenGroup.messages.push(newMessage);
@@ -207,7 +211,7 @@ export class ChatListComponent implements OnInit {
   confirmSelection() {
     this.cancelSelection();
   }
-    
+
 
   exitGroup() {
     console.log('Saindo do grupo');

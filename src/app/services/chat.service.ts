@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Group } from '../interfaces/groups';
+import { Group, Message } from '../interfaces/groups';
 import { ConfigService } from './config.service';
 import { WebSocketService } from './webhook.service';
 
@@ -44,15 +44,16 @@ export class ChatService {
     return this.websocketService.onMessage()
   }
 
-  sendMessage(chat_id: string, message: string, companyName: string, timestamp: number) {
+  sendMessage(message: Message, phoneNumber: string, chat_id: string, companyName: string) {
     this.websocketService.sendMessage({
       'chat_id': chat_id,
-      'from_number': '554497732694',
-      'content': message,
+      'from_number': phoneNumber,
+      'from_name': message.sender,
+      'content': message.content,
       'type': 'Text',
       'received': false,
       'company': companyName,
-      'timestamp': timestamp
+      'timestamp': message.time
     });
   }
 

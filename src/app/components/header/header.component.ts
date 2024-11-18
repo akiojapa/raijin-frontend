@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,17 @@ export class HeaderComponent {
 
   faCog = faCog;
   showConfigDropdown = false;
+  userName!: string;
+  userRole!: string;
+
+  constructor(
+    private authService: AuthService
+  ){}
+
+  ngOnInit(): void {
+    this.userName = this.authService.getName();
+    this.userRole = this.authService.getRole();
+  }
 
   toggleConfigDropdown(event: Event) {
     event.stopPropagation();

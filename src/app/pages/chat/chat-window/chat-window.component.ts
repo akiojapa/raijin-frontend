@@ -103,6 +103,10 @@ export class ChatWindowComponent {
           }
 
           return priorityB - priorityA
+        }).map(group => {
+          group.messages.sort((messageA, messageB) => {
+            return messageA.time - messageB.time
+          })
         });
 
         this.filteredGroups = this.groups
@@ -115,9 +119,13 @@ export class ChatWindowComponent {
     this.chatService.connectWebSocket()
     this.websocketSubscription = this.chatService.receiveMessage().subscribe({
       next: data => {
+        let name = "Externo"
+        if (data.name) {
+          name = data.name
+        }
         const newMessage = new Message(
           {
-            sender: data['name'] ?? 'Externo',
+            sender: name,
             content: data.message,
             time: data.timestamp
           }

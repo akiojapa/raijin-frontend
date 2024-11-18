@@ -70,7 +70,7 @@ export class LoginComponent {
       this.authService.login(username, password).subscribe({
         next: () => {
           this.toastService.success('Usuário logado com sucesso!');
-          this.router.navigate(['menu', { outlets: { left: ['chat'], right: ['chat'] } }]);
+          this.router.navigate(['menu/chat']);
         },
         error: (error: any) => {
           this.toastService.error('Erro ao logar usuário!');

@@ -23,6 +23,9 @@ export class AuthService {
           map((response: any) => {
             const authToken = response.access;
             this.localStorage?.setItem(this.authSecretKey, authToken);
+            this.localStorage?.setItem("name", response.name);
+            this.localStorage?.setItem("phone_number", response.phone_number);
+            this.localStorage?.setItem("role", response.role);
             return response;
           }),
           catchError((error) => {
@@ -48,5 +51,17 @@ export class AuthService {
 
     getToken(): string | null{
         return this.localStorage?.getItem(this.authSecretKey) ?? null
+    }
+
+    getName(): string {
+      return this.localStorage?.getItem('name') ?? 'Usuário'
+    }
+
+    getPhoneNumber(): string {
+      return this.localStorage?.getItem('phone_number') ?? '0'
+    }
+
+    getRole(): string {
+      return this.localStorage?.getItem('role') ?? ''
     }
 }
