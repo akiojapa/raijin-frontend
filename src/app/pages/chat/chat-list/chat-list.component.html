@@ -8,20 +8,21 @@
         <!-- Imagem e nome do grupo -->
         <img [src]="choosenGroup.imageUrl ?? 'liveseo-normal.png'" alt="Logo" class="user user-image">
         <div class="user-details d-flex flex-column mt-3">
-          <h5 class="d-flex align-items-center">{{ choosenGroup.name }}</h5>
+          <!-- Contêiner para título e tags -->
+          <div class="d-flex align-items-center">
+            <h5 class="d-flex align-items-center mb-0">{{ choosenGroup.name }}</h5>
+            <div class="group-tags ms-5">
+              <span 
+                *ngFor="let tag of choosenGroup.tags; let i = index" 
+                [ngStyle]="{'background-color': getTagColor(tag)}" 
+                class="group-tag"
+              >
+                {{ tag }}
+              </span>
+            </div>
+          </div>
           <p class="small">{{ choosenGroup.participants }} participantes</p>
         </div>
-      </div>
-
-      <!-- Tags Section -->
-      <div class="group-tags">
-        <span 
-          *ngFor="let tag of choosenGroup.tags; let i = index" 
-          [ngStyle]="{'background-color': getTagColor(tag)}" 
-          class="group-tag"
-        >
-          {{ tag }}
-        </span>
       </div>
 
       <!-- Ícone de três pontos com dropdown -->
@@ -40,7 +41,25 @@
         <!-- Dropdown de tags -->
         <div *ngIf="showTagDropdown" class="dropdown-tags-manager">
           <!-- Botão para criar nova tag -->
-          <button class="create-new-tag-btn" (click)="openTagCreation()">Criar Tag</button>
+          <button *ngIf="!creatingNewTag" class="create-new-tag-btn" (click)="openTagCreation()">Criar Tag</button>
+        
+          <!-- Lista de Tags Disponíveis -->
+          <div *ngIf="!creatingNewTag" class="tags-options">
+            <div *ngFor="let tag of availableTags" class="form-check m-2">
+              <input 
+                type="checkbox" 
+                [id]="tag.name" 
+                [checked]="selectedGroupTags.includes(tag.name)"
+                (change)="toggleTag(tag.name)"
+                class="form-check-input">
+              <label 
+                [for]="tag.name" 
+                [ngStyle]="{'color': getTagColor(tag.name)}" 
+                class="form-check-label">
+                {{ tag.name }}
+              </label>
+            </div>
+          </div>
         
           <!-- Div para criar uma nova tag -->
           <div *ngIf="creatingNewTag" class="create-tag-section">
@@ -59,23 +78,14 @@
                 maxlength="7"
                 class="color-input">
             </div>
-            <div class="tag-buttons">
+            <div class="tag-buttons">              
               <button (click)="addNewTag()" [disabled]="!newTagName || !newTagColor" class="save-tag-btn">Salvar</button>
               <button (click)="cancelTagCreation()" class="cancel-tag-btn">Cancelar</button>
             </div>
           </div>
         
-          <!-- Lista de tags disponíveis -->
-          <div *ngIf="!creatingNewTag">
-            <div *ngFor="let tag of availableTags" class="tag-option">
-              <input 
-                type="checkbox" 
-                [checked]="selectedGroupTags.includes(tag.name)" 
-                (change)="toggleTag(tag.name)">
-              <label>{{ tag.name }}</label>
-            </div>
-            <button class="save-tags-btn" (click)="saveTagsToGroup()">Salvar Tags</button>
-          </div>
+          <!-- Botão para salvar as tags no grupo -->
+          <button *ngIf="!creatingNewTag" (click)="saveTagsToGroup()" class="save-group-tags-btn">Salvar Tags</button>
         </div>
       </div>
     </div>

@@ -7,24 +7,31 @@
     
     <div class="d-flex justify-content-center align-items-center position-relative">
         <fa-icon [icon]="faTag" class="tags-icon" (click)="toggleDropdownTags($event)"></fa-icon>
-
+    
         <!-- Dropdown de opções -->
         <div *ngIf="showDropdownTags" class="dropdown-tags-manager" #dropdownTags>
             <p>Tags</p>
             <div class="tags-options">
-                <div *ngFor="let tag of tags" class="form-check">
-                    <input 
-                        type="checkbox" 
-                        [id]="tag" 
-                        [checked]="selectedTags.includes(tag)"
-                        (change)="toggleTagSelection(tag)"
-                        class="form-check-input"
-                    >
-                    <label [for]="tag" class="form-check-label">{{ tag }}</label>
-                </div>
+              <div *ngFor="let tag of availableTags" class="form-check m-2">
+                <input 
+                  type="checkbox" 
+                  [id]="tag.name" 
+                  [checked]="selectedTags.includes(tag.name)"
+                  (change)="toggleTagSelection(tag.name)"
+                  class="form-check-input"
+                >
+                <label 
+                  [for]="tag.name" 
+                  [ngStyle]="{'color': getTagColor(tag.name), 'font-weight': '600'}" 
+                  class="form-check-label"
+                >
+                  {{ tag.name }}
+                </label>
+              </div>
             </div>
         </div>
     </div>
+    
 </div>
 
 <div class="row chat-nav p-2">

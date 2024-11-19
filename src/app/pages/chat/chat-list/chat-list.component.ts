@@ -8,6 +8,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
 import { type } from 'os';
 import { group } from 'console';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chat-list',
@@ -45,11 +46,11 @@ export class ChatListComponent implements OnInit {
 
   showTagDropdown = false;
   availableTags: { name: string; color: string }[] = [
-    { name: 'Tag 1', color: '#FF0000' },
-    { name: 'Tag 2', color: '#DD4F' },
-    { name: 'Tag 3', color: '#93DD' },
-    { name: 'Tag 4', color: '#F3CC' },
-    { name: 'Tag 5', color: '#CFC3' }
+    { name: 'Tag 1', color: '#C70039' },
+    { name: 'Tag 2', color: '#1842d0' },
+    { name: 'Tag 3', color: '#c509db' },
+    { name: 'Tag 4', color: '#ea16b0' },
+    { name: 'Tag 5', color: '#969398' }
   ];
   selectedGroupTags: string[] = []; // Tags do grupo selecionado
   creatingNewTag = false; // Define se está no modo de criação de nova tag
@@ -58,6 +59,7 @@ export class ChatListComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
+    private toastService: ToastrService,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -243,7 +245,10 @@ export class ChatListComponent implements OnInit {
     if (this.newTagName && this.newTagColor) {
       // Adiciona a nova tag ao array de tags disponíveis
       this.availableTags.push({ name: this.newTagName, color: this.newTagColor });
-
+  
+      // Exibe o toast (ajuste este método para o seu toast existente)
+      this.toastService.success('Tag criada com sucesso!');
+  
       // Reseta os campos
       this.newTagName = '';
       this.newTagColor = '#000000';

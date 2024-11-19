@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { FaIconComponent, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faSquarePlus, IconDefinition, faFilter, faTag } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus, IconDefinition, faTag } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { ChatService } from '../../../services/chat.service';
@@ -23,10 +23,15 @@ export class ChatWindowComponent {
   filteredGroups: any[] = [];
   searchQuery: string = '';
   faSquarePlus: IconDefinition = faSquarePlus;
-  faFilter = faFilter;
-  faTag = faTag;
+  faTag: IconDefinition = faTag;
   showDropdownTags: boolean = false;
-  tags: string[] = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
+  availableTags: { name: string; color: string }[] = [
+    { name: 'Tag 1', color: '#C70039' },
+    { name: 'Tag 2', color: '#1842d0' },
+    { name: 'Tag 3', color: '#c509db ' },
+    { name: 'Tag 4', color: '#ea16b0' },
+    { name: 'Tag 5', color: '#969398' }
+  ];
   selectedTags: string[] = [];
 
   selectedChat: IGroup | null = null;
@@ -116,19 +121,9 @@ export class ChatWindowComponent {
     });
   }
 
-  getTagColor(level: number): string {
-    switch (level) {
-      case 1:
-        return '#FF5733';
-      case 2:
-        return '#F3FF33';
-      case 3:
-        return '#33FF57';
-      case 4:
-        return '#3357FF';
-      default:
-        return '#FFFFFF';
-    }
+  getTagColor(tagName: string): string {
+    const tag = this.availableTags.find((t) => t.name === tagName);
+    return tag ? tag.color : '#FFFFFF'; // Retorna branco como padrão caso não encontre
   }
   
   // Referência à div de filtro
