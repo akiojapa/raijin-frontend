@@ -69,7 +69,7 @@ export class ChatWindowComponent {
     }
 
     this.loadingService.loadingOn()
-    this.chatService.getGroups(554497732694).pipe(
+    this.chatService.getGroups(554498834847).pipe(
       finalize(() => this.loadingService.loadingOff())
     ).subscribe({
       next: (response) => {
