@@ -27,27 +27,24 @@ export const appConfig: ApplicationConfig = {
       tapToDismiss: true, // Permite fechar o toast ao clicar nele
     }),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    { provide: APP_INITIALIZER, useFactory: resolveEnviroment, multi: true },
+    { provide: APP_INITIALIZER, useFactory: resolveEnviroment, deps: [ConfigService, DOCUMENT], multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
   ]
 };
 
-function resolveEnviroment() {
-  const httpService: ConfigService = inject(ConfigService);
+function resolveEnviroment(httpService: ConfigService, document: Document) {
 
   return () => new Promise((resolve) => {
-    if (enviroment.ambience === "STAGE"){
+    if (enviroment.ambience === "STAGE") {
       httpService.baseUrl = `http://${enviroment.baseUrl}`;
     }
 
-    if (enviroment.ambience === "DEV"){
-      const document = inject(DOCUMENT);
+    if (enviroment.ambience === "DEV") {
       const url = document.location.hostname
       const domains = url.split('.')
       const path = domains.length > 1 ? `${domains[0]}.` : ''
-      const environment = require('../assets/config.json');
-  
-      httpService.baseUrl = `http://${path}${environment.baseUrl}`;
+
+      httpService.baseUrl = `http://${path}${enviroment.baseUrl}`;
     }
 
     resolve(true)

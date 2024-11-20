@@ -67,8 +67,8 @@
             "stage": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environments.ts",
-                  "with": "src/environments/environments.stage.ts"
+                  "replace": "src/enviroments/enviroments.ts",
+                  "with": "src/enviroments/enviroments.stage.ts"
                 }
               ]
             }
