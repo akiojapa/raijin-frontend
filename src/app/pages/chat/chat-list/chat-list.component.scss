@@ -136,3 +136,31 @@
   background-color: #f44336;
   color: white;
 }
+
+.edit-tag-icon {
+  cursor: pointer;
+  color: #007bff; /* Cor do lápis */
+  font-size: 16px; /* Ajusta o tamanho do ícone */
+  transition: color 0.3s ease; /* Transição suave para o efeito hover */
+  font-size: 1.5rem; /* Aumenta o tamanho do ícone */
+  color: orange; /* Define a cor do ícone como laranja */
+  cursor: pointer; /* Adiciona um ponteiro ao passar o mouse */
+  padding: 0; /* Remove o padding para garantir que não haja espaço extra */
+}
+
+.edit-tag-icon:hover {
+  color: #0056b3; /* Cor ao passar o mouse */
+}
+
+.tags-options {
+  .form-check {
+    display: flex;
+    justify-content: space-between; /* Coloca os itens à esquerda e à direita */
+    align-items: center; /* Alinha o conteúdo verticalmente */
+  }
+
+  .edit-tag-icon {
+    cursor: pointer;
+    margin-left: 8px; /* Espaçamento entre o label e o ícone */
+  }
+}

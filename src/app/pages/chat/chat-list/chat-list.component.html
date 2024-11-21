@@ -34,35 +34,46 @@
           <div class="dropdown-item-manager" (click)="openGroupInfo()">Informações do Grupo</div>
           <div class="dropdown-item-manager" (click)="muteGroup()">Silenciar Grupo</div>
           <div class="dropdown-item-manager" (click)="openCall()">Abrir Chamado</div>
-          <div class="dropdown-item-manager" (click)="toggleTagDropdown($event)">Adicionar Tags</div> <!-- Novo botão para tags -->
+          <div class="dropdown-item-manager" (click)="toggleTagDropdown($event)">Gerenciar Tags</div> <!-- Novo botão para tags -->
           <div class="dropdown-item-manager" (click)="exitGroup()">Sair do Grupo</div>
         </div>
         
         <!-- Dropdown de tags -->
         <div *ngIf="showTagDropdown" class="dropdown-tags-manager">
           <!-- Botão para criar nova tag -->
-          <button *ngIf="!creatingNewTag" class="create-new-tag-btn" (click)="openTagCreation()">Criar Tag</button>
+          <button *ngIf="!creatingNewTag && !editingTag" class="create-new-tag-btn" (click)="openTagCreation()">Criar Tag</button>
         
           <!-- Lista de Tags Disponíveis -->
-          <div *ngIf="!creatingNewTag" class="tags-options">
+          <div *ngIf="!creatingNewTag && !editingTag" class="tags-options">
             <div *ngFor="let tag of availableTags" class="form-check m-2">
-              <input 
-                type="checkbox" 
-                [id]="tag.name" 
-                [checked]="selectedGroupTags.includes(tag.name)"
-                (change)="toggleTag(tag.name)"
-                class="form-check-input">
-              <label 
-                [for]="tag.name" 
-                [ngStyle]="{'color': getTagColor(tag.name)}" 
-                class="form-check-label">
-                {{ tag.name }}
-              </label>
+              <div class="d-flex align-items-center">
+                <input 
+                  type="checkbox" 
+                  [id]="tag.name" 
+                  [checked]="selectedGroupTags.includes(tag.name)"
+                  (change)="toggleTag(tag.name)"
+                  class="form-check-input">
+                
+                <label 
+                  [for]="tag.name" 
+                  [ngStyle]="{'color': getTagColor(tag.name)}" 
+                  class="ms-2 form-check-label">
+                  {{ tag.name }}
+                </label>
+              </div>
+            
+              <!-- Ícone de edição -->
+              <fa-icon 
+                *ngIf="!creatingNewTag && !editingTag" 
+                [icon]="faPen" 
+                (click)="openTagEdit(tag)" 
+                class="edit-tag-icon">
+              </fa-icon>
             </div>
           </div>
         
-          <!-- Div para criar uma nova tag -->
-          <div *ngIf="creatingNewTag" class="create-tag-section">
+          <!-- Div para criar ou editar uma tag -->
+          <div *ngIf="creatingNewTag || editingTag" class="create-tag-section">
             <input 
               type="text" 
               [(ngModel)]="newTagName" 
@@ -78,14 +89,14 @@
                 maxlength="7"
                 class="color-input">
             </div>
-            <div class="tag-buttons">              
+            <div class="tag-buttons">
               <button (click)="addNewTag()" [disabled]="!newTagName || !newTagColor" class="save-tag-btn">Salvar</button>
               <button (click)="cancelTagCreation()" class="cancel-tag-btn">Cancelar</button>
             </div>
           </div>
         
           <!-- Botão para salvar as tags no grupo -->
-          <button *ngIf="!creatingNewTag" (click)="saveTagsToGroup()" class="save-group-tags-btn">Salvar Tags</button>
+          <button *ngIf="!creatingNewTag && !editingTag" (click)="saveTagsToGroup()" class="save-group-tags-btn">Salvar Tags</button>
         </div>
       </div>
     </div>

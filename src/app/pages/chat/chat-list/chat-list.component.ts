@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
-import { faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo, faPen  } from '@fortawesome/free-solid-svg-icons';
 import { IGroup, IMessage } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -40,6 +40,7 @@ export class ChatListComponent implements OnInit {
   faComment = faComment;
   faUser = faUser;
   faCog = faCog;
+  faPen = faPen;
   faSmile = faSmile;
   faPaperPlane = faPaperPlane
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
@@ -54,8 +55,10 @@ export class ChatListComponent implements OnInit {
   ];
   selectedGroupTags: string[] = []; // Tags do grupo selecionado
   creatingNewTag = false; // Define se está no modo de criação de nova tag
+  editingTag = false; // Adicionando uma variável para controlar a edição
   newTagName: string = ''; // Nome da nova tag
   newTagColor: string = '#44FFFF'; // Cor da nova tag (hexadecimal)
+  tagToEdit: { name: string, color: string } | null = null; // Tag a ser editada
 
   constructor(
     private chatService: ChatService,
@@ -156,9 +159,18 @@ export class ChatListComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   closeDropdown(event: Event) {
     const target = event.target as HTMLElement;
+
+    // Verifica se o clique foi fora do menu de tags ou menu de opções
     if (!target.closest('.dropdown-menu-manager') && !target.closest('.dropdown-tags-manager')) {
       this.showDropdownMenu = false;
       this.showTagDropdown = false;
+
+      // Reseta as variáveis associadas ao gerenciamento de tags
+      this.creatingNewTag = false;
+      this.editingTag = false;
+      this.newTagName = '';
+      this.newTagColor = '#440000';
+      this.tagToEdit = null;
     }
   }
 
@@ -224,36 +236,90 @@ export class ChatListComponent implements OnInit {
   // Método de exemplo para salvar as tags no grupo selecionado (chamado ao fechar o dropdown, por exemplo)
   saveTagsToGroup(): void {
     if (this.choosenGroup) {
+      // Atualiza as tags do grupo com as tags selecionadas
       this.choosenGroup.tags = [...this.selectedGroupTags];
+      this.toastService.success('Tags do grupo atualizadas com sucesso!');
     }
-    this.showTagDropdown = false; // Fecha o dropdown após salvar
+    
+    // Fecha o dropdown após salvar
+    this.showTagDropdown = false; 
   }
 
   // Função para abrir o modo de criação de tag
   openTagCreation(): void {
     this.creatingNewTag = true;
+    this.editingTag = false; // Garante que estamos no modo de criação
+    this.newTagName = '';
+    this.newTagColor = '#44FFFF'; // Cor padrão
   }
 
   // Função para cancelar a criação de uma nova tag
   cancelTagCreation(): void {
     this.creatingNewTag = false;
+    this.editingTag = false;
     this.newTagName = '';
-    this.newTagColor = '#000000';
+    this.newTagColor = '#44FFFF';
   }
   
   addNewTag(): void {
     if (this.newTagName && this.newTagColor) {
-      // Adiciona a nova tag ao array de tags disponíveis
-      this.availableTags.push({ name: this.newTagName, color: this.newTagColor });
+      if (this.editingTag && this.tagToEdit) {
+        // Edita uma tag existente
+        const tagIndex = this.availableTags.findIndex(tag => tag.name === this.tagToEdit?.name);
+        if (tagIndex !== -1) {
+          this.availableTags[tagIndex] = { name: this.newTagName, color: this.newTagColor };
+          this.toastService.success('Tag atualizada com sucesso!');          
+          
+          // Atualiza as tags do grupo sem perder a seleção
+          this.updateGroupTags();
+        }
+      } else {
+        // Cria uma nova tag
+        const existingTagIndex = this.availableTags.findIndex(tag => tag.name === this.newTagName);
+        if (existingTagIndex === -1) {
+          this.availableTags.push({ name: this.newTagName, color: this.newTagColor });
+          this.toastService.success('Tag criada com sucesso!');
+        } else {
+          this.toastService.error('Uma tag com esse nome já existe!');
+        }
+      }
   
-      // Exibe o toast (ajuste este método para o seu toast existente)
-      this.toastService.success('Tag criada com sucesso!');
-  
-      // Reseta os campos
+      // Reseta os campos e volta ao estado inicial
       this.newTagName = '';
-      this.newTagColor = '#000000';
+      this.newTagColor = '#440000';
       this.creatingNewTag = false;
+      this.editingTag = false; // Reseta o estado de edição
+      this.tagToEdit = null;  // Limpa a tag editada
     }
   }
 
+  openTagEdit(tag: { name: string, color: string }): void {
+    this.creatingNewTag = true;
+    this.editingTag = true; // Ativa o modo de edição
+    this.tagToEdit = tag;
+    this.newTagName = tag.name;
+    this.newTagColor = tag.color;
+  }
+
+  editTag(tag: { name: string, color: string }): void {
+    this.creatingNewTag = true; // Ativa a criação de uma nova tag, mas com dados já existentes
+    this.newTagName = tag.name; // Preenche o nome da tag a ser editada
+    this.newTagColor = tag.color; // Preenche a cor da tag a ser editada
+  }
+
+  updateGroupTags(): void {
+    if (this.choosenGroup && this.choosenGroup.tags && this.tagToEdit) {
+      // Verifica se a tag editada está nas tags do grupo
+      const index = this.choosenGroup.tags.indexOf(this.tagToEdit.name);
+      if (index !== -1) {
+        // Substitui a tag antiga pela nova no grupo
+        this.choosenGroup.tags[index] = this.newTagName;        
+        
+        // Agora, mantemos a tag editada selecionada
+        this.selectedGroupTags = [...this.choosenGroup.tags];
+      } else {
+      }
+    }
+  }
+  
 }
