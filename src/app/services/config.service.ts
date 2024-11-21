@@ -11,7 +11,7 @@ export class ConfigService {
   constructor(private httpClient: HttpClient) { }
 
   setUrl(route: string): string {
-    return `http://liveseo.localhost:8000/api/v1/${route}` //Alterar URL padrão 
+    return `${this.baseUrl}/api/v1/${route}` //Alterar URL padrão 
   }
 
   createAuthorizationHeader(headers: HttpHeaders): HttpHeaders {

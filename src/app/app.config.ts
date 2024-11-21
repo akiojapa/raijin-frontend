@@ -9,6 +9,7 @@ import { LoggingInterceptor } from './app.interceptors';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { enviroment } from '../enviroments/enviroments'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,22 +27,25 @@ export const appConfig: ApplicationConfig = {
       tapToDismiss: true, // Permite fechar o toast ao clicar nele
     }),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    { provide: APP_INITIALIZER, useFactory: resolveEnviroment, multi: true },
+    { provide: APP_INITIALIZER, useFactory: resolveEnviroment, deps: [ConfigService, DOCUMENT], multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
   ]
 };
 
-function resolveEnviroment() {
-  const httpService: ConfigService = inject(ConfigService);
-  const document = inject(DOCUMENT);
+function resolveEnviroment(httpService: ConfigService, document: Document) {
 
   return () => new Promise((resolve) => {
-    const url = document.location.hostname
-    const domains = url.split('.')
-    const path = domains.length > 1 ? `${domains[0]}.` : ''
-    const environment = require('../assets/config.json');
+    if (enviroment.ambience === "STAGE") {
+      httpService.baseUrl = `http://${enviroment.baseUrl}`;
+    }
 
-    httpService.baseUrl = `http://${path}${environment.baseUrl}`;
+    if (enviroment.ambience === "DEV") {
+      const url = document.location.hostname
+      const domains = url.split('.')
+      const path = domains.length > 1 ? `${domains[0]}.` : ''
+
+      httpService.baseUrl = `http://${path}${enviroment.baseUrl}`;
+    }
 
     resolve(true)
   });
