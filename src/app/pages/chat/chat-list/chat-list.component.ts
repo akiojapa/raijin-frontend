@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
-import { faCheckCircle, faCircle, faClipboardList, faCog, faComment, faEllipsisV, faEllipsisVertical, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo, faX, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircle, faClipboardList, faCog, faComment, faEllipsisV, faEllipsisVertical, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo, faX, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Group, IMessage, Message } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -50,6 +50,7 @@ export class ChatListComponent implements OnInit {
   faPaperPlane = faPaperPlane;
   faTicketManager = faClipboardList;
   faX = faX;
+  faTrash = faTrash;
 
   selectTicketMode: boolean = false;
   selectedMessages: IMessage[] = [];
@@ -384,6 +385,25 @@ export class ChatListComponent implements OnInit {
       } else {
       }
     }
+  }
+
+  deleteTag(tag: { name: string; color: string }): void {
+     // Remove a tag da lista global de tags disponíveis
+    this.availableTags = this.availableTags.filter(t => t.name !== tag.name);
+
+    // Remove a tag de todos os grupos
+    this.groups.forEach(group => {
+      if (group.tags) {
+        group.tags = group.tags.filter(t => t !== tag.name);
+      }
+    });
+    // Atualiza as tags do grupo selecionado para refletir a remoção global
+    if (this.choosenGroup && this.choosenGroup.tags) {
+      this.selectedGroupTags = [...this.choosenGroup.tags];
+    }
+
+    // Exibe uma mensagem de sucesso
+    this.toastService.success(`Tag "${tag.name}" removida globalmente com sucesso!`);
   }
   
 }

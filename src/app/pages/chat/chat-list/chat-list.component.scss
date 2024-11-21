@@ -47,23 +47,23 @@
   padding: 8px;
   border-radius: 4px;
   z-index: 10;
-  width: 200px; // Largura fixa
-  min-width: 200px; // Mínimo de largura (ou ajuste para seu layout)
+  width: 250px; /* Largura fixa */
+  min-width: 200px; /* Mínimo de largura (ou ajuste para seu layout) */
 }
 
 .save-group-tags-btn {
-  background-color: #ff7f00; // Cor de fundo laranja
+  background-color: #ff7f00; /* Cor de fundo laranja */
   color: #f1f1f1;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
-  float: right; // Posiciona o botão à direita
+  float: right; /* Posiciona o botão à direita */
+}
 
-  &:hover {
-    background-color: #e06b00; // Laranja um pouco mais escuro ao passar o mouse
-  }
+.save-group-tags-btn:hover {
+  background-color: #e06b00; /* Laranja um pouco mais escuro ao passar o mouse */
 }
 
 .user-details {
@@ -92,7 +92,6 @@
   font-size: 0.875rem; /* Tamanho da fonte */
   white-space: nowrap; /* Evita quebra de linha */
 }
-
 
 .tag-option {
   display: flex;
@@ -162,12 +161,9 @@
 
 .edit-tag-icon {
   cursor: pointer;
-  color: #007bff; /* Cor do lápis */
-  font-size: 16px; /* Ajusta o tamanho do ícone */
-  transition: color 0.3s ease; /* Transição suave para o efeito hover */
-  font-size: 1.5rem; /* Aumenta o tamanho do ícone */
   color: orange; /* Define a cor do ícone como laranja */
-  cursor: pointer; /* Adiciona um ponteiro ao passar o mouse */
+  font-size: 1.0rem; 
+  transition: color 0.3s ease; /* Transição suave para o efeito hover */  
   padding: 0; /* Remove o padding para garantir que não haja espaço extra */
 }
 
@@ -175,15 +171,23 @@
   color: #0056b3; /* Cor ao passar o mouse */
 }
 
-.tags-options {
-  .form-check {
-    display: flex;
-    justify-content: space-between; /* Coloca os itens à esquerda e à direita */
-    align-items: center; /* Alinha o conteúdo verticalmente */
-  }
+.tags-options .form-check {
+  display: flex;
+  justify-content: space-between; /* Coloca os itens à esquerda e à direita */
+  align-items: center; /* Alinha o conteúdo verticalmente */
+}
 
-  .edit-tag-icon {
-    cursor: pointer;
-    margin-left: 8px; /* Espaçamento entre o label e o ícone */
-  }
+.delete-tag-icon {
+  cursor: pointer;
+  font-size: 1.0rem; 
+}
+
+.delete-tag-icon:hover {
+  color: #ff0000; /* Torna o ícone mais destacado ao passar o mouse */
+}
+
+.tag-icons {
+  display: flex;
+  gap: 8px; /* Espaçamento entre os ícones */
+  margin-left: auto; /* Empurra os ícones para o final */
 }

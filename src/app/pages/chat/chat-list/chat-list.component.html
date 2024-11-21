@@ -66,13 +66,21 @@
                 </label>
               </div>
             
-              <!-- Ícone de edição -->
+              <div class="tag-icons">
               <fa-icon 
                 *ngIf="!creatingNewTag && !editingTag" 
                 [icon]="faPen" 
                 (click)="openTagEdit(tag)" 
                 class="edit-tag-icon">
               </fa-icon>
+                
+              <fa-icon 
+                *ngIf="!creatingNewTag && !editingTag" 
+                [icon]="faTrash" 
+                (click)="deleteTag(tag)" 
+                class="delete-tag-icon text-danger">
+              </fa-icon>
+              </div>
             </div>
           </div>
         
