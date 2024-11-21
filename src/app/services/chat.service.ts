@@ -35,8 +35,7 @@ export class ChatService {
   }
 
   connectWebSocket() {
-    const websocketUrl = `ws://127.0.0.1:8000/ws/chat`;
-
+    const websocketUrl = `ws://98.84.80.9:8002/ws/chat`;
     this.websocketService?.connect(websocketUrl);
   }
 
@@ -60,7 +59,7 @@ export class ChatService {
   openChat() {
     this.isTicketMessageOpen.next(true);
   }
-  
+
   closeChat() {
     this.isTicketMessageOpen.next(false);
   }

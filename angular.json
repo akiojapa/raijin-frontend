@@ -63,6 +63,14 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "stage": {
+              "fileReplacements": [
+                {
+                  "replace": "src/enviroments/enviroments.ts",
+                  "with": "src/enviroments/enviroments.stage.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -75,6 +83,9 @@
             },
             "development": {
               "buildTarget": "raijin-frontend:build:development"
+            },
+            "stage": {
+              "buildTarget": "raijin-frontend:build:stage"
             }
           },
           "defaultConfiguration": "development"
