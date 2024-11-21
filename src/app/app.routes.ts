@@ -26,7 +26,7 @@ export const routes: Routes = [
             { path: '', component: ChatWindowComponent, outlet: 'left' },
             { path: '', component: ChatListComponent, outlet: 'right' },
         ],
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
     },
     {
         path: 'menu/ticket',
