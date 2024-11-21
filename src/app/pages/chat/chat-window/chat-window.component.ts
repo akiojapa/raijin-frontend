@@ -144,7 +144,7 @@ export class ChatWindowComponent {
     );
   }
 
-  getTagColor(level: number): string {
+  getPriorityColor(level: number): string {
     switch (level) {
       case 4:
         return '#FF0000'; // red
