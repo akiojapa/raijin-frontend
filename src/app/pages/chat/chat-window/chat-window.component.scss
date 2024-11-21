@@ -1,0 +1,50 @@
+.dropdown-tags-manager {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  width: 160px;
+  max-height: none; /* Remove limite de altura */
+  overflow: visible; /* Permite crescimento sem scroll */
+}
+
+.tags-options {
+  border: none;  
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+
+}
+
+.form-check-label {
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 320px;
+  position: fixed;
+  left: 50%;
+  padding: 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tags-icon {
+  font-size: 1.5rem; /* Aumenta o tamanho do ícone */
+  color: orange; /* Define a cor do ícone como laranja */
+  cursor: pointer; /* Adiciona um ponteiro ao passar o mouse */
+  transition: transform 0.2s; /* Animação opcional para efeito visual */
+}

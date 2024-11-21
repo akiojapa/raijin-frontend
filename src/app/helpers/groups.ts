@@ -11,7 +11,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'I will be there!', time: 1731349920 })
     ],
     participants: 4,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 1', 'Tag 2', 'Tag 3']
   }),
   new Group({
     whats_id: '120363217209632703@g.us',
@@ -23,7 +24,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'Count me in!', time: 1731347220 })
     ],
     participants: 4,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 2', 'Tag 5']
   }),
   new Group({
     whats_id: '120363321720242985@g.us',
@@ -35,7 +37,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'I will join!', time: 1731315720 })
     ],
     participants: 5,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 3', 'Tag 4', 'Tag 5']
   }),
   new Group({
     whats_id: '',
@@ -47,7 +50,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'I will be there!', time: 1731356220 })
     ],
     participants: 10,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 5']
   }),
   new Group({
     whats_id: '',
@@ -59,7 +63,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'I will be there!', time: 1731335520 })
     ],
     participants: 100,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 2', 'Tag 4']
   }),
   new Group({
     whats_id: '',
@@ -71,7 +76,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'Excited!', time: 1731322920 })
     ],
     participants: 34,
-    priority: 4
+    priority: 4,
+    tags: []
   }),
   new Group({
     whats_id: '',
@@ -83,7 +89,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'Count me in!', time: 1731354420 })
     ],
     participants: 22,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 4']
   }),
   new Group({
     whats_id: '',
@@ -95,7 +102,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'Can\'t wait to try it!', time: 1731342120 })
     ],
     participants: 11,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5']
   }),
   new Group({
     whats_id: '',
@@ -119,7 +127,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'Looking forward to it!', time: 1731321120 })
     ],
     participants: 15,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 1', 'Tag 2', 'Tag 3']
   }),
   new Group({
     whats_id: '',
@@ -131,7 +140,8 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'I will be there!', time: 1731340020 })
     ],
     participants: 32,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 1', 'Tag 2', 'Tag 3']
   }),
   new Group({
     whats_id: '',
@@ -143,6 +153,7 @@ export const GROUPS: Group[] = [
       new Message({ sender: 'Usuário', content: 'I will join!', time: 1731326520 })
     ],
     participants: 12,
-    priority: 4
+    priority: 4,
+    tags: ['Tag 2', 'Tag 3']
   })
 ];

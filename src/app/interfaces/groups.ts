@@ -35,6 +35,7 @@ export interface IGroup  {
   messages: Message[];
   participants: number;
   priority: number | null;
+  tags?: string[];
 }
 
 export class Group implements IGroup{
@@ -44,6 +45,7 @@ export class Group implements IGroup{
   messages: Message[];
   participants: number;
   priority: number | null;
+  tags?: string[];
 
   constructor(
     data: {
@@ -52,7 +54,8 @@ export class Group implements IGroup{
       imageUrl: string,
       messages: Message[],
       participants: number,
-      priority: number | null
+      priority: number | null,
+      tags?: string[]
     }
   ) {
     this.whats_id = data.whats_id;
@@ -61,6 +64,7 @@ export class Group implements IGroup{
     this.messages = data.messages;
     this.participants = data.participants;
     this.priority = data.priority;
+    this.tags = data.tags;
   }
 
   get time(): string {

@@ -163,7 +163,7 @@ export class TicketsComponent {
   
     // Se todos os campos obrigatórios estão preenchidos, prossegue
     const newTicket = {
-      id: `#${Math.floor(1000 + Math.random() * 9000)}`,
+      id: '1',
       projeto: this.addTicketForm.value.ticketProject,
       titulo: this.addTicketForm.value.ticketTitle,
       atendente: this.addTicketForm.value.ticketAttendant,

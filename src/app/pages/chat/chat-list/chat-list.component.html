@@ -8,7 +8,19 @@
         <!-- Imagem e nome do grupo -->
         <img [src]="choosenGroup.imageUrl" alt="Logo" class="user user-image">
         <div class="user-details d-flex flex-column mt-3">
-          <h5 class="d-flex align-items-center">{{ choosenGroup.name }}</h5>
+          <!-- Contêiner para título e tags -->
+          <div class="d-flex align-items-center">
+            <h5 class="d-flex align-items-center mb-0">{{ choosenGroup.name }}</h5>
+            <div class="group-tags ms-5">
+              <span 
+                *ngFor="let tag of choosenGroup.tags; let i = index" 
+                [ngStyle]="{'background-color': getTagColor(tag)}" 
+                class="group-tag"
+              >
+                {{ tag }}
+              </span>
+            </div>
+          </div>
           <p class="small">{{ choosenGroup.participants }} participantes</p>
         </div>
       </div>
@@ -26,7 +38,77 @@
           <div class="dropdown-item-manager" (click)="openGroupInfo()">Informações do Grupo</div>
           <div class="dropdown-item-manager" (click)="muteGroup()">Silenciar Grupo</div>
           <div class="dropdown-item-manager" (click)="toggleSelectMode()">Abrir Chamado</div>
+          <div class="dropdown-item-manager" (click)="toggleTagDropdown($event)">Gerenciar Tags</div> <!-- Novo botão para tags -->
           <div class="dropdown-item-manager" (click)="exitGroup()">Sair do Grupo</div>
+        </div>
+        
+        <!-- Dropdown de tags -->
+        <div *ngIf="showTagDropdown" class="dropdown-tags-manager">
+          <!-- Botão para criar nova tag -->
+          <button *ngIf="!creatingNewTag && !editingTag" class="create-new-tag-btn" (click)="openTagCreation()">Criar Tag</button>
+        
+          <!-- Lista de Tags Disponíveis -->
+          <div *ngIf="!creatingNewTag && !editingTag" class="tags-options">
+            <div *ngFor="let tag of availableTags" class="form-check m-2">
+              <div class="d-flex align-items-center">
+                <input 
+                  type="checkbox" 
+                  [id]="tag.name" 
+                  [checked]="selectedGroupTags.includes(tag.name)"
+                  (change)="toggleTag(tag.name)"
+                  class="form-check-input">
+                
+                <label 
+                  [for]="tag.name" 
+                  [ngStyle]="{'color': getTagColor(tag.name)}" 
+                  class="ms-2 form-check-label">
+                  {{ tag.name }}
+                </label>
+              </div>
+            
+              <div class="tag-icons">
+              <fa-icon 
+                *ngIf="!creatingNewTag && !editingTag" 
+                [icon]="faPen" 
+                (click)="openTagEdit(tag)" 
+                class="edit-tag-icon">
+              </fa-icon>
+                
+              <fa-icon 
+                *ngIf="!creatingNewTag && !editingTag" 
+                [icon]="faTrash" 
+                (click)="deleteTag(tag)" 
+                class="delete-tag-icon text-danger">
+              </fa-icon>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Div para criar ou editar uma tag -->
+          <div *ngIf="creatingNewTag || editingTag" class="create-tag-section">
+            <input 
+              type="text" 
+              [(ngModel)]="newTagName" 
+              placeholder="Nome da Tag" 
+              class="tag-input">
+            <div class="color-picker-wrapper">
+              <label for="tagColor">Cor:</label>
+              <input 
+                type="text" 
+                id="tagColor" 
+                [(ngModel)]="newTagColor" 
+                placeholder="#0aa82c"
+                maxlength="7"
+                class="color-input">
+            </div>
+            <div class="tag-buttons">
+              <button (click)="addNewTag()" [disabled]="!newTagName || !newTagColor" class="save-tag-btn">Salvar</button>
+              <button (click)="cancelTagCreation()" class="cancel-tag-btn">Cancelar</button>
+            </div>
+          </div>
+        
+          <!-- Botão para salvar as tags no grupo -->
+          <button *ngIf="!creatingNewTag && !editingTag" (click)="saveTagsToGroup()" class="save-group-tags-btn">Salvar Tags</button>
         </div>
       </div>
     </div>
