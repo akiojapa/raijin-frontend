@@ -1,11 +1,14 @@
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
-import { faCog, faComment, faEllipsisV, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo, faPen  } from '@fortawesome/free-solid-svg-icons';
-import { IGroup, IMessage } from '../../../interfaces/groups';
+import { faCheckCircle, faCircle, faClipboardList, faCog, faComment, faEllipsisV, faEllipsisVertical, faFile, faImage, faPaperPlane, faSmile, faSquarePlus, faUser, faVideo, faX, faPen } from '@fortawesome/free-solid-svg-icons';
+import { Group, IMessage, Message } from '../../../interfaces/groups';
 import { GROUPS } from '../../../helpers/groups';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
+import { Router } from '@angular/router';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { AuthService } from '../../../services/auth.service';
 import { type } from 'os';
 import { group } from 'console';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-chat-list',
   standalone: true,
-  imports: [FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule, MatTooltipModule, MatTooltip],
   templateUrl: './chat-list.component.html',
   styleUrl: './chat-list.component.scss'
 })
@@ -25,13 +28,13 @@ export class ChatListComponent implements OnInit {
   imageInput!: ElementRef;
   @ViewChild('fileInput')
   fileInput!: ElementRef;
-  groups: IGroup[] = GROUPS;
+  groups: Group[] = GROUPS;
   faImage = faImage;
   faFile = faFile;
   faVideo = faVideo;
   faPlus = faSquarePlus;
   faEllipsisV = faEllipsisV;
-  choosenGroup: IGroup = this.groups[0];
+  choosenGroup: Group = this.groups[0];
   newMessageContent: string = '';
   showDropdownMenu: boolean = false;
   showEmojiPicker: boolean = false;
@@ -40,10 +43,20 @@ export class ChatListComponent implements OnInit {
   faComment = faComment;
   faUser = faUser;
   faCog = faCog;
+  faCheckCircle = faCheckCircle;
+  faCircle = faCircle;
   faPen = faPen;
   faSmile = faSmile;
-  faPaperPlane = faPaperPlane
+  faPaperPlane = faPaperPlane;
+  faTicketManager = faClipboardList;
+  faX = faX;
+
+  selectTicketMode: boolean = false;
+  selectedMessages: IMessage[] = [];
+
+
   emojis: string[] = ['😀', '😂', '😍', '😎', '😢', '👍', '🎉', '❤️']; // Array de emojis
+  userName!: string;
 
   showTagDropdown = false;
   availableTags: { name: string; color: string }[] = [
@@ -57,19 +70,28 @@ export class ChatListComponent implements OnInit {
   creatingNewTag = false; // Define se está no modo de criação de nova tag
   editingTag = false; // Adicionando uma variável para controlar a edição
   newTagName: string = ''; // Nome da nova tag
-  newTagColor: string = '#44FFFF'; // Cor da nova tag (hexadecimal)
+  newTagColor: string = '#0aa82c'; // Cor da nova tag (hexadecimal)
   tagToEdit: { name: string, color: string } | null = null; // Tag a ser editada
 
   constructor(
     private chatService: ChatService,
+    private route: Router,
+    private authService: AuthService,
     private toastService: ToastrService,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit(): void {
+    if (localStorage) {
+      localStorage.removeItem('selectedMessages');
+    }
+    this.chatService.openTicketMessage(false);
+    this.selectedMessages = [];
+
+    this.userName = this.authService.getName()
     this.chatService.selectedGroupChat$.subscribe((group) => {
       if (group !== null) {
-        this.choosenGroup = group; // Função para carregar dados do grupo
+        this.choosenGroup = group;
       }
     });
   }
@@ -108,6 +130,14 @@ export class ChatListComponent implements OnInit {
     }
   }
 
+  sendMessagesForTicket() {
+    const messagesJson = JSON.stringify(this.selectedMessages);
+
+    localStorage.setItem('selectedMessages', messagesJson);
+
+    this.route.navigate(['/menu/ticket']);
+  }
+
   uploadImage(file: File) {
     const formData = new FormData();
     formData.append('image', file);
@@ -122,22 +152,27 @@ export class ChatListComponent implements OnInit {
 
   sendMessage(): void {
     if (this.newMessageContent.trim()) {
-      const newMessage: IMessage = {
-        sender: 'Usuário',
-        content: this.newMessageContent,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
+      const date = new Date()
+
+      const newMessage = new Message(
+        {
+          sender: this.userName,
+          content: this.newMessageContent,
+          time: date.getTime() / 1000
+        }
+      )
 
       const url = this.document.location.hostname
       const domains = url.split('.')
       const companyName = domains.length > 1 ? `${domains[0]}` : ''
 
       this.chatService.sendMessage(
+        newMessage,
+        this.authService.getPhoneNumber(),
         this.choosenGroup.whats_id,
-        newMessage.content,
-        companyName
+        companyName,
       )
-
+      this.choosenGroup.priority = 0
       this.choosenGroup.messages.push(newMessage);
       this.newMessageContent = '';
     }
@@ -145,7 +180,7 @@ export class ChatListComponent implements OnInit {
 
   getTagColor(tagName: string): string {
     const tag = this.availableTags.find((t) => t.name === tagName);
-    return tag ? tag.color : '#FFFFFF'; // Retorna branco como padrão caso não encontre
+    return tag ? tag.color : '#0aa82c'; // Retorna branco como padrão caso não encontre
   }
   
 
@@ -169,7 +204,7 @@ export class ChatListComponent implements OnInit {
       this.creatingNewTag = false;
       this.editingTag = false;
       this.newTagName = '';
-      this.newTagColor = '#440000';
+      this.newTagColor = '#0aa82c';
       this.tagToEdit = null;
     }
   }
@@ -190,14 +225,43 @@ export class ChatListComponent implements OnInit {
     console.log('Silenciando grupo');
   }
 
-  openCall() {
-    console.log('Abrindo chamado');
+  toggleSelectMode() {
+    this.selectTicketMode = !this.selectTicketMode;
+    localStorage.removeItem('selectedMessages');
+    this.chatService.openTicketMessage(false);
+    this.selectedMessages = [];
   }
+
+  toggleMessageSelection(message: IMessage) {
+    const pos = this.selectedMessages.indexOf(message);
+
+    if (pos > -1) {
+      this.selectedMessages.splice(pos, 1);
+    } else {
+      this.selectedMessages.push(message);
+    }
+
+    if (this.selectedMessages.length > 0) {
+      this.chatService.openTicketMessage(true);
+    } else {
+      this.chatService.openTicketMessage(false);
+    }
+  }
+
+  cancelSelection() {
+    this.selectTicketMode = false;
+    this.selectedMessages = [];
+  }
+
+  confirmSelection() {
+    this.cancelSelection();
+  }
+
 
   exitGroup() {
     console.log('Saindo do grupo');
   }
-  chooseGroup(group: IGroup): void {
+  chooseGroup(group: Group): void {
     this.choosenGroup = group;
   }
 
@@ -250,7 +314,7 @@ export class ChatListComponent implements OnInit {
     this.creatingNewTag = true;
     this.editingTag = false; // Garante que estamos no modo de criação
     this.newTagName = '';
-    this.newTagColor = '#44FFFF'; // Cor padrão
+    this.newTagColor = '#0aa82c'; // Cor padrão
   }
 
   // Função para cancelar a criação de uma nova tag
@@ -258,7 +322,7 @@ export class ChatListComponent implements OnInit {
     this.creatingNewTag = false;
     this.editingTag = false;
     this.newTagName = '';
-    this.newTagColor = '#44FFFF';
+    this.newTagColor = '#0aa82c';
   }
   
   addNewTag(): void {
@@ -286,7 +350,7 @@ export class ChatListComponent implements OnInit {
   
       // Reseta os campos e volta ao estado inicial
       this.newTagName = '';
-      this.newTagColor = '#440000';
+      this.newTagColor = '#0aa82c';
       this.creatingNewTag = false;
       this.editingTag = false; // Reseta o estado de edição
       this.tagToEdit = null;  // Limpa a tag editada

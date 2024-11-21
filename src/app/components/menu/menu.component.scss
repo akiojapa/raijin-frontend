@@ -124,6 +124,19 @@
   }
 }
 
+.page {
+  cursor: pointer;
+
+  &:not(.selected):hover {
+    background-color: #1C1C1C; /* Estilo de hover aplicado apenas quando a classe selected não está presente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adicione uma sombra */
+    transform: translateY(-2px); /* Adicione uma leve elevação */
+    .footer-icon {
+      color: #FFA324;
+      transform: scale(1.1); /* Aumente ligeiramente o ícone */
+    }
+  }
+}
 
 .footer {
   display: flex;
